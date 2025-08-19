@@ -4,7 +4,14 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./src/*"
+        "./src/*",
+        "./src/features/*",
+        "./src/navigation/*",
+        "./src/shared/*",
+        "./src/shared/constants/*",
+        "./src/shared/hooks/*",
+        "./src/shared/types/*",
+        "./src/shared/utils/*",
       ]
     }
   },
