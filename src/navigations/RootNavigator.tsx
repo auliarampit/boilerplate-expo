@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, View } from 'react-native'
-import { Colors } from '@/shared/constants/Colors'
 import { ROOT_ROUTES } from '@/shared/constants/navigation'
 import { useColorScheme } from '@/shared/hooks/useColorScheme'
 import { AuthState, RootStackParamList, User } from '@/shared/types/navigation'
@@ -116,16 +115,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
 function LoadingScreen() {
   const colorScheme = useColorScheme()
-  const colors = Colors[colorScheme ?? 'light']
+  const isDark = colorScheme === 'dark'
 
   return (
-    <View style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.background,
-    }}>
-      <ActivityIndicator size="large" color={colors.tint} />
+    <View className={`flex-1 justify-center items-center ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+      <ActivityIndicator size="large" color="#3B82F6" />
     </View>
   )
 }

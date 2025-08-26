@@ -1,14 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { AppStackScreenProps } from '@/shared/types/navigation'
 import { APP_ROUTES } from '@/shared/constants/navigation'
-import { Colors } from '@/shared/constants/Colors'
 import { useColorScheme, useTranslate } from '@/shared'
 
 export function SettingsScreen({ navigation }: AppStackScreenProps<'Settings'>) {
   const colorScheme = useColorScheme()
-  const colors = Colors[colorScheme ?? 'light']
   const { t, language, setLanguage } = useTranslate()
+  const isDark = colorScheme === 'dark'
 
   const navigateToHome = () => {
     navigation.navigate(APP_ROUTES.HOME)
@@ -29,82 +28,49 @@ export function SettingsScreen({ navigation }: AppStackScreenProps<'Settings'>) 
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t('settings.title')}</Text>
-      <Text style={[styles.subtitle, { color: colors.text }]}>App settings and preferences</Text>
+    <View className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+      <Text className={`text-2xl font-bold mb-3 text-center font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        {t('settings.title')}
+      </Text>
+      <Text className={`text-base mb-8 text-center font-inter ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+        App settings and preferences
+      </Text>
       
       <TouchableOpacity 
-        style={[styles.button, { backgroundColor: colors.tint }]} 
+        className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={toggleLanguage}
       >
-        <Text style={styles.buttonText}>{t('settings.language')}: {language === 'id' ? 'Indonesia' : 'English'}</Text>
+        <Text className="text-white text-base font-semibold font-inter-semibold">
+          {t('settings.language')}: {language === 'id' ? 'Indonesia' : 'English'}
+        </Text>
       </TouchableOpacity>
       
       <TouchableOpacity 
-        style={[styles.button, { backgroundColor: colors.tint }]} 
+        className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={navigateToHome}
       >
-        <Text style={styles.buttonText}>{t('navigation.home')}</Text>
+        <Text className="text-white text-base font-semibold font-inter-semibold">
+          {t('navigation.home')}
+        </Text>
       </TouchableOpacity>
       
       <TouchableOpacity 
-        style={[styles.button, { backgroundColor: colors.tint }]} 
+        className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={navigateToProfile}
       >
-        <Text style={styles.buttonText}>{t('navigation.profile')}</Text>
+        <Text className="text-white text-base font-semibold font-inter-semibold">
+          {t('navigation.profile')}
+        </Text>
       </TouchableOpacity>
       
       <TouchableOpacity 
-        style={[styles.logoutButton, { borderColor: colors.text }]} 
+        className={`px-8 py-3 rounded-lg mt-5 min-w-[200px] items-center border ${isDark ? 'border-white' : 'border-gray-900'} active:bg-gray-100 active:bg-opacity-10`}
         onPress={handleLogout}
       >
-        <Text style={[styles.logoutText, { color: colors.text }]}>{t('auth.logout')}</Text>
+        <Text className={`text-base font-semibold font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          {t('auth.logout')}
+        </Text>
       </TouchableOpacity>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  button: {
-    paddingHorizontal: 30,
-    paddingVertical: 12,
-    borderRadius: 8,
-    marginBottom: 15,
-    minWidth: 200,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  logoutButton: {
-    paddingHorizontal: 30,
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginTop: 20,
-    minWidth: 200,
-    alignItems: 'center',
-  },
-  logoutText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-})

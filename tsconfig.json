@@ -11,7 +11,7 @@
         "./src/shared/constants/*",
         "./src/shared/hooks/*",
         "./src/shared/types/*",
-        "./src/shared/utils/*",
+        "./src/shared/utils/*"
       ]
     }
   },
@@ -19,6 +19,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
   ]
 }
