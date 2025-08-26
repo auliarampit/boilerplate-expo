@@ -1,13 +1,14 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { AppStackScreenProps } from '../../../shared/types/navigation'
-import { APP_ROUTES } from '../../../shared/constants/navigation'
-import { Colors } from '../../../shared/constants/Colors'
-import { useColorScheme } from '../../../shared/hooks/useColorScheme'
+import { AppStackScreenProps } from '@/shared/types/navigation'
+import { APP_ROUTES } from '@/shared/constants/navigation'
+import { Colors } from '@/shared/constants/Colors'
+import { useColorScheme, useTranslate } from '@/shared'
 
 export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
   const colorScheme = useColorScheme()
   const colors = Colors[colorScheme ?? 'light']
+  const { t } = useTranslate()
 
   const navigateToProfile = () => {
     navigation.navigate(APP_ROUTES.PROFILE)
@@ -19,21 +20,21 @@ export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Home</Text>
-      <Text style={[styles.subtitle, { color: colors.text }]}>Welcome to the app!</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t('home.title')}</Text>
+      <Text style={[styles.subtitle, { color: colors.text }]}>{t('home.welcome')}</Text>
       
       <TouchableOpacity 
         style={[styles.button, { backgroundColor: colors.tint }]} 
         onPress={navigateToProfile}
       >
-        <Text style={styles.buttonText}>Go to Profile</Text>
+        <Text style={styles.buttonText}>{t('navigation.profile')}</Text>
       </TouchableOpacity>
-      
+
       <TouchableOpacity 
         style={[styles.button, { backgroundColor: colors.tint }]} 
         onPress={navigateToSettings}
       >
-        <Text style={styles.buttonText}>Go to Settings</Text>
+        <Text style={styles.buttonText}>{t('navigation.settings')}</Text>
       </TouchableOpacity>
     </View>
   )

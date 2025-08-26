@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { AuthStackScreenProps } from '../../../shared/types/navigation'
-import { AUTH_ROUTES } from '../../../shared/constants/navigation'
-import { Colors } from '../../../shared/constants/Colors'
-import { useColorScheme } from '../../../shared/hooks/useColorScheme'
+import { AuthStackScreenProps } from '@/shared/types/navigation'
+import { AUTH_ROUTES } from '@/shared/constants/navigation'
+import { Colors } from '@/shared/constants/Colors'
+import { useColorScheme } from '@/shared/hooks/useColorScheme'
 
 export function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>) {
   const colorScheme = useColorScheme()

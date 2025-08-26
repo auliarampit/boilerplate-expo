@@ -1,10 +1,10 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { AppStackParamList } from '../shared/types/navigation'
-import { APP_ROUTES, NAVIGATION_OPTIONS } from '../shared/constants/navigation'
-import { HomeScreen } from '../features/home'
-import { ProfileScreen } from '../features/profile'
-import { SettingsScreen } from '../features/settings'
+import { AppStackParamList } from '@/shared/types/navigation'
+import { APP_ROUTES, NAVIGATION_OPTIONS } from '@/shared/constants/navigation'
+import { HomeScreen } from '@/features/home'
+import { ProfileScreen } from '@/features/profile'
+import { SettingsScreen } from '@/features/settings'
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 

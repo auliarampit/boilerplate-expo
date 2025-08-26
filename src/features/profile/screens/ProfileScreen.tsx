@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { AppStackScreenProps } from '../../../shared/types/navigation'
-import { APP_ROUTES } from '../../../shared/constants/navigation'
-import { Colors } from '../../../shared/constants/Colors'
-import { useColorScheme } from '../../../shared/hooks/useColorScheme'
+import { AppStackScreenProps } from '@/shared/types/navigation'
+import { APP_ROUTES } from '@/shared/constants/navigation'
+import { Colors } from '@/shared/constants/Colors'
+import { useColorScheme } from '@/shared/hooks/useColorScheme'
 
 export function ProfileScreen({ navigation }: AppStackScreenProps<'Profile'>) {
   const colorScheme = useColorScheme()
