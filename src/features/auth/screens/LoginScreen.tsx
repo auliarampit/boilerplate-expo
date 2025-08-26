@@ -1,26 +1,26 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { AuthStackScreenProps } from '../../../shared/types/navigation';
-import { AUTH_ROUTES } from '../../../shared/constants/navigation';
-import { Colors } from '../../../shared/constants/Colors';
-import { useColorScheme } from '../../../shared/hooks/useColorScheme';
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { AuthStackScreenProps } from '../../../shared/types/navigation'
+import { AUTH_ROUTES } from '../../../shared/constants/navigation'
+import { Colors } from '../../../shared/constants/Colors'
+import { useColorScheme } from '../../../shared/hooks/useColorScheme'
 
 export function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colorScheme = useColorScheme()
+  const colors = Colors[colorScheme ?? 'light']
 
   const handleLogin = () => {
     // TODO: Implement login logic
-    console.log('Login pressed');
-  };
+    console.log('Login pressed')
+  }
 
   const navigateToRegister = () => {
-    navigation.navigate(AUTH_ROUTES.REGISTER);
-  };
+    navigation.navigate(AUTH_ROUTES.REGISTER)
+  }
 
   const navigateToForgotPassword = () => {
-    navigation.navigate(AUTH_ROUTES.FORGOT_PASSWORD);
-  };
+    navigation.navigate(AUTH_ROUTES.FORGOT_PASSWORD)
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -47,7 +47,7 @@ export function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
         <Text style={[styles.linkText, { color: colors.tint }]}>Forgot Password?</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textDecorationLine: 'underline',
   },
-});
+})

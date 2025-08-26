@@ -1,11 +1,11 @@
 // Auth Feature
-export * from './auth';
+export * from './auth'
 
 // Home Feature
-export * from './home';
+export * from './home'
 
 // Profile Feature
-export * from './profile';
+export * from './profile'
 
 // Settings Feature
-export * from './settings';
+export * from './settings'

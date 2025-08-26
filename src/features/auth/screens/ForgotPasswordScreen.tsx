@@ -1,22 +1,22 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { AuthStackScreenProps } from '../../../shared/types/navigation';
-import { AUTH_ROUTES } from '../../../shared/constants/navigation';
-import { Colors } from '../../../shared/constants/Colors';
-import { useColorScheme } from '../../../shared/hooks/useColorScheme';
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { AuthStackScreenProps } from '../../../shared/types/navigation'
+import { AUTH_ROUTES } from '../../../shared/constants/navigation'
+import { Colors } from '../../../shared/constants/Colors'
+import { useColorScheme } from '../../../shared/hooks/useColorScheme'
 
 export function ForgotPasswordScreen({ navigation }: AuthStackScreenProps<'ForgotPassword'>) {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colorScheme = useColorScheme()
+  const colors = Colors[colorScheme ?? 'light']
 
   const handleResetPassword = () => {
     // TODO: Implement reset password logic
-    console.log('Reset password pressed');
-  };
+    console.log('Reset password pressed')
+  }
 
   const navigateToLogin = () => {
-    navigation.navigate(AUTH_ROUTES.LOGIN);
-  };
+    navigation.navigate(AUTH_ROUTES.LOGIN)
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -36,7 +36,7 @@ export function ForgotPasswordScreen({ navigation }: AuthStackScreenProps<'Forgo
         <Text style={[styles.linkText, { color: colors.tint }]}>Back to Login</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textDecorationLine: 'underline',
   },
-});
+})

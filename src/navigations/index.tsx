@@ -1,14 +1,14 @@
-import React from 'react';
-import { RootNavigator } from './RootNavigator';
+import React from 'react'
+import { RootNavigator } from './RootNavigator'
 
 export function Navigation() {
-  return <RootNavigator />;
+  return <RootNavigator />
 }
 
-export { RootNavigator, AuthProvider, useAuth } from './RootNavigator';
-export { AuthNavigator } from '../features/auth';
-export { AppNavigator } from './AppNavigator';
-export * from '../shared/types/navigation';
-export * from '../shared/constants/navigation';
+export * from '../shared/constants/navigation'
+export * from '../shared/types/navigation'
+export { AppNavigator } from './AppNavigator'
+export { AuthNavigator } from './AuthNavigator'
+export { AuthProvider, RootNavigator, useAuth } from './RootNavigator'
 
-export default Navigation;
+export default Navigation

@@ -1,10 +1,9 @@
-import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../shared/types/navigation';
-import { AUTH_ROUTES, NAVIGATION_OPTIONS } from '../../shared/constants/navigation';
-import { LoginScreen, RegisterScreen, ForgotPasswordScreen } from './screens';
+import { ForgotPasswordScreen, LoginScreen, RegisterScreen } from '@/features'
+import { AUTH_ROUTES, AuthStackParamList, NAVIGATION_OPTIONS } from '@/shared'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from 'react'
 
-const Stack = createNativeStackNavigator<AuthStackParamList>();
+const Stack = createNativeStackNavigator<AuthStackParamList>()
 
 export function AuthNavigator() {
   return (
@@ -30,5 +29,5 @@ export function AuthNavigator() {
         options={{ title: 'Forgot Password' }}
       />
     </Stack.Navigator>
-  );
+  )
 }

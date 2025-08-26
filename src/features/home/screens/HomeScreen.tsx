@@ -1,21 +1,21 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { AppStackScreenProps } from '../../../shared/types/navigation';
-import { APP_ROUTES } from '../../../shared/constants/navigation';
-import { Colors } from '../../../shared/constants/Colors';
-import { useColorScheme } from '../../../shared/hooks/useColorScheme';
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { AppStackScreenProps } from '../../../shared/types/navigation'
+import { APP_ROUTES } from '../../../shared/constants/navigation'
+import { Colors } from '../../../shared/constants/Colors'
+import { useColorScheme } from '../../../shared/hooks/useColorScheme'
 
 export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colorScheme = useColorScheme()
+  const colors = Colors[colorScheme ?? 'light']
 
   const navigateToProfile = () => {
-    navigation.navigate(APP_ROUTES.PROFILE);
-  };
+    navigation.navigate(APP_ROUTES.PROFILE)
+  }
 
   const navigateToSettings = () => {
-    navigation.navigate(APP_ROUTES.SETTINGS);
-  };
+    navigation.navigate(APP_ROUTES.SETTINGS)
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -36,7 +36,7 @@ export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
         <Text style={styles.buttonText}>Go to Settings</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-});
+})
