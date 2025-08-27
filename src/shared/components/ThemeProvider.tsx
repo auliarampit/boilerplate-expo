@@ -3,6 +3,7 @@ import React, {
   useContext,
   useState,
   useEffect,
+  useMemo,
   ReactNode,
 } from 'react'
 import { useColorScheme } from 'react-native'
@@ -35,16 +36,15 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   // Determine the actual color scheme based on theme mode
-  const getColorScheme = (): ColorScheme => {
+  const colorScheme = useMemo((): ColorScheme => {
     if (themeMode === 'system') {
       return systemColorScheme === 'dark' ? 'dark' : 'light'
     }
     return themeMode === 'dark' ? 'dark' : 'light'
-  }
+  }, [themeMode, systemColorScheme])
 
-  const colorScheme = getColorScheme()
-  const isDark = colorScheme === 'dark'
-  const colors = Colors[colorScheme]
+  const isDark = useMemo(() => colorScheme === 'dark', [colorScheme])
+  const colors = useMemo(() => Colors[colorScheme], [colorScheme])
 
   // Load theme preference from storage
   useEffect(() => {

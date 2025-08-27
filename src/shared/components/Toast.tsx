@@ -43,11 +43,11 @@ const Toast: React.FC<ToastProps> = ({
     opacity,
     isDark,
     handlePress,
-    getToastConfig,
-    getContainerClasses,
-    getToastClasses,
-    getMessageClasses,
-    getActionClasses,
+    toastConfig,
+    containerClasses,
+    toastClasses,
+    messageClasses,
+    actionClasses,
   } = useToastLogic({
     visible,
     type,
@@ -59,7 +59,7 @@ const Toast: React.FC<ToastProps> = ({
 
   if (!visible) return null
 
-  const config = getToastConfig()
+  const config = toastConfig
 
   return (
     <Animated.View
@@ -70,7 +70,7 @@ const Toast: React.FC<ToastProps> = ({
           maxWidth: screenWidth - 32,
         },
       ]}
-      className={getContainerClasses()}
+      className={containerClasses}
       testID={testID}
     >
       <TouchableOpacity
@@ -79,7 +79,7 @@ const Toast: React.FC<ToastProps> = ({
         testID={`${testID}-container`}
       >
         <View
-          className={getToastClasses()}
+          className={toastClasses}
           style={{
             borderLeftColor: config.borderColor,
             shadowColor: '#000',
@@ -100,7 +100,7 @@ const Toast: React.FC<ToastProps> = ({
           />
 
           <Text
-            className={getMessageClasses()}
+            className={messageClasses}
             numberOfLines={3}
             testID={`${testID}-message`}
           >
@@ -113,7 +113,7 @@ const Toast: React.FC<ToastProps> = ({
               testID={`${testID}-action`}
             >
               <Text
-                className={getActionClasses()}
+                className={actionClasses}
                 style={{ color: config.backgroundColor }}
               >
                 {action.label}

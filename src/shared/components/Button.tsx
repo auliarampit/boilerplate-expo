@@ -43,10 +43,10 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const {
     isDisabled,
-    getButtonClasses,
-    getTextClasses,
-    getIconColor,
-    getIconSize,
+    buttonClasses,
+    textClasses,
+    iconColor,
+    iconSize,
   } = useButtonLogic({
     variant,
     size,
@@ -61,8 +61,8 @@ const Button: React.FC<ButtonProps> = ({
     return (
       <Ionicons
         name={icon}
-        size={getIconSize()}
-        color={getIconColor()}
+        size={iconSize}
+        color={iconColor}
         style={{
           marginRight: iconPosition === 'left' ? 8 : 0,
           marginLeft: iconPosition === 'right' ? 8 : 0,
@@ -76,7 +76,7 @@ const Button: React.FC<ButtonProps> = ({
       return (
         <ActivityIndicator
           size={size === 'small' ? 'small' : 'small'}
-          color={getIconColor()}
+          color={iconColor}
           testID={`${testID}-loading`}
         />
       )
@@ -86,7 +86,7 @@ const Button: React.FC<ButtonProps> = ({
       <>
         {icon && iconPosition === 'left' && renderIcon()}
         <Text
-          className={getTextClasses()}
+          className={textClasses}
           style={textStyle}
           testID={`${testID}-text`}
         >
@@ -99,7 +99,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <TouchableOpacity
-      className={getButtonClasses()}
+      className={buttonClasses}
       onPress={onPress}
       disabled={isDisabled}
       style={style}

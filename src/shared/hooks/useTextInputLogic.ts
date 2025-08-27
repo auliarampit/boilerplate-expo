@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useColorScheme } from 'react-native'
 
 type InputVariant = 'default' | 'filled' | 'outline'
@@ -59,7 +59,7 @@ export const useTextInputLogic = ({
     return `${baseClasses} ${textColorClasses} ${placeholderClasses}`.trim()
   }
 
-  const getLabelClasses = () => {
+  const labelClasses = useMemo(() => {
     const baseClasses = 'font-inter-medium mb-2'
     const colorClasses = hasError
       ? 'text-red-600'
@@ -69,9 +69,9 @@ export const useTextInputLogic = ({
     const sizeClasses = size === 'small' ? 'text-sm' : 'text-base'
 
     return `${baseClasses} ${colorClasses} ${sizeClasses}`.trim()
-  }
+  }, [hasError, isDark, size])
 
-  const getHelperTextClasses = () => {
+  const helperTextClasses = useMemo(() => {
     const baseClasses = 'font-inter mt-1'
     const colorClasses = hasError
       ? 'text-red-600'
@@ -81,7 +81,7 @@ export const useTextInputLogic = ({
     const sizeClasses = 'text-sm'
 
     return `${baseClasses} ${colorClasses} ${sizeClasses}`.trim()
-  }
+  }, [hasError, isDark])
 
   const getSizeClasses = () => {
     const sizeMap = {
@@ -127,20 +127,20 @@ export const useTextInputLogic = ({
     return ''
   }
 
-  const getIconColor = () => {
+  const iconColor = useMemo(() => {
     if (hasError) return '#EF4444'
     if (disabled) return isDark ? '#6B7280' : '#9CA3AF'
     return isDark ? '#9CA3AF' : '#6B7280'
-  }
+  }, [hasError, disabled, isDark])
 
-  const getIconSize = () => {
+  const iconSize = useMemo(() => {
     const sizeMap = {
       small: 18,
       medium: 20,
       large: 22,
     }
     return sizeMap[size]
-  }
+  }, [size])
 
   return {
     isDark,
@@ -153,9 +153,9 @@ export const useTextInputLogic = ({
     getContainerClasses,
     getInputContainerClasses,
     getInputClasses,
-    getLabelClasses,
-    getHelperTextClasses,
-    getIconColor,
-    getIconSize,
+    labelClasses,
+    helperTextClasses,
+    iconColor,
+    iconSize,
   }
 }

@@ -4,11 +4,11 @@ import {
   View,
   Text,
   TouchableOpacity,
-  useColorScheme,
   TextInputProps as RNTextInputProps,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
+import { useTextInputLogic } from '../hooks/useTextInputLogic'
 
 type InputVariant = 'default' | 'filled' | 'outline'
 type InputSize = 'small' | 'medium' | 'large'
@@ -65,16 +65,29 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
     ref
   ) => {
     const { t } = useTranslation()
-    const colorScheme = useColorScheme()
-    const isDark = colorScheme === 'dark'
-
-    const [isFocused, setIsFocused] = useState(false)
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [validationError, setValidationError] = useState<string | undefined>()
 
     const isPasswordInput = showPasswordToggle || secureTextEntry
     const currentError = error || validationError
-    const hasError = Boolean(currentError)
+
+    const {
+      isPasswordVisible,
+      isDark,
+      handleFocus,
+      handleBlur: hookHandleBlur,
+      togglePasswordVisibility,
+      getInputContainerClasses,
+      getInputClasses,
+      labelClasses,
+      helperTextClasses,
+      iconColor,
+      iconSize,
+    } = useTextInputLogic({
+      variant,
+      size,
+      error: currentError,
+      disabled,
+    })
 
     const validateInput = (inputValue: string) => {
       if (!validation) return
@@ -110,124 +123,20 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
     }
 
     const handleBlur = () => {
-      setIsFocused(false)
+      hookHandleBlur()
       if (validateOnBlur) {
         validateInput(value)
       }
     }
 
-    const handleFocus = () => {
-      setIsFocused(true)
-    }
-
-    const togglePasswordVisibility = () => {
-      setIsPasswordVisible(!isPasswordVisible)
-    }
-
     const getContainerClasses = () => {
-      const baseClasses = 'w-full'
-      return baseClasses
-    }
-
-    const getInputContainerClasses = () => {
-      const baseClasses = 'flex-row items-center'
-
-      // Size classes
-      const sizeClasses = {
-        small: 'min-h-[36px] px-3',
-        medium: 'min-h-[44px] px-4',
-        large: 'min-h-[52px] px-4',
-      }
-
-      // Variant classes
-      const variantClasses = {
-        default: '',
-        filled: isDark ? 'bg-gray-800' : 'bg-gray-100',
-        outline: `border ${
-          hasError
-            ? 'border-red-500'
-            : isFocused
-              ? 'border-blue-500'
-              : isDark
-                ? 'border-gray-600'
-                : 'border-gray-300'
-        }`,
-      }
-
-      // Focus and error states
-      const stateClasses = variant === 'outline' ? 'rounded-lg' : 'rounded-lg'
-
-      // Disabled classes
-      const disabledClasses = disabled
-        ? isDark
-          ? 'bg-gray-800 opacity-50'
-          : 'bg-gray-200 opacity-50'
-        : ''
-
-      return `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${stateClasses} ${disabledClasses}`
-    }
-
-    const getInputClasses = () => {
-      const baseClasses = 'flex-1 font-inter'
-
-      // Size classes
-      const sizeClasses = {
-        small: 'text-sm',
-        medium: 'text-base',
-        large: 'text-lg',
-      }
-
-      // Color classes
-      const colorClasses = isDark ? 'text-white' : 'text-gray-900'
-
-      return `${baseClasses} ${sizeClasses[size]} ${colorClasses}`
-    }
-
-    const getLabelClasses = () => {
-      const baseClasses = 'font-inter-medium mb-2'
-      const colorClasses = hasError
-        ? 'text-red-500'
-        : isDark
-          ? 'text-gray-300'
-          : 'text-gray-700'
-
-      return `${baseClasses} ${colorClasses}`
-    }
-
-    const getHelperTextClasses = () => {
-      const baseClasses = 'text-sm font-inter mt-1'
-      const colorClasses = hasError
-        ? 'text-red-500'
-        : isDark
-          ? 'text-gray-400'
-          : 'text-gray-600'
-
-      return `${baseClasses} ${colorClasses}`
-    }
-
-    const getIconSize = () => {
-      switch (size) {
-        case 'small':
-          return 16
-        case 'medium':
-          return 20
-        case 'large':
-          return 24
-        default:
-          return 20
-      }
-    }
-
-    const getIconColor = () => {
-      if (hasError) return '#EF4444'
-      if (isFocused) return '#3B82F6'
-      return isDark ? '#9CA3AF' : '#6B7280'
+      return 'w-full'
     }
 
     return (
       <View className={getContainerClasses()} testID={testID}>
         {label && (
-          <Text className={getLabelClasses()} testID={`${testID}-label`}>
+          <Text className={labelClasses} testID={`${testID}-label`}>
             {label}
           </Text>
         )}
@@ -239,8 +148,8 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
           {leftIcon && (
             <Ionicons
               name={leftIcon}
-              size={getIconSize()}
-              color={getIconColor()}
+              size={iconSize}
+              color={iconColor}
               style={{ marginRight: 8 }}
             />
           )}
@@ -268,8 +177,8 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
             >
               <Ionicons
                 name={isPasswordVisible ? 'eye-off' : 'eye'}
-                size={getIconSize()}
-                color={getIconColor()}
+                size={iconSize}
+                color={iconColor}
               />
             </TouchableOpacity>
           )}
@@ -282,15 +191,15 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
             >
               <Ionicons
                 name={rightIcon}
-                size={getIconSize()}
-                color={getIconColor()}
+                size={iconSize}
+                color={iconColor}
               />
             </TouchableOpacity>
           )}
         </View>
 
         {(currentError || helperText) && (
-          <Text className={getHelperTextClasses()} testID={`${testID}-helper`}>
+          <Text className={helperTextClasses} testID={`${testID}-helper`}>
             {currentError || helperText}
           </Text>
         )}

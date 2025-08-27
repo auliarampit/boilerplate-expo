@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useMemo } from 'react'
 import { Animated, useColorScheme } from 'react-native'
 
 type ToastType = 'success' | 'error' | 'warning' | 'info'
@@ -92,7 +92,7 @@ export const useToastLogic = ({
     hideToast()
   }
 
-  const getToastConfig = () => {
+  const toastConfig = useMemo(() => {
     const configs = {
       success: {
         icon: 'checkmark-circle' as const,
@@ -116,34 +116,32 @@ export const useToastLogic = ({
       },
     }
     return configs[type]
-  }
+  }, [type])
 
-  const getContainerClasses = () => {
+  const containerClasses = useMemo(() => {
     const baseClasses = 'absolute left-4 right-4 z-50'
     const positionClasses = position === 'top' ? 'top-12' : 'bottom-12'
 
     return `${baseClasses} ${positionClasses}`
-  }
+  }, [position])
 
-  const getToastClasses = () => {
+  const toastClasses = useMemo(() => {
     const baseClasses = 'flex-row items-center p-4 rounded-xl border-l-4'
     const backgroundClasses = isDark ? 'bg-gray-800' : 'bg-white'
 
     return `${baseClasses} ${backgroundClasses}`
-  }
+  }, [isDark])
 
-  const getMessageClasses = () => {
+  const messageClasses = useMemo(() => {
     const baseClasses = 'flex-1 ml-3 font-inter'
     const colorClasses = isDark ? 'text-white' : 'text-gray-900'
 
     return `${baseClasses} ${colorClasses}`
-  }
+  }, [isDark])
 
-  const getActionClasses = () => {
-    const baseClasses = 'ml-3 font-inter-semibold'
-
-    return baseClasses
-  }
+  const actionClasses = useMemo(() => {
+    return 'ml-3 font-inter-semibold'
+  }, [])
 
   return {
     translateY,
@@ -151,10 +149,10 @@ export const useToastLogic = ({
     isDark,
     handlePress,
     hideToast,
-    getToastConfig,
-    getContainerClasses,
-    getToastClasses,
-    getMessageClasses,
-    getActionClasses,
+    toastConfig,
+    containerClasses,
+    toastClasses,
+    messageClasses,
+    actionClasses,
   }
 }
