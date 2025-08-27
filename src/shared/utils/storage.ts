@@ -6,7 +6,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
  * @param value - Value to store (will be JSON stringified)
  * @returns Promise<boolean> - Success status
  */
-export const saveToStorage = async <T>(key: string, value: T): Promise<boolean> => {
+export const saveToStorage = async <T>(
+  key: string,
+  value: T
+): Promise<boolean> => {
   try {
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem(key, jsonValue)
@@ -23,7 +26,10 @@ export const saveToStorage = async <T>(key: string, value: T): Promise<boolean> 
  * @param defaultValue - Default value if key doesn't exist
  * @returns Promise<T> - Retrieved value or default value
  */
-export const getFromStorage = async <T>(key: string, defaultValue: T): Promise<T> => {
+export const getFromStorage = async <T>(
+  key: string,
+  defaultValue: T
+): Promise<T> => {
   try {
     const jsonValue = await AsyncStorage.getItem(key)
     return jsonValue != null ? JSON.parse(jsonValue) : defaultValue

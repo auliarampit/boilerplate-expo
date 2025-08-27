@@ -14,8 +14,8 @@ const AUTH_STORAGE_KEY = '@auth_state'
 const USER_STORAGE_KEY = '@user_data'
 
 interface AuthContextType extends AuthState {
-  login: (user: User) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (user: User) => Promise<void>
+  logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -107,9 +107,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   )
 }
 
@@ -118,7 +116,9 @@ function LoadingScreen() {
   const isDark = colorScheme === 'dark'
 
   return (
-    <View className={`flex-1 justify-center items-center ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+    <View
+      className={`flex-1 justify-center items-center ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+    >
       <ActivityIndicator size="large" color="#3B82F6" />
     </View>
   )
@@ -133,20 +133,16 @@ function RootNavigatorContent() {
 
   return (
     <Stack.Navigator
-      screenOptions={{
-        // headerShown: NAVIGATION_OPTIONS.HEADER_SHOWN,
-      }}
+      screenOptions={
+        {
+          // headerShown: NAVIGATION_OPTIONS.HEADER_SHOWN,
+        }
+      }
     >
       {isAuthenticated ? (
-        <Stack.Screen 
-          name={ROOT_ROUTES.APP} 
-          component={AppNavigator} 
-        />
+        <Stack.Screen name={ROOT_ROUTES.APP} component={AppNavigator} />
       ) : (
-        <Stack.Screen 
-          name={ROOT_ROUTES.AUTH} 
-          component={AuthNavigator} 
-        />
+        <Stack.Screen name={ROOT_ROUTES.AUTH} component={AuthNavigator} />
       )}
     </Stack.Navigator>
   )

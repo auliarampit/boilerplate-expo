@@ -13,18 +13,18 @@ export function AuthNavigator() {
         headerShown: NAVIGATION_OPTIONS.HEADER_SHOWN,
       }}
     >
-      <Stack.Screen 
-        name={AUTH_ROUTES.LOGIN} 
+      <Stack.Screen
+        name={AUTH_ROUTES.LOGIN}
         component={LoginScreen}
         options={{ title: 'Login' }}
       />
-      <Stack.Screen 
-        name={AUTH_ROUTES.REGISTER} 
+      <Stack.Screen
+        name={AUTH_ROUTES.REGISTER}
         component={RegisterScreen}
         options={{ title: 'Register' }}
       />
-      <Stack.Screen 
-        name={AUTH_ROUTES.FORGOT_PASSWORD} 
+      <Stack.Screen
+        name={AUTH_ROUTES.FORGOT_PASSWORD}
         component={ForgotPasswordScreen}
         options={{ title: 'Forgot Password' }}
       />

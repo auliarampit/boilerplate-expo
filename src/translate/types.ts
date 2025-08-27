@@ -93,7 +93,7 @@ export interface TranslationKeys {
   }
 }
 
-export type TranslationKey = 
+export type TranslationKey =
   | `common.${keyof TranslationKeys['common']}`
   | `auth.${keyof TranslationKeys['auth']}`
   | `home.${keyof TranslationKeys['home']}`

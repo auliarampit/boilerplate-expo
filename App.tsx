@@ -1,6 +1,12 @@
 import { AppRegistry } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter'
+import {
+  useFonts,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from '@expo-google-fonts/inter'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 import { RootNavigator } from './src/navigations/RootNavigator'

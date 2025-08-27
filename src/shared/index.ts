@@ -1,3 +1,6 @@
+// Components
+export * from './components'
+
 // Constants
 export * from './constants/Colors'
 export * from './constants/navigation'

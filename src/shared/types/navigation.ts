@@ -2,45 +2,46 @@ import type { NavigatorScreenParams } from '@react-navigation/native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 export type AuthStackParamList = {
-  Login: undefined;
-  Register: undefined;
-  ForgotPassword: undefined;
-};
+  Login: undefined
+  Register: undefined
+  ForgotPassword: undefined
+}
 
 export type AppStackParamList = {
-  Home: undefined;
-  Profile: undefined;
-  Settings: undefined;
-};
+  Home: undefined
+  Profile: undefined
+  Settings: undefined
+}
 
 export type RootStackParamList = {
-  Auth: NavigatorScreenParams<AuthStackParamList>;
-  App: NavigatorScreenParams<AppStackParamList>;
-};
+  Auth: NavigatorScreenParams<AuthStackParamList>
+  App: NavigatorScreenParams<AppStackParamList>
+}
 
 export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
-  NativeStackScreenProps<AuthStackParamList, T>;
+  NativeStackScreenProps<AuthStackParamList, T>
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>;
+  NativeStackScreenProps<AppStackParamList, T>
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, T>;
+  NativeStackScreenProps<RootStackParamList, T>
 
 export interface AuthState {
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  user: User | null;
+  isAuthenticated: boolean
+  isLoading: boolean
+  user: User | null
 }
 
 export interface User {
-  id: string;
-  email: string;
-  name: string;
+  id: string
+  email: string
+  name: string
 }
 
 declare global {
   namespace ReactNavigation {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     interface RootParamList extends RootStackParamList {}
   }
 }

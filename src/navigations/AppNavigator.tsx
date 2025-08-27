@@ -16,18 +16,18 @@ export function AppNavigator() {
         headerShown: NAVIGATION_OPTIONS.HEADER_SHOWN,
       }}
     >
-      <Stack.Screen 
-        name={APP_ROUTES.HOME} 
+      <Stack.Screen
+        name={APP_ROUTES.HOME}
         component={HomeScreen}
         options={{ title: 'Home' }}
       />
-      <Stack.Screen 
-        name={APP_ROUTES.PROFILE} 
+      <Stack.Screen
+        name={APP_ROUTES.PROFILE}
         component={ProfileScreen}
         options={{ title: 'Profile' }}
       />
-      <Stack.Screen 
-        name={APP_ROUTES.SETTINGS} 
+      <Stack.Screen
+        name={APP_ROUTES.SETTINGS}
         component={SettingsScreen}
         options={{ title: 'Settings' }}
       />

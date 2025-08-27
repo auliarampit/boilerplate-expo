@@ -3,7 +3,12 @@ import { getLocales } from 'expo-localization'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import enTranslations from './en.json'
 import idTranslations from './id.json'
-import { Language, TranslateContextType, TranslationKey, TranslationKeys } from './types'
+import {
+  Language,
+  TranslateContextType,
+  TranslationKey,
+  TranslationKeys,
+} from './types'
 
 const LANGUAGE_STORAGE_KEY = '@app_language'
 
@@ -12,7 +17,9 @@ const translations: Record<Language, TranslationKeys> = {
   id: idTranslations,
 }
 
-const TranslateContext = createContext<TranslateContextType | undefined>(undefined)
+const TranslateContext = createContext<TranslateContextType | undefined>(
+  undefined
+)
 
 function getNestedValue(obj: any, path: string): string {
   return path.split('.').reduce((current, key) => current?.[key], obj) || path
@@ -21,11 +28,11 @@ function getNestedValue(obj: any, path: string): string {
 function getDeviceLanguage(): Language {
   const locales = getLocales()
   const deviceLanguage = locales[0]?.languageCode
-  
+
   if (deviceLanguage === 'id' || deviceLanguage === 'en') {
     return deviceLanguage
   }
-  
+
   return 'en'
 }
 
@@ -39,7 +46,10 @@ export function TranslateProvider({ children }: { children: React.ReactNode }) {
 
   const loadLanguage = async () => {
     try {
-      const savedLanguage = await getFromStorage<Language | null>(LANGUAGE_STORAGE_KEY, null)
+      const savedLanguage = await getFromStorage<Language | null>(
+        LANGUAGE_STORAGE_KEY,
+        null
+      )
       if (savedLanguage && (savedLanguage === 'id' || savedLanguage === 'en')) {
         setLanguageState(savedLanguage)
       } else {

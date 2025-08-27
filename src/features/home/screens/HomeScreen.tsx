@@ -18,15 +18,21 @@ export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
   }
 
   return (
-    <View className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
-      <Text className={`text-2xl font-bold mb-3 text-center font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+    <View
+      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+    >
+      <Text
+        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+      >
         {t('home.title')}
       </Text>
-      <Text className={`text-base mb-8 text-center font-inter ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+      <Text
+        className={`text-base mb-8 text-center font-inter ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+      >
         {t('home.welcome')}
       </Text>
-      
-      <TouchableOpacity 
+
+      <TouchableOpacity
         className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={navigateToProfile}
       >
@@ -35,7 +41,7 @@ export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={navigateToSettings}
       >

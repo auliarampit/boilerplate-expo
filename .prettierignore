@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+web-build/
+.expo/
+
+# Generated files
+*.generated.*
+expo-env.d.ts
+nativewind-env.d.ts
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Config files that should maintain their format
+.gitignore
+.env*
+
+# Documentation
+*.md
+
+# Assets
+assets/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg

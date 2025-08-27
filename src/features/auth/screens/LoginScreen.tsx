@@ -22,12 +22,16 @@ export function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
   }
 
   return (
-    <View className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
-      <Text className={`text-2xl font-bold mb-8 font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+    <View
+      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+    >
+      <Text
+        className={`text-2xl font-bold mb-8 font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+      >
         Login
       </Text>
-      
-      <TouchableOpacity 
+
+      <TouchableOpacity
         className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={handleLogin}
       >
@@ -35,20 +39,14 @@ export function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
           Login
         </Text>
       </TouchableOpacity>
-      
-      <TouchableOpacity 
-        className="py-3"
-        onPress={navigateToRegister}
-      >
+
+      <TouchableOpacity className="py-3" onPress={navigateToRegister}>
         <Text className="text-blue-600 text-sm underline font-inter">
           Register
         </Text>
       </TouchableOpacity>
-      
-      <TouchableOpacity 
-        className="py-3"
-        onPress={navigateToForgotPassword}
-      >
+
+      <TouchableOpacity className="py-3" onPress={navigateToForgotPassword}>
         <Text className="text-blue-600 text-sm underline font-inter">
           Forgot Password?
         </Text>

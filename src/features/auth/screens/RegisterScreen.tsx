@@ -4,7 +4,9 @@ import { AuthStackScreenProps } from '@/shared/types/navigation'
 import { AUTH_ROUTES } from '@/shared/constants/navigation'
 import { useColorScheme } from '@/shared/hooks/useColorScheme'
 
-export function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>) {
+export function RegisterScreen({
+  navigation,
+}: AuthStackScreenProps<'Register'>) {
   const colorScheme = useColorScheme()
   const isDark = colorScheme === 'dark'
 
@@ -18,12 +20,16 @@ export function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>)
   }
 
   return (
-    <View className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
-      <Text className={`text-2xl font-bold mb-8 font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+    <View
+      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+    >
+      <Text
+        className={`text-2xl font-bold mb-8 font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+      >
         Register
       </Text>
-      
-      <TouchableOpacity 
+
+      <TouchableOpacity
         className="bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700"
         onPress={handleRegister}
       >
@@ -31,11 +37,8 @@ export function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>)
           Register
         </Text>
       </TouchableOpacity>
-      
-      <TouchableOpacity 
-        className="py-3"
-        onPress={navigateToLogin}
-      >
+
+      <TouchableOpacity className="py-3" onPress={navigateToLogin}>
         <Text className="text-blue-600 text-sm underline font-inter">
           Back to Login
         </Text>
