@@ -82,7 +82,12 @@
     "version": "Versi",
     "support": "Dukungan",
     "contactUs": "Hubungi Kami",
-    "rateApp": "Beri Rating Aplikasi"
+    "rateApp": "Beri Rating Aplikasi",
+    "switchToDark": "Ganti ke Gelap",
+    "switchToLight": "Ganti ke Terang",
+    "currentTheme": "Tema Saat Ini",
+    "currentLanguage": "Bahasa Saat Ini",
+    "description": "Pengaturan otomatis disimpan dan disinkronkan di seluruh aplikasi"
   },
   "navigation": {
     "home": "Beranda",

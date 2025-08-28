@@ -82,7 +82,12 @@
     "version": "Version",
     "support": "Support",
     "contactUs": "Contact Us",
-    "rateApp": "Rate App"
+    "rateApp": "Rate App",
+    "switchToDark": "Switch to Dark",
+    "switchToLight": "Switch to Light",
+    "currentTheme": "Current Theme",
+    "currentLanguage": "Current Language",
+    "description": "Settings are automatically saved and synced across the app"
   },
   "navigation": {
     "home": "Home",

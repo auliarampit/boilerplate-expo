@@ -10,10 +10,13 @@ import * as Sentry from '@sentry/react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 import { AppRegistry } from 'react-native'
+import { Provider } from 'react-redux'
 import './global.css'
 import { RootNavigator } from './src/navigations/RootNavigator'
 import { ErrorBoundary, NetworkProvider, NotificationPermissionModal, NotificationProvider, ThemeProvider } from './src/shared/components'
 import { useNotificationPermission } from './src/shared/hooks'
+import { store } from './src/shared/store'
+import SettingsManager from './src/shared/utils/settingsManager'
 import { TranslateProvider } from './src/translate'
 
 // Initialize Sentry
@@ -42,9 +45,14 @@ function App() {
   } = useNotificationPermission()
 
   useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync()
+    const initializeApp = async () => {
+      if (fontsLoaded) {
+        await SettingsManager.loadSettings()
+        SplashScreen.hideAsync()
+      }
     }
+
+    initializeApp()
   }, [fontsLoaded])
 
   if (!fontsLoaded || isPermissionLoading) {
@@ -52,24 +60,26 @@ function App() {
   }
 
   return (
-    <ErrorBoundary>
-      <ThemeProvider>
-        <NetworkProvider>
-          <NotificationProvider>
-            <TranslateProvider>
-              <NavigationContainer>
-                <RootNavigator />
-              </NavigationContainer>
-              <NotificationPermissionModal
-                visible={shouldShowModal}
-                onPermissionGranted={handlePermissionGranted}
-                onPermissionDenied={handlePermissionDenied}
-              />
-            </TranslateProvider>
-          </NotificationProvider>
-        </NetworkProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <ThemeProvider>
+          <NetworkProvider>
+            <NotificationProvider>
+              <TranslateProvider>
+                <NavigationContainer>
+                  <RootNavigator />
+                </NavigationContainer>
+                <NotificationPermissionModal
+                  visible={shouldShowModal}
+                  onPermissionGranted={handlePermissionGranted}
+                  onPermissionDenied={handlePermissionDenied}
+                />
+              </TranslateProvider>
+            </NotificationProvider>
+          </NetworkProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
+    </Provider>
   )
 }
 
