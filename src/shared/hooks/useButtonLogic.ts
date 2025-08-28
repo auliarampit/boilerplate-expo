@@ -84,8 +84,6 @@ export const useButtonLogic = ({
     return `${baseClasses} ${sizeClasses} ${variantClasses}`.trim()
   }, [variant, size, isDark])
 
-
-
   const iconColor = useMemo(() => {
     const colorMap = {
       primary: '#FFFFFF',

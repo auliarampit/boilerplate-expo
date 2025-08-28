@@ -12,7 +12,9 @@ interface NetworkProviderProps {
   children: ReactNode
 }
 
-export const NetworkProvider: React.FC<NetworkProviderProps> = ({ children }) => {
+export const NetworkProvider: React.FC<NetworkProviderProps> = ({
+  children,
+}) => {
   const networkState = useNetworkState()
 
   return (

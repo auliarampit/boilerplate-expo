@@ -1,5 +1,8 @@
 import React, { createContext, useContext, ReactNode } from 'react'
-import { usePushNotifications, PushNotificationState } from '../hooks/usePushNotifications'
+import {
+  usePushNotifications,
+  PushNotificationState,
+} from '../hooks/usePushNotifications'
 
 interface NotificationContextType extends PushNotificationState {
   sendPushNotification: (params: {
@@ -14,13 +17,17 @@ interface NotificationContextType extends PushNotificationState {
   registerForPushNotificationsAsync: () => Promise<void>
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+)
 
 interface NotificationProviderProps {
   children: ReactNode
 }
 
-export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
+export const NotificationProvider: React.FC<NotificationProviderProps> = ({
+  children,
+}) => {
   const notificationState = usePushNotifications()
 
   return (
@@ -33,7 +40,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 export const useNotification = (): NotificationContextType => {
   const context = useContext(NotificationContext)
   if (context === undefined) {
-    throw new Error('useNotification must be used within a NotificationProvider')
+    throw new Error(
+      'useNotification must be used within a NotificationProvider'
+    )
   }
   return context
 }

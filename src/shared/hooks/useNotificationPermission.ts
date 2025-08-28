@@ -17,7 +17,7 @@ export const useNotificationPermission = () => {
     try {
       const hasRequested = await hasInStorage(NOTIFICATION_PERMISSION_KEY)
       const hasSkipped = await hasInStorage(NOTIFICATION_PERMISSION_SKIPPED_KEY)
-      
+
       if (!hasRequested && !hasSkipped) {
         const { status } = await Notifications.getPermissionsAsync()
         if (status !== 'granted') {

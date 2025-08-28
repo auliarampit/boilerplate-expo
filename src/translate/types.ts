@@ -97,59 +97,59 @@ export interface TranslationKeys {
     retry: string
   }
   biometric: {
-      title: string
-      subtitle: string
-      promptMessage: string
-      fallbackLabel: string
-      notAvailable: string
-      notEnrolled: string
-      authenticationFailed: string
-      enableBiometric: string
-      disableBiometric: string
-    }
-    notifications: {
-      title: string
-      permissionDenied: string
+    title: string
+    subtitle: string
+    promptMessage: string
+    fallbackLabel: string
+    notAvailable: string
+    notEnrolled: string
+    authenticationFailed: string
+    enableBiometric: string
+    disableBiometric: string
+  }
+  notifications: {
+    title: string
+    permissionDenied: string
+    deviceRequired: string
+    tokenError: string
+    enableNotifications: string
+    disableNotifications: string
+    testNotification: string
+    testTitle: string
+    testBody: string
+    permissionTitle: string
+    permissionMessage: string
+    allowNotifications: string
+    skipForNow: string
+    requesting: string
+    skipTitle: string
+    skipMessage: string
+    skipCancel: string
+    skipConfirm: string
+    error: {
       deviceRequired: string
-      tokenError: string
-      enableNotifications: string
-      disableNotifications: string
-      testNotification: string
-      testTitle: string
-      testBody: string
-      permissionTitle: string
-      permissionMessage: string
-      allowNotifications: string
-      skipForNow: string
-      requesting: string
-      skipTitle: string
-      skipMessage: string
-      skipCancel: string
-      skipConfirm: string
-      error: {
-        deviceRequired: string
-        deviceRequiredMessage: string
-        permissionDenied: string
-        permissionDeniedMessage: string
-        general: string
-        generalMessage: string
-      }
+      deviceRequiredMessage: string
+      permissionDenied: string
+      permissionDeniedMessage: string
+      general: string
+      generalMessage: string
     }
-    socialAuth: {
-      title: string
-      signInWithGoogle: string
-      signInWithApple: string
-      signInWithFacebook: string
-      signOut: string
-      googleNotAvailable: string
-      appleNotAvailable: string
-      facebookNotAvailable: string
-      signInCancelled: string
-      signInInProgress: string
-      playServicesNotAvailable: string
-      signInFailed: string
-      signOutFailed: string
-    }
+  }
+  socialAuth: {
+    title: string
+    signInWithGoogle: string
+    signInWithApple: string
+    signInWithFacebook: string
+    signOut: string
+    googleNotAvailable: string
+    appleNotAvailable: string
+    facebookNotAvailable: string
+    signInCancelled: string
+    signInInProgress: string
+    playServicesNotAvailable: string
+    signInFailed: string
+    signOutFailed: string
+  }
 }
 
 export type TranslationKey =

@@ -20,17 +20,17 @@ export const useFormTextInput = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  name,
-  control,
-  variant = 'default',
-  size = 'medium',
-  label,
-  helperText,
-  required = false,
-  disabled = false,
-  secureTextEntry = false,
-  ...textInputProps
-}: UseFormTextInputProps<TFieldValues, TName>) => {
+    name,
+    control,
+    variant = 'default',
+    size = 'medium',
+    label,
+    helperText,
+    required = false,
+    disabled = false,
+    secureTextEntry = false,
+    ...textInputProps
+  }: UseFormTextInputProps<TFieldValues, TName>) => {
   const {
     field: { value, onChange, onBlur },
     fieldState: { error },

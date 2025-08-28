@@ -25,19 +25,23 @@ export const usePushNotifications = () => {
     registerForPushNotificationsAsync()
 
     // Listen for incoming notifications
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setState(prev => ({ ...prev, notification }))
-    })
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener(notification => {
+        setState(prev => ({ ...prev, notification }))
+      })
 
     // Listen for notification responses (when user taps notification)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      // Handle notification response here
-      console.log('Notification response:', response)
-    })
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener(response => {
+        // Handle notification response here
+        console.log('Notification response:', response)
+      })
 
     return () => {
       if (notificationListener.current) {
-        Notifications.removeNotificationSubscription(notificationListener.current)
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        )
       }
       if (responseListener.current) {
         Notifications.removeNotificationSubscription(responseListener.current)
@@ -56,7 +60,8 @@ export const usePushNotifications = () => {
         return
       }
 
-      const { status: existingStatus } = await Notifications.getPermissionsAsync()
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync()
       let finalStatus = existingStatus
 
       if (existingStatus !== 'granted') {
@@ -94,7 +99,8 @@ export const usePushNotifications = () => {
     } catch (error) {
       setState(prev => ({
         ...prev,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        error:
+          error instanceof Error ? error.message : 'Unknown error occurred',
         isLoading: false,
       }))
     }

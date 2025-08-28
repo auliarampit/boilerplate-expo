@@ -20,7 +20,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({
 
   const getButtonClasses = () => {
     const baseClasses = 'flex-1 py-3 px-4 rounded-lg items-center'
-    
+
     switch (variant) {
       case 'primary':
         return `${baseClasses} ${getThemeClass(isDark, 'background.button.primary')}`
@@ -35,7 +35,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({
 
   const getTextClasses = () => {
     const baseClasses = 'text-base font-semibold'
-    
+
     switch (variant) {
       case 'primary':
       case 'destructive':
@@ -53,9 +53,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({
       onPress={onPress}
       testID={testID}
     >
-      <Text className={getTextClasses()}>
-        {title}
-      </Text>
+      <Text className={getTextClasses()}>{title}</Text>
     </TouchableOpacity>
   )
 }

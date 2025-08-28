@@ -1,4 +1,7 @@
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import * as AuthSession from 'expo-auth-session'
 import * as Crypto from 'expo-crypto'
@@ -23,8 +26,6 @@ export interface SocialAuthState {
   isFacebookAvailable: boolean
 }
 
-
-
 const useSocialAuth = (config?: SocialAuthConfig) => {
   const [state, setState] = useState<SocialAuthState>({
     user: null,
@@ -37,7 +38,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
 
   useEffect(() => {
     initializeProviders()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const initializeProviders = async () => {
@@ -77,7 +78,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
-      
+
       const user: SocialAuthUser = {
         id: userInfo.data?.user.id || '',
         email: userInfo.data?.user.email || null,
@@ -90,7 +91,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       return user
     } catch (error: any) {
       let errorMessage = 'Google sign-in failed'
-      
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         errorMessage = 'Sign-in was cancelled'
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -122,9 +123,9 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       const user: SocialAuthUser = {
         id: credential.user,
         email: credential.email,
-        name: credential.fullName ? 
-          `${credential.fullName.givenName || ''} ${credential.fullName.familyName || ''}`.trim() : 
-          null,
+        name: credential.fullName
+          ? `${credential.fullName.givenName || ''} ${credential.fullName.familyName || ''}`.trim()
+          : null,
         photo: null,
         provider: 'apple',
       }
@@ -133,7 +134,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       return user
     } catch (error: any) {
       let errorMessage = 'Apple sign-in failed'
-      
+
       if (error.code === 'ERR_CANCELED') {
         errorMessage = 'Sign-in was cancelled'
       }
@@ -158,7 +159,8 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       )
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?` +
+      const authUrl =
+        `https://www.facebook.com/v18.0/dialog/oauth?` +
         `client_id=${config.facebook.clientId}&` +
         `redirect_uri=${encodeURIComponent(redirectUri)}&` +
         `response_type=code&` +
@@ -181,21 +183,21 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
         // Exchange code for access token
         const tokenResponse = await fetch(
           `https://graph.facebook.com/v18.0/oauth/access_token?` +
-          `client_id=${config.facebook.clientId}&` +
-          `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-          `code=${result.params.code}`
+            `client_id=${config.facebook.clientId}&` +
+            `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+            `code=${result.params.code}`
         )
-        
+
         const tokenData = await tokenResponse.json()
-        
+
         if (tokenData.access_token) {
           // Get user info
           const userResponse = await fetch(
             `https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${tokenData.access_token}`
           )
-          
+
           const userData = await userResponse.json()
-          
+
           const user: SocialAuthUser = {
             id: userData.id,
             email: userData.email || null,
@@ -226,11 +228,11 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
         await GoogleSignin.signOut()
       }
 
-      setState(prev => ({ 
-        ...prev, 
-        user: null, 
+      setState(prev => ({
+        ...prev,
+        user: null,
         isLoading: false,
-        error: null 
+        error: null,
       }))
     } catch (error: any) {
       const errorMessage = error.message || 'Sign out failed'
@@ -243,33 +245,33 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
     try {
       if (state.isGoogleAvailable) {
         const userInfo = await GoogleSignin.getCurrentUser()
-         if (userInfo) {
-           const user: SocialAuthUser = {
-             id: userInfo.user.id,
-             email: userInfo.user.email,
-             name: userInfo.user.name,
-             photo: userInfo.user.photo,
-             provider: 'google',
-           }
-           setState(prev => ({ ...prev, user }))
-           return user
-         }
-       }
-       return null
-     } catch (error) {
-       console.error('Error getting current user:', error)
-       return null
-     }
-   }
+        if (userInfo) {
+          const user: SocialAuthUser = {
+            id: userInfo.user.id,
+            email: userInfo.user.email,
+            name: userInfo.user.name,
+            photo: userInfo.user.photo,
+            provider: 'google',
+          }
+          setState(prev => ({ ...prev, user }))
+          return user
+        }
+      }
+      return null
+    } catch (error) {
+      console.error('Error getting current user:', error)
+      return null
+    }
+  }
 
-   return {
-     ...state,
-     signInWithGoogle,
-     signInWithApple,
-     signInWithFacebook,
-     signOut,
-     getCurrentUser,
-   }
- }
+  return {
+    ...state,
+    signInWithGoogle,
+    signInWithApple,
+    signInWithFacebook,
+    signOut,
+    getCurrentUser,
+  }
+}
 
- export default useSocialAuth
+export default useSocialAuth

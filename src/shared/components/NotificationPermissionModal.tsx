@@ -15,11 +15,9 @@ interface NotificationPermissionModalProps {
 
 const NOTIFICATION_PERMISSION_KEY = 'notification_permission_requested'
 
-export const NotificationPermissionModal: React.FC<NotificationPermissionModalProps> = ({
-  visible,
-  onPermissionGranted,
-  onPermissionDenied,
-}) => {
+export const NotificationPermissionModal: React.FC<
+  NotificationPermissionModalProps
+> = ({ visible, onPermissionGranted, onPermissionDenied }) => {
   const { t } = useTranslate()
   const { colors } = useTheme()
   const [isRequesting, setIsRequesting] = useState(false)
@@ -37,8 +35,9 @@ export const NotificationPermissionModal: React.FC<NotificationPermissionModalPr
     setIsRequesting(true)
 
     try {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync()
-      
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync()
+
       if (existingStatus === 'granted') {
         await saveToStorage(NOTIFICATION_PERMISSION_KEY, 'granted')
         onPermissionGranted()
@@ -86,26 +85,26 @@ export const NotificationPermissionModal: React.FC<NotificationPermissionModalPr
       statusBarTranslucent
     >
       <View className="flex-1 bg-black/50 justify-center items-center px-6">
-        <View 
+        <View
           className="bg-white rounded-2xl p-6 w-full max-w-sm"
           style={{ backgroundColor: colors.background }}
         >
           <View className="items-center mb-6">
-            <View 
+            <View
               className="w-16 h-16 rounded-full mb-4 items-center justify-center"
               style={{ backgroundColor: colors.primary }}
             >
               <Text className="text-2xl">🔔</Text>
             </View>
-            
-            <Text 
+
+            <Text
               className="text-xl font-bold text-center mb-2"
               style={{ color: colors.text }}
             >
               {t('notifications.permissionTitle')}
             </Text>
-            
-            <Text 
+
+            <Text
               className="text-base text-center leading-6"
               style={{ color: colors.textSecondary }}
             >
@@ -116,31 +115,30 @@ export const NotificationPermissionModal: React.FC<NotificationPermissionModalPr
           <View className="space-y-3">
             <TouchableOpacity
               className="py-4 px-6 rounded-xl items-center"
-              style={{ 
+              style={{
                 backgroundColor: colors.primary,
-                opacity: isRequesting ? 0.7 : 1 
+                opacity: isRequesting ? 0.7 : 1,
               }}
               onPress={handleRequestPermission}
               disabled={isRequesting}
             >
               <Text className="text-white font-semibold text-base">
-                {isRequesting 
-                  ? t('notifications.requesting') 
-                  : t('notifications.allowNotifications')
-                }
+                {isRequesting
+                  ? t('notifications.requesting')
+                  : t('notifications.allowNotifications')}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               className="py-4 px-6 rounded-xl items-center border"
-              style={{ 
+              style={{
                 borderColor: colors.border,
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
               }}
               onPress={handleSkip}
               disabled={isRequesting}
             >
-              <Text 
+              <Text
                 className="font-semibold text-base"
                 style={{ color: colors.textSecondary }}
               >
@@ -222,7 +220,9 @@ export const checkNotificationPermissionStatus = async (): Promise<boolean> => {
   }
 }
 
-export const getNotificationPermissionStatus = async (): Promise<string | null> => {
+export const getNotificationPermissionStatus = async (): Promise<
+  string | null
+> => {
   try {
     const { getFromStorage } = await import('@/shared/utils/storage')
     return await getFromStorage(NOTIFICATION_PERMISSION_KEY, null)

@@ -5,7 +5,7 @@ export type {
   RootStackParamList,
   AuthStackScreenProps,
   AppStackScreenProps,
-  RootStackScreenProps
+  RootStackScreenProps,
 } from './navigation'
 
 // Auth types

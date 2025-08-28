@@ -6,7 +6,11 @@ import { useTheme } from '@/shared/components'
 import { getThemeClass } from '../shared'
 import { RootStackParamList } from '@/shared/types/navigation'
 import { AuthState, User } from '@/shared/types'
-import { getFromStorage, saveToStorage, removeFromStorage } from '@/shared/utils/storage'
+import {
+  getFromStorage,
+  saveToStorage,
+  removeFromStorage,
+} from '@/shared/utils/storage'
 import { AppNavigator } from './AppNavigator'
 import { AuthNavigator } from './AuthNavigator'
 

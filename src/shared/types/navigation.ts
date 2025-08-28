@@ -27,8 +27,6 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> =
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>
 
-
-
 export interface SocialAuthConfig {
   google?: {
     webClientId: string

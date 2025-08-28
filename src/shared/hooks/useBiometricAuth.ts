@@ -23,7 +23,8 @@ export const useBiometricAuth = () => {
   const checkBiometricSupport = async () => {
     try {
       const isAvailable = await LocalAuthentication.hasHardwareAsync()
-      const supportedTypes = await LocalAuthentication.supportedAuthenticationTypesAsync()
+      const supportedTypes =
+        await LocalAuthentication.supportedAuthenticationTypesAsync()
       const isEnrolled = await LocalAuthentication.isEnrolledAsync()
 
       setState({
@@ -63,13 +64,23 @@ export const useBiometricAuth = () => {
   }
 
   const getBiometricType = (): string => {
-    if (state.supportedTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION)) {
+    if (
+      state.supportedTypes.includes(
+        LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION
+      )
+    ) {
       return 'Face ID'
     }
-    if (state.supportedTypes.includes(LocalAuthentication.AuthenticationType.FINGERPRINT)) {
+    if (
+      state.supportedTypes.includes(
+        LocalAuthentication.AuthenticationType.FINGERPRINT
+      )
+    ) {
       return 'Touch ID'
     }
-    if (state.supportedTypes.includes(LocalAuthentication.AuthenticationType.IRIS)) {
+    if (
+      state.supportedTypes.includes(LocalAuthentication.AuthenticationType.IRIS)
+    ) {
       return 'Iris'
     }
     return 'Biometric'

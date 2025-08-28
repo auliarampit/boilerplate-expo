@@ -5,7 +5,9 @@ import { APP_ROUTES } from '@/shared/constants/navigation'
 import { useTheme, SocialLoginButtons } from '@/shared/components'
 import { getThemeClass } from '@/shared'
 
-export const ProfileScreen = ({ navigation }: AppStackScreenProps<'Profile'>) => {
+export const ProfileScreen = ({
+  navigation,
+}: AppStackScreenProps<'Profile'>) => {
   const { isDark } = useTheme()
 
   const navigateToHome = () => {

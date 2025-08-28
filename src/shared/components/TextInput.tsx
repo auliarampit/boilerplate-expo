@@ -189,11 +189,7 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
               style={{ marginLeft: 8 }}
               testID={`${testID}-right-icon`}
             >
-              <Ionicons
-                name={rightIcon}
-                size={iconSize}
-                color={iconColor}
-              />
+              <Ionicons name={rightIcon} size={iconSize} color={iconColor} />
             </TouchableOpacity>
           )}
         </View>

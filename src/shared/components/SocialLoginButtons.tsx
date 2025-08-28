@@ -9,8 +9,6 @@ import ConfirmationModal from './ConfirmationModal'
 import { SocialAuthConfig } from '../types/navigation'
 import { getThemeClass } from '../constants/themeClasses'
 
-
-
 interface SocialLoginButtonsProps {
   config?: SocialAuthConfig
   onLoginSuccess?: (user: SocialAuthUser) => void
@@ -57,7 +55,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         onLoginSuccess(result)
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : t('socialAuth.signInFailed')
+      const message =
+        err instanceof Error ? err.message : t('socialAuth.signInFailed')
       if (onLoginError) {
         onLoginError(message)
       } else {
@@ -73,7 +72,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         onLoginSuccess(result)
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : t('socialAuth.signInFailed')
+      const message =
+        err instanceof Error ? err.message : t('socialAuth.signInFailed')
       if (onLoginError) {
         onLoginError(message)
       } else {
@@ -89,7 +89,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         onLoginSuccess(result)
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : t('socialAuth.signInFailed')
+      const message =
+        err instanceof Error ? err.message : t('socialAuth.signInFailed')
       if (onLoginError) {
         onLoginError(message)
       } else {
@@ -105,7 +106,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         onLogout()
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : t('socialAuth.signOutFailed')
+      const message =
+        err instanceof Error ? err.message : t('socialAuth.signOutFailed')
       if (onLoginError) {
         onLoginError(message)
       } else {
@@ -119,7 +121,13 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
   if (isLoading) {
     return (
       <View className="p-4">
-        {showTitle && <Text className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}>{t('socialAuth.title')}</Text>}
+        {showTitle && (
+          <Text
+            className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}
+          >
+            {t('socialAuth.title')}
+          </Text>
+        )}
         <View className="items-center justify-center p-5">
           <Loading />
         </View>
@@ -129,18 +137,38 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
 
   return (
     <View className="p-4">
-      {showTitle && <Text className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}>{t('socialAuth.title')}</Text>}
-      
-      {error && <Text className="text-red-500 text-sm mb-3 text-center">{error}</Text>}
-      
+      {showTitle && (
+        <Text
+          className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}
+        >
+          {t('socialAuth.title')}
+        </Text>
+      )}
+
+      {error && (
+        <Text className="text-red-500 text-sm mb-3 text-center">{error}</Text>
+      )}
+
       {user ? (
         <View>
-          <View className={`p-4 rounded-lg mb-4 border ${getThemeClass(isDark, 'combined.inputField')}`}>
-            <Text className={`text-base font-bold mb-1 ${getThemeClass(isDark, 'text.primary')}`}>{user.name || 'Unknown User'}</Text>
-            <Text className={`text-sm mb-1 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}>{user.email || 'No email'}</Text>
-            <Text className="text-xs text-blue-500 capitalize">{user.provider}</Text>
+          <View
+            className={`p-4 rounded-lg mb-4 border ${getThemeClass(isDark, 'combined.inputField')}`}
+          >
+            <Text
+              className={`text-base font-bold mb-1 ${getThemeClass(isDark, 'text.primary')}`}
+            >
+              {user.name || 'Unknown User'}
+            </Text>
+            <Text
+              className={`text-sm mb-1 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}
+            >
+              {user.email || 'No email'}
+            </Text>
+            <Text className="text-xs text-blue-500 capitalize">
+              {user.provider}
+            </Text>
           </View>
-          
+
           <Button
             title={t('socialAuth.signOut')}
             onPress={handleSignOut}
@@ -156,7 +184,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
               variant={buttonStyle}
             />
           )}
-          
+
           {isAppleAvailable && (
             <Button
               title={t('socialAuth.signInWithApple')}
@@ -164,7 +192,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
               variant={buttonStyle}
             />
           )}
-          
+
           {isFacebookAvailable && (
             <Button
               title={t('socialAuth.signInWithFacebook')}
@@ -174,7 +202,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
           )}
         </View>
       )}
-      
+
       <ConfirmationModal
         visible={showErrorModal}
         title={t('common.error')}

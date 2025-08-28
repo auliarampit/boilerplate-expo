@@ -19,13 +19,8 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
 }) => {
   const { isDark } = useTheme()
   const { t } = useTranslate()
-  const {
-    isAvailable,
-    isEnrolled,
-    isLoading,
-    authenticate,
-    getBiometricType,
-  } = useBiometricAuth()
+  const { isAvailable, isEnrolled, isLoading, authenticate, getBiometricType } =
+    useBiometricAuth()
 
   const getButtonBackgroundClass = () => {
     if (disabled) {
@@ -76,7 +71,9 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
 
   if (isLoading) {
     return (
-      <View className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 ${getContainerClass()}`}>
+      <View
+        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 ${getContainerClass()}`}
+      >
         <Loading size="small" />
       </View>
     )
@@ -84,7 +81,9 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
 
   if (!isAvailable) {
     return (
-      <View className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}>
+      <View
+        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}
+      >
         <Text className={`text-sm text-center ${getTextClass()}`}>
           {t('biometric.notAvailable')}
         </Text>
@@ -94,7 +93,9 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
 
   if (!isEnrolled) {
     return (
-      <View className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}>
+      <View
+        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}
+      >
         <Text className={`text-sm text-center ${getTextClass()}`}>
           {t('biometric.notEnrolled')}
         </Text>
@@ -109,10 +110,11 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
       disabled={disabled}
       activeOpacity={0.8}
     >
-      <Text className={`text-base font-semibold text-center ${getButtonTextClass()}`}>
+      <Text
+        className={`text-base font-semibold text-center ${getButtonTextClass()}`}
+      >
         {t('biometric.title')} ({getBiometricType()})
       </Text>
     </TouchableOpacity>
   )
 }
-

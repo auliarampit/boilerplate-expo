@@ -37,21 +37,30 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       onRequestClose={onCancel}
     >
       <View className="flex-1 bg-black/50 justify-center items-center p-5">
-        <View className={`rounded-xl p-6 w-full max-w-xs shadow-lg ${
-          getThemeClass(isDark, 'background.modal')
-        }`}>
-          <Text className={`text-lg font-bold text-center mb-3 ${
-            getThemeClass(isDark, 'text.primary')
-          }`}>
+        <View
+          className={`rounded-xl p-6 w-full max-w-xs shadow-lg ${getThemeClass(
+            isDark,
+            'background.modal'
+          )}`}
+        >
+          <Text
+            className={`text-lg font-bold text-center mb-3 ${getThemeClass(
+              isDark,
+              'text.primary'
+            )}`}
+          >
             {title}
           </Text>
-          
-          <Text className={`text-base text-center mb-6 leading-6 ${
-            getThemeClass(isDark, 'text.secondary')
-          }`}>
+
+          <Text
+            className={`text-base text-center mb-6 leading-6 ${getThemeClass(
+              isDark,
+              'text.secondary'
+            )}`}
+          >
             {message}
           </Text>
-          
+
           <View className="flex-row gap-3">
             <ModalButton
               title={cancelText || t('common.cancel')}
@@ -59,11 +68,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               variant="secondary"
               testID="confirmation-modal-cancel"
             />
-            
+
             <ModalButton
               title={confirmText || t('common.confirm')}
               onPress={onConfirm}
-              variant={confirmStyle === 'destructive' ? 'destructive' : 'primary'}
+              variant={
+                confirmStyle === 'destructive' ? 'destructive' : 'primary'
+              }
               testID="confirmation-modal-confirm"
             />
           </View>

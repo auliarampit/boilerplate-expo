@@ -5,7 +5,9 @@ import { AUTH_ROUTES } from '@/shared/constants/navigation'
 import { useTheme } from '@/shared/components'
 import { getThemeClass } from '@/shared'
 
-export const RegisterScreen = ({ navigation }: AuthStackScreenProps<'Register'>) => {
+export const RegisterScreen = ({
+  navigation,
+}: AuthStackScreenProps<'Register'>) => {
   const { isDark } = useTheme()
 
   const handleRegister = () => {

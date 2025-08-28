@@ -41,19 +41,14 @@ const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
 }) => {
-  const {
-    isDisabled,
-    buttonClasses,
-    textClasses,
-    iconColor,
-    iconSize,
-  } = useButtonLogic({
-    variant,
-    size,
-    disabled,
-    loading,
-    fullWidth,
-  })
+  const { isDisabled, buttonClasses, textClasses, iconColor, iconSize } =
+    useButtonLogic({
+      variant,
+      size,
+      disabled,
+      loading,
+      fullWidth,
+    })
 
   const renderIcon = () => {
     if (!icon) return null

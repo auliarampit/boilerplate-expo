@@ -67,15 +67,16 @@ export const useBottomSheetLogic = ({
 
   const panGesture = Gesture.Pan()
     .enabled(enableGesture)
-    .onUpdate((event) => {
+    .onUpdate(event => {
       if (event.translationY > 0) {
         translateY.setValue(event.translationY)
         lastGestureY.current = event.translationY
       }
     })
-    .onEnd((event) => {
+    .onEnd(event => {
       const sheetHeight = getSheetHeight()
-      const shouldClose = event.translationY > sheetHeight * 0.3 || event.velocityY > 1000
+      const shouldClose =
+        event.translationY > sheetHeight * 0.3 || event.velocityY > 1000
 
       if (shouldClose) {
         onClose()
