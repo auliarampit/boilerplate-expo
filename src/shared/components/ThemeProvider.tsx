@@ -7,8 +7,8 @@ import React, {
   ReactNode,
 } from 'react'
 import { useColorScheme } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Colors } from '../constants/Colors'
+import { getFromStorage, saveToStorage } from '../utils/storage'
 
 type ThemeMode = 'light' | 'dark' | 'system'
 type ColorScheme = 'light' | 'dark'
@@ -50,7 +50,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     const loadThemePreference = async () => {
       try {
-        const savedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY)
+        const savedTheme = await getFromStorage(THEME_STORAGE_KEY, 'system')
         if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
           setThemeModeState(savedTheme as ThemeMode)
         }
@@ -68,7 +68,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const setThemeMode = async (mode: ThemeMode) => {
     try {
       setThemeModeState(mode)
-      await AsyncStorage.setItem(THEME_STORAGE_KEY, mode)
+      await saveToStorage(THEME_STORAGE_KEY, mode)
     } catch (error) {
       console.warn('Failed to save theme preference:', error)
     }

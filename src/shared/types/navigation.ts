@@ -27,16 +27,16 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> =
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>
 
-export interface AuthState {
-  isAuthenticated: boolean
-  isLoading: boolean
-  user: User | null
-}
 
-export interface User {
-  id: string
-  email: string
-  name: string
+
+export interface SocialAuthConfig {
+  google?: {
+    webClientId: string
+    iosClientId?: string
+  }
+  facebook?: {
+    clientId: string
+  }
 }
 
 declare global {

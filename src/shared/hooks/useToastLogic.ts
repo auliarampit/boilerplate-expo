@@ -1,5 +1,7 @@
 import { useEffect, useRef, useCallback, useMemo } from 'react'
-import { Animated, useColorScheme } from 'react-native'
+import { Animated } from 'react-native'
+import { useTheme } from '../components/ThemeProvider'
+import { getThemeClass } from '../constants/themeClasses'
 
 type ToastType = 'success' | 'error' | 'warning' | 'info'
 type ToastPosition = 'top' | 'bottom'
@@ -31,8 +33,7 @@ export const useToastLogic = ({
   ).current
   const opacity = useRef(new Animated.Value(0)).current
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   const showToast = useCallback(() => {
     Animated.parallel([
@@ -127,14 +128,14 @@ export const useToastLogic = ({
 
   const toastClasses = useMemo(() => {
     const baseClasses = 'flex-row items-center p-4 rounded-xl border-l-4'
-    const backgroundClasses = isDark ? 'bg-gray-800' : 'bg-white'
+    const backgroundClasses = getThemeClass(isDark, 'background.card')
 
     return `${baseClasses} ${backgroundClasses}`
   }, [isDark])
 
   const messageClasses = useMemo(() => {
     const baseClasses = 'flex-1 ml-3 font-inter'
-    const colorClasses = isDark ? 'text-white' : 'text-gray-900'
+    const colorClasses = getThemeClass(isDark, 'text.primary')
 
     return `${baseClasses} ${colorClasses}`
   }, [isDark])

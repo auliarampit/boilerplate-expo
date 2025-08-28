@@ -1,15 +1,15 @@
+import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import {
+  Dimensions,
   Modal as RNModal,
-  View,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  useColorScheme,
-  Dimensions,
+  View,
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import { Colors } from '../constants/Colors'
+import { getThemeClass } from '../constants/themeClasses'
+import { useTheme } from './ThemeProvider'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 
@@ -36,9 +36,7 @@ const Modal: React.FC<ModalProps> = ({
   size = 'medium',
   testID = 'modal',
 }) => {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
-  const colors = Colors[colorScheme ?? 'light']
+  const { isDark, colors } = useTheme()
 
   const handleBackdropPress = () => {
     if (closeOnBackdropPress) {
@@ -93,19 +91,19 @@ const Modal: React.FC<ModalProps> = ({
         >
           <TouchableWithoutFeedback onPress={() => {}}>
             <View
-              className={`${isDark ? 'bg-gray-900' : 'bg-white'} ${isFullscreen ? 'flex-1' : 'rounded-lg shadow-lg'}`}
+              className={`${getThemeClass(isDark, 'background.modal')} ${isFullscreen ? 'flex-1' : 'rounded-lg shadow-lg'}`}
               style={modalSize}
               testID={`${testID}-content`}
             >
               {/* Header */}
               {(title || showCloseButton) && (
                 <View
-                  className={`flex-row items-center justify-between p-4 ${isFullscreen ? '' : 'border-b'} ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+                  className={`flex-row items-center justify-between p-4 ${isFullscreen ? '' : 'border-b'} ${getThemeClass(isDark, 'border.secondary')}`}
                 >
                   <View className="flex-1">
                     {title && (
                       <Text
-                        className={`text-lg font-semibold font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}
+                        className={`text-lg font-semibold font-inter-semibold ${getThemeClass(isDark, 'text.primary')}`}
                         testID={`${testID}-title`}
                       >
                         {title}

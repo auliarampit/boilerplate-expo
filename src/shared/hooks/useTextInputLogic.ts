@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
-import { useColorScheme } from 'react-native'
+import { useTheme } from '../components/ThemeProvider'
+import { getThemeClass } from '../constants/themeClasses'
 
 type InputVariant = 'default' | 'filled' | 'outline'
 type InputSize = 'small' | 'medium' | 'large'
@@ -21,8 +22,7 @@ export const useTextInputLogic = ({
 }: UseTextInputLogicProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
   const hasError = Boolean(error)
 
   const togglePasswordVisibility = () => {
@@ -53,7 +53,7 @@ export const useTextInputLogic = ({
 
   const getInputClasses = () => {
     const baseClasses = 'flex-1 font-inter'
-    const textColorClasses = isDark ? 'text-white' : 'text-gray-900'
+    const textColorClasses = getThemeClass(isDark, 'text.primary')
     const placeholderClasses = 'placeholder:text-gray-500'
 
     return `${baseClasses} ${textColorClasses} ${placeholderClasses}`.trim()
@@ -97,7 +97,7 @@ export const useTextInputLogic = ({
       default: isDark
         ? 'border border-gray-600 bg-gray-800'
         : 'border border-gray-300 bg-white',
-      filled: isDark ? 'bg-gray-700 border-0' : 'bg-gray-100 border-0',
+      filled: `${getThemeClass(isDark, 'background.secondary')} border-0`,
       outline: isDark
         ? 'border-2 border-gray-600 bg-transparent'
         : 'border-2 border-gray-300 bg-transparent',

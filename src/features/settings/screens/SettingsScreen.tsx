@@ -2,14 +2,14 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { AppStackScreenProps } from '@/shared/types/navigation'
 import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useColorScheme, useTranslate } from '@/shared'
+import { useTranslate, getThemeClass } from '@/shared'
+import { useTheme } from '@/shared/components'
 
 export function SettingsScreen({
   navigation,
 }: AppStackScreenProps<'Settings'>) {
-  const colorScheme = useColorScheme()
+  const { isDark } = useTheme()
   const { t, language, setLanguage } = useTranslate()
-  const isDark = colorScheme === 'dark'
 
   const navigateToHome = () => {
     navigation.navigate(APP_ROUTES.HOME)
@@ -31,15 +31,15 @@ export function SettingsScreen({
 
   return (
     <View
-      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+      className={`flex-1 justify-center items-center p-5 ${getThemeClass(isDark, 'background.primary')}`}
     >
       <Text
-        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}
       >
         {t('settings.title')}
       </Text>
       <Text
-        className={`text-base mb-8 text-center font-inter ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+        className={`text-base mb-8 text-center font-inter ${getThemeClass(isDark, 'text.secondary')}`}
       >
         App settings and preferences
       </Text>
@@ -73,11 +73,11 @@ export function SettingsScreen({
       </TouchableOpacity>
 
       <TouchableOpacity
-        className={`px-8 py-3 rounded-lg mt-5 min-w-[200px] items-center border ${isDark ? 'border-white' : 'border-gray-900'} active:bg-gray-100 active:bg-opacity-10`}
+        className={`px-8 py-3 rounded-lg mt-5 min-w-[200px] items-center border ${getThemeClass(isDark, 'border.primary')} active:bg-gray-100 active:bg-opacity-10`}
         onPress={handleLogout}
       >
         <Text
-          className={`text-base font-semibold font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}
+          className={`text-base font-semibold font-inter-semibold ${getThemeClass(isDark, 'text.primary')}`}
         >
           {t('auth.logout')}
         </Text>

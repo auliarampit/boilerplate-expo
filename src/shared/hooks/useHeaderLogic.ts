@@ -1,6 +1,7 @@
-import { useColorScheme } from 'react-native'
+import { useTheme } from '../components/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
+import { getThemeClass } from '../constants/themeClasses'
 
 interface HeaderAction {
   icon: keyof typeof Ionicons.glyphMap
@@ -22,8 +23,7 @@ export const useHeaderLogic = ({
   onBackPress,
 }: UseHeaderLogicProps) => {
   const navigation = useNavigation()
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   const handleBackPress = () => {
     if (onBackPress) {
@@ -36,7 +36,7 @@ export const useHeaderLogic = ({
   const getContainerClasses = () => {
     const baseClasses =
       'flex-row items-center justify-between px-4 py-3 min-h-[56px]'
-    const backgroundClasses = isDark ? 'bg-gray-900' : 'bg-white'
+    const backgroundClasses = getThemeClass(isDark, 'background.primary')
     const borderClasses = isDark
       ? 'border-b border-gray-700'
       : 'border-b border-gray-200'
@@ -50,7 +50,7 @@ export const useHeaderLogic = ({
 
   const getTitleClasses = () => {
     const baseClasses = 'text-lg font-inter-semibold'
-    const colorClasses = isDark ? 'text-white' : 'text-gray-900'
+    const colorClasses = getThemeClass(isDark, 'text.primary')
     const marginClasses = showBackButton ? 'ml-3' : ''
 
     return `${baseClasses} ${colorClasses} ${marginClasses}`

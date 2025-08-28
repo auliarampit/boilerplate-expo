@@ -1,8 +1,10 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, useColorScheme } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { Colors } from '../constants/Colors'
+import { useTheme } from './ThemeProvider'
+import { getThemeClass } from '../constants/themeClasses'
 
 interface HeaderAction {
   icon: keyof typeof Ionicons.glyphMap
@@ -26,9 +28,8 @@ const Header: React.FC<HeaderProps> = ({
   testID = 'header',
 }) => {
   const navigation = useNavigation()
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
-  const colors = Colors[colorScheme ?? 'light']
+  const { isDark } = useTheme()
+  const colors = Colors[isDark ? 'dark' : 'light']
 
   const handleBackPress = () => {
     if (onBackPress) {
@@ -40,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <View
-      className={`flex-row items-center justify-between px-4 py-2 min-h-[56px] border-b ${isDark ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}
+      className={`flex-row items-center justify-between px-4 py-2 min-h-[56px] border-b ${getThemeClass(isDark, 'combined.card')}`}
       testID={testID}
     >
       <View className="flex-1 items-start">
@@ -58,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({
       <View className="flex-2 items-center">
         {title && (
           <Text
-            className={`text-lg font-semibold font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}
+            className={`text-lg font-semibold font-inter-semibold ${getThemeClass(isDark, 'text.primary')}`}
             numberOfLines={1}
             testID={`${testID}-title`}
           >

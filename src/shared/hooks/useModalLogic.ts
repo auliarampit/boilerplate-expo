@@ -1,4 +1,6 @@
-import { useColorScheme, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
+import { useTheme } from '../components/ThemeProvider'
+import { getThemeClass } from '../constants/themeClasses'
 
 type ModalSize = 'small' | 'medium' | 'large' | 'full'
 type ModalAnimation = 'slide' | 'fade' | 'none'
@@ -20,8 +22,7 @@ export const useModalLogic = ({
   showCloseButton,
   onClose,
 }: UseModalLogicProps) => {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   const handleBackdropPress = () => {
     if (closeOnBackdrop) {
@@ -66,7 +67,7 @@ export const useModalLogic = ({
 
   const getModalClasses = () => {
     const baseClasses = 'rounded-2xl shadow-2xl'
-    const backgroundClasses = isDark ? 'bg-gray-900' : 'bg-white'
+    const backgroundClasses = getThemeClass(isDark, 'background.modal')
 
     return `${baseClasses} ${backgroundClasses}`
   }
@@ -82,7 +83,7 @@ export const useModalLogic = ({
 
   const getTitleClasses = () => {
     const baseClasses = 'text-xl font-inter-semibold flex-1'
-    const colorClasses = isDark ? 'text-white' : 'text-gray-900'
+    const colorClasses = getThemeClass(isDark, 'text.primary')
 
     return `${baseClasses} ${colorClasses}`
   }

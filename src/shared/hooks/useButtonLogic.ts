@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { useColorScheme } from 'react-native'
+import { useTheme } from '../components/ThemeProvider'
+import { getThemeClass } from '../constants/themeClasses'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
 type ButtonSize = 'small' | 'medium' | 'large'
@@ -19,8 +20,7 @@ export const useButtonLogic = ({
   loading,
   fullWidth,
 }: UseButtonLogicProps) => {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
   const isDisabled = disabled || loading
 
   const buttonClasses = useMemo(() => {
@@ -35,13 +35,13 @@ export const useButtonLogic = ({
 
     const getVariantClasses = () => {
       const variantMap = {
-        primary: isDark ? 'bg-blue-600' : 'bg-blue-600',
-        secondary: isDark ? 'bg-gray-700' : 'bg-gray-200',
+        primary: getThemeClass(isDark, 'background.button.primary'),
+        secondary: getThemeClass(isDark, 'background.button.secondary'),
         outline: isDark
           ? 'border border-gray-600 bg-transparent'
           : 'border border-gray-300 bg-transparent',
         ghost: 'bg-transparent',
-        danger: isDark ? 'bg-red-600' : 'bg-red-600',
+        danger: getThemeClass(isDark, 'background.button.danger'),
       }
       return variantMap[variant]
     }
@@ -69,9 +69,9 @@ export const useButtonLogic = ({
     const getTextVariantClasses = () => {
       const variantMap = {
         primary: 'text-white',
-        secondary: isDark ? 'text-white' : 'text-gray-900',
-        outline: isDark ? 'text-gray-300' : 'text-gray-700',
-        ghost: isDark ? 'text-blue-400' : 'text-blue-600',
+        secondary: getThemeClass(isDark, 'text.button.secondary'),
+        outline: getThemeClass(isDark, 'text.secondary'),
+        ghost: getThemeClass(isDark, 'text.button.ghost'),
         danger: 'text-white',
       }
       return variantMap[variant]

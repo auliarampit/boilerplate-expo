@@ -89,6 +89,65 @@
     "profile": "Profil",
     "settings": "Pengaturan"
   },
+  "errorBoundary": {
+    "title": "Terjadi kesalahan",
+    "description": "Maaf, terjadi sesuatu yang tidak terduga. Silakan coba lagi.",
+    "retry": "Coba Lagi"
+  },
+  "biometric": {
+    "title": "Autentikasi Biometrik",
+    "subtitle": "Gunakan sidik jari atau wajah untuk masuk",
+    "promptMessage": "Autentikasi dengan biometrik",
+    "fallbackLabel": "Gunakan Kode Sandi",
+    "notAvailable": "Autentikasi biometrik tidak tersedia",
+    "notEnrolled": "Tidak ada data biometrik yang terdaftar",
+    "authenticationFailed": "Autentikasi gagal",
+    "enableBiometric": "Aktifkan Login Biometrik",
+    "disableBiometric": "Nonaktifkan Login Biometrik"
+  },
+  "notifications": {
+    "title": "Notifikasi",
+    "permissionDenied": "Izin notifikasi ditolak",
+    "deviceRequired": "Diperlukan perangkat fisik untuk notifikasi",
+    "tokenError": "Gagal mendapatkan token notifikasi",
+    "enableNotifications": "Aktifkan Notifikasi",
+    "disableNotifications": "Nonaktifkan Notifikasi",
+    "testNotification": "Tes Notifikasi",
+    "testTitle": "Tes Notifikasi",
+    "testBody": "Ini adalah tes notifikasi",
+    "permissionTitle": "Aktifkan Notifikasi",
+    "permissionMessage": "Tetap terupdate dengan notifikasi penting dan pembaruan dari aplikasi.",
+    "allowNotifications": "Izinkan Notifikasi",
+    "skipForNow": "Lewati untuk sekarang",
+    "requesting": "Meminta izin...",
+    "skipTitle": "Lewati Notifikasi?",
+    "skipMessage": "Anda dapat mengaktifkan notifikasi nanti di Pengaturan.",
+    "skipCancel": "Batal",
+    "skipConfirm": "Lewati",
+    "error": {
+      "deviceRequired": "Perangkat Diperlukan",
+      "deviceRequiredMessage": "Notifikasi hanya tersedia di perangkat fisik.",
+      "permissionDenied": "Izin Ditolak",
+      "permissionDeniedMessage": "Izin notifikasi ditolak. Anda dapat mengaktifkannya nanti di Pengaturan.",
+      "general": "Error",
+      "generalMessage": "Gagal meminta izin notifikasi. Silakan coba lagi."
+    }
+  },
+  "socialAuth": {
+    "title": "Login Media Sosial",
+    "signInWithGoogle": "Masuk dengan Google",
+    "signInWithApple": "Masuk dengan Apple",
+    "signInWithFacebook": "Masuk dengan Facebook",
+    "signOut": "Keluar",
+    "googleNotAvailable": "Google Sign-In tidak tersedia",
+    "appleNotAvailable": "Apple Sign-In tidak tersedia",
+    "facebookNotAvailable": "Facebook Sign-In tidak tersedia",
+    "signInCancelled": "Login dibatalkan",
+    "signInInProgress": "Login sedang berlangsung",
+    "playServicesNotAvailable": "Play Services tidak tersedia",
+    "signInFailed": "Login gagal",
+    "signOutFailed": "Logout gagal"
+  },
   "validation": {
     "emailRequired": "Email wajib diisi",
     "invalidEmail": "Format email tidak valid",

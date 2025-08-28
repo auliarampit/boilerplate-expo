@@ -2,11 +2,11 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { AppStackScreenProps } from '@/shared/types/navigation'
 import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useColorScheme } from '@/shared/hooks/useColorScheme'
+import { useTheme, SocialLoginButtons } from '@/shared/components'
+import { getThemeClass } from '@/shared'
 
-export function ProfileScreen({ navigation }: AppStackScreenProps<'Profile'>) {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+export const ProfileScreen = ({ navigation }: AppStackScreenProps<'Profile'>) => {
+  const { isDark } = useTheme()
 
   const navigateToHome = () => {
     navigation.navigate(APP_ROUTES.HOME)
@@ -18,15 +18,15 @@ export function ProfileScreen({ navigation }: AppStackScreenProps<'Profile'>) {
 
   return (
     <View
-      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+      className={`flex-1 justify-center items-center p-5 ${getThemeClass(isDark, 'background.primary')}`}
     >
       <Text
-        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}
       >
         Profile
       </Text>
       <Text
-        className={`text-base mb-8 text-center font-inter ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+        className={`text-base mb-8 text-center font-inter ${getThemeClass(isDark, 'text.secondary')}`}
       >
         User profile information
       </Text>
@@ -48,6 +48,10 @@ export function ProfileScreen({ navigation }: AppStackScreenProps<'Profile'>) {
           Go to Settings
         </Text>
       </TouchableOpacity>
+
+      <View className="mt-8 w-full max-w-sm">
+        <SocialLoginButtons />
+      </View>
     </View>
   )
 }

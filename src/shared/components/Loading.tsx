@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, ActivityIndicator, useColorScheme } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
+import { useTheme } from './ThemeProvider'
 
 interface LoadingProps {
   size?: 'small' | 'large'
@@ -14,11 +15,11 @@ const Loading: React.FC<LoadingProps> = ({
   overlay = false,
   className = '',
 }) => {
-  const colorScheme = useColorScheme()
+  const { colors } = useTheme()
 
   const getDefaultColor = () => {
     if (color) return color
-    return colorScheme === 'dark' ? '#ffffff' : '#000000'
+    return colors.text
   }
 
   const containerClasses = overlay

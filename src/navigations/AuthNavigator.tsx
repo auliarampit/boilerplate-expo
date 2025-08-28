@@ -1,5 +1,6 @@
 import { ForgotPasswordScreen, LoginScreen, RegisterScreen } from '@/features'
-import { AUTH_ROUTES, AuthStackParamList, NAVIGATION_OPTIONS } from '@/shared'
+import { AUTH_ROUTES, NAVIGATION_OPTIONS } from '@/shared'
+import { AuthStackParamList } from '@/shared/types/navigation'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 

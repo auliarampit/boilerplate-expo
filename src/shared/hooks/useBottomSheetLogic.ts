@@ -1,10 +1,6 @@
 import { useRef } from 'react'
 import { Animated, Dimensions } from 'react-native'
-import {
-  PanGestureHandlerGestureEvent,
-  PanGestureHandlerStateChangeEvent,
-  State,
-} from 'react-native-gesture-handler'
+import { Gesture } from 'react-native-gesture-handler'
 
 type BottomSheetSize = 'small' | 'medium' | 'large' | 'full'
 
@@ -69,25 +65,17 @@ export const useBottomSheetLogic = ({
     ]).start()
   }
 
-  const panGestureEvent = Animated.event(
-    [{ nativeEvent: { translationY: translateY } }],
-    {
-      useNativeDriver: false,
-      listener: (event: PanGestureHandlerGestureEvent) => {
-        const { translationY } = event.nativeEvent
-        lastGestureY.current = translationY
-      },
-    }
-  )
-
-  const panGestureStateChange = (event: PanGestureHandlerStateChangeEvent) => {
-    if (!enableGesture) return
-
-    const { state, translationY, velocityY } = event.nativeEvent
-    const sheetHeight = getSheetHeight()
-
-    if (state === State.END) {
-      const shouldClose = translationY > sheetHeight * 0.3 || velocityY > 1000
+  const panGesture = Gesture.Pan()
+    .enabled(enableGesture)
+    .onUpdate((event) => {
+      if (event.translationY > 0) {
+        translateY.setValue(event.translationY)
+        lastGestureY.current = event.translationY
+      }
+    })
+    .onEnd((event) => {
+      const sheetHeight = getSheetHeight()
+      const shouldClose = event.translationY > sheetHeight * 0.3 || event.velocityY > 1000
 
       if (shouldClose) {
         onClose()
@@ -97,14 +85,12 @@ export const useBottomSheetLogic = ({
           useNativeDriver: true,
         }).start()
       }
-    }
-  }
+    })
 
   return {
     translateY,
     backdropOpacity,
-    panGestureEvent,
-    panGestureStateChange,
+    panGesture,
     showBottomSheet,
     hideBottomSheet,
     getSheetHeight,

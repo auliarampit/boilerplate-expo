@@ -1,6 +1,6 @@
 import React from 'react'
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar'
-import { useColorScheme } from 'react-native'
+import { useTheme } from './ThemeProvider'
 
 interface StatusBarProps {
   style?: 'auto' | 'inverted' | 'light' | 'dark'
@@ -13,11 +13,11 @@ const StatusBar: React.FC<StatusBarProps> = ({
   backgroundColor,
   translucent = true,
 }) => {
-  const colorScheme = useColorScheme()
+  const { isDark } = useTheme()
 
   const getStatusBarStyle = () => {
     if (style !== 'auto') return style
-    return colorScheme === 'dark' ? 'light' : 'dark'
+    return isDark ? 'light' : 'dark'
   }
 
   return (

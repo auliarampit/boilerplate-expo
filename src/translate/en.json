@@ -89,6 +89,65 @@
     "profile": "Profile",
     "settings": "Settings"
   },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "description": "We're sorry, but something unexpected happened. Please try again.",
+    "retry": "Try Again"
+  },
+  "biometric": {
+    "title": "Biometric Authentication",
+    "subtitle": "Use your fingerprint or face to sign in",
+    "promptMessage": "Authenticate with biometrics",
+    "fallbackLabel": "Use Passcode",
+    "notAvailable": "Biometric authentication is not available",
+    "notEnrolled": "No biometric data enrolled",
+    "authenticationFailed": "Authentication failed",
+    "enableBiometric": "Enable Biometric Login",
+    "disableBiometric": "Disable Biometric Login"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "permissionDenied": "Notification permission denied",
+    "deviceRequired": "Physical device required for notifications",
+    "tokenError": "Failed to get notification token",
+    "enableNotifications": "Enable Notifications",
+    "disableNotifications": "Disable Notifications",
+    "testNotification": "Test Notification",
+    "testTitle": "Test Notification",
+    "testBody": "This is a test notification",
+    "permissionTitle": "Enable Notifications",
+    "permissionMessage": "Stay updated with important notifications and updates from the app.",
+    "allowNotifications": "Allow Notifications",
+    "skipForNow": "Skip for now",
+    "requesting": "Requesting...",
+    "skipTitle": "Skip Notifications?",
+    "skipMessage": "You can enable notifications later in Settings.",
+    "skipCancel": "Cancel",
+    "skipConfirm": "Skip",
+    "error": {
+      "deviceRequired": "Device Required",
+      "deviceRequiredMessage": "Notifications are only available on physical devices.",
+      "permissionDenied": "Permission Denied",
+      "permissionDeniedMessage": "Notification permission was denied. You can enable it later in Settings.",
+      "general": "Error",
+      "generalMessage": "Failed to request notification permission. Please try again."
+    }
+  },
+  "socialAuth": {
+    "title": "Social Login",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithApple": "Sign in with Apple",
+    "signInWithFacebook": "Sign in with Facebook",
+    "signOut": "Sign Out",
+    "googleNotAvailable": "Google Sign-In is not available",
+    "appleNotAvailable": "Apple Sign-In is not available",
+    "facebookNotAvailable": "Facebook Sign-In is not available",
+    "signInCancelled": "Sign-in was cancelled",
+    "signInInProgress": "Sign-in is already in progress",
+    "playServicesNotAvailable": "Play Services not available",
+    "signInFailed": "Sign-in failed",
+    "signOutFailed": "Sign out failed"
+  },
   "validation": {
     "emailRequired": "Email is required",
     "invalidEmail": "Invalid email format",

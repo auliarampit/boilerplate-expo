@@ -1,10 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 import { ROOT_ROUTES } from '@/shared/constants/navigation'
-import { useColorScheme } from '@/shared/hooks/useColorScheme'
-import { AuthState, RootStackParamList, User } from '@/shared/types/navigation'
+import { useTheme } from '@/shared/components'
+import { getThemeClass } from '../shared'
+import { RootStackParamList } from '@/shared/types/navigation'
+import { AuthState, User } from '@/shared/types'
+import { getFromStorage, saveToStorage, removeFromStorage } from '@/shared/utils/storage'
 import { AppNavigator } from './AppNavigator'
 import { AuthNavigator } from './AuthNavigator'
 
@@ -38,17 +40,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const checkAuthState = async () => {
     try {
       const [authData, userData] = await Promise.all([
-        AsyncStorage.getItem(AUTH_STORAGE_KEY),
-        AsyncStorage.getItem(USER_STORAGE_KEY),
+        getFromStorage(AUTH_STORAGE_KEY, null),
+        getFromStorage(USER_STORAGE_KEY, null),
       ])
 
       const isAuthenticated = authData === 'true'
-      const user = userData ? JSON.parse(userData) : null
 
       setAuthState({
         isAuthenticated,
         isLoading: false,
-        user,
+        user: userData,
       })
     } catch (error) {
       console.error('Error checking auth state:', error)
@@ -63,8 +64,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (user: User) => {
     try {
       await Promise.all([
-        AsyncStorage.setItem(AUTH_STORAGE_KEY, 'true'),
-        AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user)),
+        saveToStorage(AUTH_STORAGE_KEY, 'true'),
+        saveToStorage(USER_STORAGE_KEY, user),
       ])
 
       setAuthState({
@@ -81,8 +82,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       await Promise.all([
-        AsyncStorage.removeItem(AUTH_STORAGE_KEY),
-        AsyncStorage.removeItem(USER_STORAGE_KEY),
+        removeFromStorage(AUTH_STORAGE_KEY),
+        removeFromStorage(USER_STORAGE_KEY),
       ])
 
       setAuthState({
@@ -112,12 +113,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 function LoadingScreen() {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   return (
     <View
-      className={`flex-1 justify-center items-center ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+      className={`flex-1 justify-center items-center ${getThemeClass(isDark, 'background.primary')}`}
     >
       <ActivityIndicator size="large" color="#3B82F6" />
     </View>

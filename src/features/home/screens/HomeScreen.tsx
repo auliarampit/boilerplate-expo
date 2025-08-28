@@ -2,12 +2,12 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { AppStackScreenProps } from '@/shared/types/navigation'
 import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useColorScheme, useTranslate } from '@/shared'
+import { useTranslate } from '@/translate'
+import { useTheme, getThemeClass } from '@/shared'
 
 export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
-  const colorScheme = useColorScheme()
   const { t } = useTranslate()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   const navigateToProfile = () => {
     navigation.navigate(APP_ROUTES.PROFILE)
@@ -19,15 +19,15 @@ export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
 
   return (
     <View
-      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+      className={`flex-1 justify-center items-center p-5 ${getThemeClass(isDark, 'background.primary')}`}
     >
       <Text
-        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+        className={`text-2xl font-bold mb-3 text-center font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}
       >
         {t('home.title')}
       </Text>
       <Text
-        className={`text-base mb-8 text-center font-inter ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+        className={`text-base mb-8 text-center font-inter ${getThemeClass(isDark, 'text.secondary')}`}
       >
         {t('home.welcome')}
       </Text>

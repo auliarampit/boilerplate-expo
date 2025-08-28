@@ -2,13 +2,13 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { AuthStackScreenProps } from '@/shared/types/navigation'
 import { AUTH_ROUTES } from '@/shared/constants/navigation'
-import { useColorScheme } from '@/shared/hooks/useColorScheme'
+import { useTheme } from '@/shared/components'
+import { getThemeClass } from '@/shared'
 
 export function ForgotPasswordScreen({
   navigation,
 }: AuthStackScreenProps<'ForgotPassword'>) {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   const handleResetPassword = () => {
     // TODO: Implement reset password logic
@@ -21,10 +21,10 @@ export function ForgotPasswordScreen({
 
   return (
     <View
-      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+      className={`flex-1 justify-center items-center p-5 ${getThemeClass(isDark, 'background.primary')}`}
     >
       <Text
-        className={`text-2xl font-bold mb-8 font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+        className={`text-2xl font-bold mb-8 font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}
       >
         Forgot Password
       </Text>

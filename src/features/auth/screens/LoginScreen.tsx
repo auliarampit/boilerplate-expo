@@ -2,11 +2,11 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { AuthStackScreenProps } from '@/shared/types/navigation'
 import { AUTH_ROUTES } from '@/shared/constants/navigation'
-import { useColorScheme } from '@/shared/hooks/useColorScheme'
+import { useTheme } from '@/shared/components'
+import { getThemeClass } from '@/shared'
 
-export function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+export const LoginScreen = ({ navigation }: AuthStackScreenProps<'Login'>) => {
+  const { isDark } = useTheme()
 
   const handleLogin = () => {
     // TODO: Implement login logic
@@ -23,10 +23,10 @@ export function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
 
   return (
     <View
-      className={`flex-1 justify-center items-center p-5 ${isDark ? 'bg-gray-900' : 'bg-white'}`}
+      className={`flex-1 justify-center items-center p-5 ${getThemeClass(isDark, 'background.primary')}`}
     >
       <Text
-        className={`text-2xl font-bold mb-8 font-inter-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+        className={`text-2xl font-bold mb-8 font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}
       >
         Login
       </Text>

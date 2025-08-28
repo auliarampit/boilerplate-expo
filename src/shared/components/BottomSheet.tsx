@@ -5,9 +5,10 @@ import {
   Animated,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  useColorScheme,
 } from 'react-native'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { useTheme } from './ThemeProvider'
+import { getThemeClass } from '../constants/themeClasses'
+import { GestureDetector } from 'react-native-gesture-handler'
 import { Ionicons } from '@expo/vector-icons'
 import { useBottomSheetLogic } from '../hooks/useBottomSheetLogic'
 
@@ -38,14 +39,12 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   enableGesture = true,
   testID = 'bottom-sheet',
 }) => {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
+  const { isDark } = useTheme()
 
   const {
     translateY,
     backdropOpacity,
-    panGestureEvent,
-    panGestureStateChange,
+    panGesture,
     showBottomSheet,
     hideBottomSheet,
     getSheetHeight,
@@ -77,7 +76,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 
   const getSheetClasses = () => {
     const baseClasses = 'rounded-t-3xl shadow-2xl'
-    const backgroundClasses = isDark ? 'bg-gray-900' : 'bg-white'
+    const backgroundClasses = getThemeClass(isDark, 'background.modal')
 
     return `${baseClasses} ${backgroundClasses}`
   }
@@ -93,14 +92,14 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 
   const getTitleClasses = () => {
     const baseClasses = 'text-lg font-inter-semibold'
-    const colorClasses = isDark ? 'text-white' : 'text-gray-900'
+    const colorClasses = getThemeClass(isDark, 'text.primary')
 
     return `${baseClasses} ${colorClasses}`
   }
 
   const getHandleClasses = () => {
     const baseClasses = 'w-12 h-1 rounded-full mx-auto mb-2'
-    const colorClasses = isDark ? 'bg-gray-600' : 'bg-gray-300'
+    const colorClasses = getThemeClass(isDark, 'background.divider')
 
     return `${baseClasses} ${colorClasses}`
   }
@@ -129,11 +128,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
         </TouchableWithoutFeedback>
       </Animated.View>
 
-      <PanGestureHandler
-        enabled={enableGesture}
-        onGestureEvent={panGestureEvent}
-        onHandlerStateChange={panGestureStateChange}
-      >
+      <GestureDetector gesture={panGesture}>
         <Animated.View
           style={[
             {
@@ -179,7 +174,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
 
           <View className={getContentClasses()}>{children}</View>
         </Animated.View>
-      </PanGestureHandler>
+      </GestureDetector>
     </View>
   )
 }
