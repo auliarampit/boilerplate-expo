@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { searchSchema, type SearchFormData } from '../schemas/validationSchemas'
 import { FormTextInput } from './FormTextInput'
 import Button from './Button'
+import { useTranslate } from '@/translate'
 
 interface SearchFormProps {
   onSubmit: (data: SearchFormData) => void
@@ -18,9 +19,10 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   onSubmit,
   onClear,
   isLoading = false,
-  placeholder = 'Search...',
+  placeholder,
   showClearButton = true,
 }) => {
+  const { t } = useTranslate()
   const {
     control,
     handleSubmit,
@@ -50,34 +52,34 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   }
 
   return (
-    <View className="w-full flex-row items-end space-x-2">
-      <View className="flex-1">
+    <View className='w-full flex-row items-end space-x-2'>
+      <View className='flex-1'>
         <FormTextInput
-          name="query"
+          name='query'
           control={control}
-          placeholder={placeholder}
-          autoCapitalize="none"
+          placeholder={placeholder || t('search.placeholder')}
+          autoCapitalize='none'
           autoCorrect={false}
-          leftIcon="search"
+          leftIcon='search'
         />
       </View>
 
       <Button
-        title="Search"
+        title={t('search.search')}
         onPress={handleSubmit(handleFormSubmit)}
         loading={isLoading}
         disabled={!isValid || isLoading || !hasValue}
-        variant="primary"
-        size="medium"
+        variant='primary'
+        size='medium'
       />
 
       {showClearButton && hasValue && (
         <Button
-          title="Clear"
+          title={t('search.clear')}
           onPress={handleClear}
           disabled={isLoading}
-          variant="outline"
-          size="medium"
+          variant='outline'
+          size='medium'
         />
       )}
     </View>

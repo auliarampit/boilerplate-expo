@@ -78,10 +78,10 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
       togglePasswordVisibility,
       getInputContainerClasses,
       getInputClasses,
-      labelClasses,
-      helperTextClasses,
-      iconColor,
-      iconSize,
+      getLabelClasses,
+      getHelperTextClasses,
+      getIconColor,
+      getIconSize,
     } = useTextInputLogic({
       variant,
       size,
@@ -136,20 +136,19 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
     return (
       <View className={getContainerClasses()} testID={testID}>
         {label && (
-          <Text className={labelClasses} testID={`${testID}-label`}>
+          <Text className={getLabelClasses()} testID={`${testID}-label`}>
             {label}
           </Text>
         )}
 
         <View
           className={getInputContainerClasses()}
-          testID={`${testID}-container`}
-        >
+          testID={`${testID}-container`}>
           {leftIcon && (
             <Ionicons
               name={leftIcon}
-              size={iconSize}
-              color={iconColor}
+              size={getIconSize()}
+              color={getIconColor()}
               style={{ marginRight: 8 }}
             />
           )}
@@ -173,12 +172,11 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
             <TouchableOpacity
               onPress={togglePasswordVisibility}
               style={{ marginLeft: 8 }}
-              testID={`${testID}-password-toggle`}
-            >
+              testID={`${testID}-password-toggle`}>
               <Ionicons
                 name={isPasswordVisible ? 'eye-off' : 'eye'}
-                size={iconSize}
-                color={iconColor}
+                size={getIconSize()}
+                color={getIconColor()}
               />
             </TouchableOpacity>
           )}
@@ -187,15 +185,18 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
             <TouchableOpacity
               onPress={onRightIconPress}
               style={{ marginLeft: 8 }}
-              testID={`${testID}-right-icon`}
-            >
-              <Ionicons name={rightIcon} size={iconSize} color={iconColor} />
+              testID={`${testID}-right-icon`}>
+              <Ionicons
+                name={rightIcon}
+                size={getIconSize()}
+                color={getIconColor()}
+              />
             </TouchableOpacity>
           )}
         </View>
 
         {(currentError || helperText) && (
-          <Text className={helperTextClasses} testID={`${testID}-helper`}>
+          <Text className={getHelperTextClasses()} testID={`${testID}-helper`}>
             {currentError || helperText}
           </Text>
         )}

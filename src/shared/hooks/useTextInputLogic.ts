@@ -153,9 +153,9 @@ export const useTextInputLogic = ({
     getContainerClasses,
     getInputContainerClasses,
     getInputClasses,
-    labelClasses,
-    helperTextClasses,
-    iconColor,
-    iconSize,
+    getLabelClasses: () => labelClasses,
+    getHelperTextClasses: () => helperTextClasses,
+    getIconColor: () => iconColor,
+    getIconSize: () => iconSize,
   }
 }

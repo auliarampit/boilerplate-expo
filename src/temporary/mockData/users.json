@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "test@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "avatar": "https://via.placeholder.com/150",
+      "emailVerified": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "notifications": {
+          "push": true,
+          "email": true,
+          "marketing": false
+        },
+        "privacy": {
+          "profileVisible": true,
+          "activityVisible": false
+        }
+      }
+    },
+    {
+      "id": "2",
+      "email": "admin@example.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "avatar": "https://via.placeholder.com/150",
+      "emailVerified": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "preferences": {
+        "theme": "dark",
+        "language": "id",
+        "notifications": {
+          "push": true,
+          "email": true,
+          "marketing": true
+        },
+        "privacy": {
+          "profileVisible": true,
+          "activityVisible": true
+        }
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "email": "test@example.com",
+      "password": "password123"
+    },
+    {
+      "email": "admin@example.com",
+      "password": "admin123"
+    }
+  ]
+}

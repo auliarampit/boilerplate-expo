@@ -51,7 +51,7 @@ const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   }
 
   const hideToast = () => {
-    setToastState(prev => ({
+    setToastState((prev) => ({
       ...prev,
       visible: false,
     }))
@@ -73,7 +73,7 @@ const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
         duration={toastState.duration}
         action={toastState.action}
         onHide={hideToast}
-        testID="global-toast"
+        testID='global-toast'
       />
     </ToastContext.Provider>
   )

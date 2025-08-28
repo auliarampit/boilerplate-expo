@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema, type LoginFormData } from '../schemas/validationSchemas'
 import { FormTextInput } from './FormTextInput'
 import Button from './Button'
+import { useTranslate } from '@/translate'
 
 interface LoginFormProps {
   onSubmit: (data: LoginFormData) => void
@@ -15,6 +16,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   onSubmit,
   isLoading = false,
 }) => {
+  const { t } = useTranslate()
   const {
     control,
     handleSubmit,
@@ -29,42 +31,42 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   }
 
   return (
-    <View className="w-full space-y-4">
-      <Text className="text-2xl font-inter-bold text-center mb-6 dark:text-white">
-        Login
+    <View className='w-full space-y-4'>
+      <Text className='text-2xl font-inter-bold text-center mb-6 dark:text-white'>
+        {t('auth.login')}
       </Text>
 
       <FormTextInput
-        name="email"
+        name='email'
         control={control}
-        label="Email"
-        placeholder="Enter your email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoComplete="email"
-        leftIcon="mail"
+        label={t('auth.email')}
+        placeholder={t('auth.email')}
+        keyboardType='email-address'
+        autoCapitalize='none'
+        autoComplete='email'
+        leftIcon='mail'
         required
       />
 
       <FormTextInput
-        name="password"
+        name='password'
         control={control}
-        label="Password"
-        placeholder="Enter your password"
+        label={t('auth.password')}
+        placeholder={t('auth.password')}
         secureTextEntry
-        autoCapitalize="none"
-        autoComplete="password"
-        leftIcon="lock-closed"
+        autoCapitalize='none'
+        autoComplete='password'
+        leftIcon='lock-closed'
         required
       />
 
       <Button
-        title="Login"
+        title={t('auth.login')}
         onPress={handleSubmit(handleFormSubmit)}
         loading={isLoading}
         disabled={!isValid || isLoading}
-        variant="primary"
-        size="large"
+        variant='primary'
+        size='large'
         fullWidth
       />
     </View>

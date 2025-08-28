@@ -71,13 +71,11 @@ const Toast: React.FC<ToastProps> = ({
         },
       ]}
       className={containerClasses}
-      testID={testID}
-    >
+      testID={testID}>
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={handlePress}
-        testID={`${testID}-container`}
-      >
+        testID={`${testID}-container`}>
         <View
           className={toastClasses}
           style={{
@@ -90,8 +88,7 @@ const Toast: React.FC<ToastProps> = ({
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
-          }}
-        >
+          }}>
           <Ionicons
             name={config.icon}
             size={20}
@@ -102,20 +99,17 @@ const Toast: React.FC<ToastProps> = ({
           <Text
             className={messageClasses}
             numberOfLines={3}
-            testID={`${testID}-message`}
-          >
+            testID={`${testID}-message`}>
             {message}
           </Text>
 
           {action && (
             <TouchableOpacity
               onPress={action.onPress}
-              testID={`${testID}-action`}
-            >
+              testID={`${testID}-action`}>
               <Text
                 className={actionClasses}
-                style={{ color: config.backgroundColor }}
-              >
+                style={{ color: config.backgroundColor }}>
                 {action.label}
               </Text>
             </TouchableOpacity>
@@ -124,10 +118,9 @@ const Toast: React.FC<ToastProps> = ({
           <TouchableOpacity
             onPress={handlePress}
             style={{ marginLeft: 8 }}
-            testID={`${testID}-close`}
-          >
+            testID={`${testID}-close`}>
             <Ionicons
-              name="close"
+              name='close'
               size={16}
               color={isDark ? '#9CA3AF' : '#6B7280'}
             />

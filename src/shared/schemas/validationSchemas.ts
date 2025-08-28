@@ -35,7 +35,7 @@ export const registerSchema = z
     password: passwordSchema,
     confirmPassword: z.string().min(1, 'validation.confirmPasswordRequired'),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: 'validation.passwordMismatch',
     path: ['confirmPassword'],
   })
@@ -49,7 +49,7 @@ export const resetPasswordSchema = z
     password: passwordSchema,
     confirmPassword: z.string().min(1, 'validation.confirmPasswordRequired'),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: 'validation.passwordMismatch',
     path: ['confirmPassword'],
   })
@@ -70,11 +70,11 @@ export const changePasswordSchema = z
     newPassword: passwordSchema,
     confirmPassword: z.string().min(1, 'validation.confirmPasswordRequired'),
   })
-  .refine(data => data.newPassword === data.confirmPassword, {
+  .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'validation.passwordMismatch',
     path: ['confirmPassword'],
   })
-  .refine(data => data.currentPassword !== data.newPassword, {
+  .refine((data) => data.currentPassword !== data.newPassword, {
     message: 'validation.newPasswordSameAsCurrent',
     path: ['newPassword'],
   })

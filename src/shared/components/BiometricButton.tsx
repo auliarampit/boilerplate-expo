@@ -72,9 +72,8 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
   if (isLoading) {
     return (
       <View
-        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 ${getContainerClass()}`}
-      >
-        <Loading size="small" />
+        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 ${getContainerClass()}`}>
+        <Loading size='small' />
       </View>
     )
   }
@@ -82,8 +81,7 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
   if (!isAvailable) {
     return (
       <View
-        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}
-      >
+        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}>
         <Text className={`text-sm text-center ${getTextClass()}`}>
           {t('biometric.notAvailable')}
         </Text>
@@ -94,8 +92,7 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
   if (!isEnrolled) {
     return (
       <View
-        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}
-      >
+        className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 border border-dashed ${getBorderClass()}`}>
         <Text className={`text-sm text-center ${getTextClass()}`}>
           {t('biometric.notEnrolled')}
         </Text>
@@ -108,11 +105,9 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
       className={`py-4 px-5 rounded-xl items-center justify-center min-h-14 shadow-sm ${getButtonBackgroundClass()}`}
       onPress={handleBiometricAuth}
       disabled={disabled}
-      activeOpacity={0.8}
-    >
+      activeOpacity={0.8}>
       <Text
-        className={`text-base font-semibold text-center ${getButtonTextClass()}`}
-      >
+        className={`text-base font-semibold text-center ${getButtonTextClass()}`}>
         {t('biometric.title')} ({getBiometricType()})
       </Text>
     </TouchableOpacity>

@@ -47,27 +47,27 @@ export const FormTextInput = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-    name,
-    control,
-    variant = 'default',
-    size = 'medium',
-    label,
-    helperText,
-    required = false,
-    disabled = false,
-    placeholder,
-    secureTextEntry = false,
-    multiline = false,
-    numberOfLines = 1,
-    maxLength,
-    keyboardType = 'default',
-    autoCapitalize = 'sentences',
-    autoComplete,
-    autoCorrect = true,
-    leftIcon,
-    rightIcon,
-    onRightIconPress,
-  }: FormTextInputProps<TFieldValues, TName>) => {
+  name,
+  control,
+  variant = 'default',
+  size = 'medium',
+  label,
+  helperText,
+  required = false,
+  disabled = false,
+  placeholder,
+  secureTextEntry = false,
+  multiline = false,
+  numberOfLines = 1,
+  maxLength,
+  keyboardType = 'default',
+  autoCapitalize = 'sentences',
+  autoComplete,
+  autoCorrect = true,
+  leftIcon,
+  rightIcon,
+  onRightIconPress,
+}: FormTextInputProps<TFieldValues, TName>) => {
   const {
     value,
     onChangeText,
@@ -118,7 +118,7 @@ export const FormTextInput = <
       {label && (
         <Text className={getLabelClasses()}>
           {label}
-          {required && <Text className="text-red-500 ml-1">*</Text>}
+          {required && <Text className='text-red-500 ml-1'>*</Text>}
         </Text>
       )}
 
@@ -155,8 +155,7 @@ export const FormTextInput = <
           <TouchableOpacity
             onPress={finalOnRightIconPress}
             disabled={disabled}
-            style={{ marginLeft: 8 }}
-          >
+            style={{ marginLeft: 8 }}>
             <Ionicons
               name={finalRightIcon}
               size={getIconSize()}

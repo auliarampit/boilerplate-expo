@@ -30,7 +30,7 @@ export const SettingsExample = () => {
       <Text className='text-2xl font-bold mb-8 text-gray-900 dark:text-white'>
         {t('settings.title')}
       </Text>
-      
+
       <View className='w-full max-w-sm space-y-4'>
         <View className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg'>
           <Text className='text-lg font-semibold mb-2 text-gray-900 dark:text-white'>
@@ -38,8 +38,7 @@ export const SettingsExample = () => {
           </Text>
           <TouchableOpacity
             onPress={handleThemeToggle}
-            className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md'
-          >
+            className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md'>
             <Text className='text-white font-medium text-center'>
               {getThemeButtonText()}
             </Text>
@@ -52,8 +51,7 @@ export const SettingsExample = () => {
           </Text>
           <TouchableOpacity
             onPress={handleLanguageToggle}
-            className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md'
-          >
+            className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md'>
             <Text className='text-white font-medium text-center'>
               {getLanguageButtonText()}
             </Text>

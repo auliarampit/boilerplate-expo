@@ -14,13 +14,19 @@
     "close": "Tutup",
     "ok": "OK",
     "yes": "Ya",
-    "no": "Tidak"
+    "no": "Tidak",
+    "retry": "Coba Lagi",
+    "refresh": "Refresh",
+    "example": "Contoh",
+    "welcome": "Selamat datang",
+    "unknownError": "Kesalahan tidak diketahui"
   },
   "auth": {
     "login": "Masuk",
     "logout": "Keluar",
     "register": "Daftar",
     "email": "Email",
+    "emailPlaceholder": "Masukkan email Anda",
     "password": "Kata Sandi",
     "confirmPassword": "Konfirmasi Kata Sandi",
     "forgotPassword": "Lupa Kata Sandi?",
@@ -36,7 +42,23 @@
     "loginError": "Email atau kata sandi salah",
     "registerError": "Gagal membuat akun",
     "alreadyHaveAccount": "Sudah punya akun?",
-    "dontHaveAccount": "Belum punya akun?"
+    "dontHaveAccount": "Belum punya akun?",
+    "loginSuccess": "Login berhasil",
+    "loginFailed": "Terjadi kesalahan saat login",
+    "registerSuccess": "Akun Anda telah berhasil dibuat",
+    "registerFailed": "Terjadi kesalahan saat registrasi",
+    "logoutSuccess": "Anda telah berhasil logout",
+    "profileUpdateSuccess": "Profil berhasil diperbarui",
+    "profileUpdateFailed": "Terjadi kesalahan saat memperbarui profil",
+    "preferencesUpdateSuccess": "Preferensi berhasil diperbarui",
+    "preferencesUpdateFailed": "Terjadi kesalahan saat memperbarui preferensi",
+    "googleSignInFailed": "Login Google gagal",
+    "appleSignInFailed": "Login Apple gagal",
+    "signInCancelled": "Login dibatalkan",
+    "signInInProgress": "Login sedang berlangsung",
+    "playServicesNotAvailable": "Play Services tidak tersedia",
+    "authExampleTitle": "Contoh Autentikasi",
+    "authExampleSubtitle": "Demo fitur login dan registrasi"
   },
   "home": {
     "title": "Beranda",
@@ -62,7 +84,15 @@
     "currentPassword": "Kata Sandi Saat Ini",
     "newPassword": "Kata Sandi Baru",
     "profileUpdated": "Profil berhasil diperbarui",
-    "passwordChanged": "Kata sandi berhasil diubah"
+    "passwordChanged": "Kata sandi berhasil diubah",
+    "bio": "Bio",
+    "location": "Lokasi",
+    "website": "Website",
+    "joinedDate": "Bergabung",
+    "followers": "Pengikut",
+    "following": "Mengikuti",
+    "unknownUser": "Pengguna Tidak Dikenal",
+    "noEmail": "Tidak ada email"
   },
   "settings": {
     "title": "Pengaturan",
@@ -87,12 +117,37 @@
     "switchToLight": "Ganti ke Terang",
     "currentTheme": "Tema Saat Ini",
     "currentLanguage": "Bahasa Saat Ini",
-    "description": "Pengaturan otomatis disimpan dan disinkronkan di seluruh aplikasi"
+    "description": "Pengaturan otomatis disimpan dan disinkronkan di seluruh aplikasi",
+    "themeUpdateSuccess": "Tema berhasil diperbarui",
+    "themeUpdateFailed": "Gagal memperbarui tema",
+    "languageUpdateSuccess": "Bahasa berhasil diperbarui",
+    "languageUpdateFailed": "Gagal memperbarui bahasa",
+    "loadSettingsFailed": "Gagal memuat pengaturan",
+    "clearSettingsSuccess": "Pengaturan berhasil dihapus",
+    "clearSettingsFailed": "Gagal menghapus pengaturan",
+    "toggleTheme": "Ubah Tema"
   },
   "navigation": {
     "home": "Beranda",
     "profile": "Profil",
-    "settings": "Pengaturan"
+    "settings": "Pengaturan",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya"
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "subject": "Subjek",
+    "message": "Pesan",
+    "namePlaceholder": "Masukkan nama lengkap Anda",
+    "subjectPlaceholder": "Masukkan subjek pesan",
+    "messagePlaceholder": "Masukkan pesan Anda",
+    "sendMessage": "Kirim Pesan"
+  },
+  "search": {
+    "placeholder": "Cari...",
+    "search": "Cari",
+    "clear": "Hapus"
   },
   "errorBoundary": {
     "title": "Terjadi kesalahan",
@@ -108,7 +163,10 @@
     "notEnrolled": "Tidak ada data biometrik yang terdaftar",
     "authenticationFailed": "Autentikasi gagal",
     "enableBiometric": "Aktifkan Login Biometrik",
-    "disableBiometric": "Nonaktifkan Login Biometrik"
+    "disableBiometric": "Nonaktifkan Login Biometrik",
+    "faceId": "Face ID",
+    "touchId": "Touch ID",
+    "iris": "Iris"
   },
   "notifications": {
     "title": "Notifikasi",
@@ -136,7 +194,8 @@
       "permissionDeniedMessage": "Izin notifikasi ditolak. Anda dapat mengaktifkannya nanti di Pengaturan.",
       "general": "Error",
       "generalMessage": "Gagal meminta izin notifikasi. Silakan coba lagi."
-    }
+    },
+    "physicalDeviceRequired": "Harus menggunakan perangkat fisik untuk Push Notifications"
   },
   "socialAuth": {
     "title": "Login Media Sosial",
@@ -191,6 +250,7 @@
     "postalCodeRequired": "Kode pos wajib diisi",
     "invalidPostalCode": "Format kode pos tidak valid",
     "countryRequired": "Negara wajib diisi",
-    "countryTooLong": "Nama negara terlalu panjang"
+    "countryTooLong": "Nama negara terlalu panjang",
+    "fieldRequired": "Field ini wajib diisi"
   }
 }

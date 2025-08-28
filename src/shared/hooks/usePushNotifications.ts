@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
 import { Platform } from 'react-native'
+import { useTranslate } from '@/translate'
 
 export interface PushNotificationState {
   expoPushToken: string | null
@@ -11,6 +12,7 @@ export interface PushNotificationState {
 }
 
 export const usePushNotifications = () => {
+  const { t } = useTranslate()
   const [state, setState] = useState<PushNotificationState>({
     expoPushToken: null,
     notification: null,
@@ -26,13 +28,13 @@ export const usePushNotifications = () => {
 
     // Listen for incoming notifications
     notificationListener.current =
-      Notifications.addNotificationReceivedListener(notification => {
-        setState(prev => ({ ...prev, notification }))
+      Notifications.addNotificationReceivedListener((notification) => {
+        setState((prev) => ({ ...prev, notification }))
       })
 
     // Listen for notification responses (when user taps notification)
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener(response => {
+      Notifications.addNotificationResponseReceivedListener((response) => {
         // Handle notification response here
         console.log('Notification response:', response)
       })
@@ -52,9 +54,9 @@ export const usePushNotifications = () => {
   const registerForPushNotificationsAsync = async () => {
     try {
       if (!Device.isDevice) {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
-          error: 'Must use physical device for Push Notifications',
+          error: t('notifications.error.deviceRequired'),
           isLoading: false,
         }))
         return
@@ -70,9 +72,9 @@ export const usePushNotifications = () => {
       }
 
       if (finalStatus !== 'granted') {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
-          error: 'Failed to get push token for push notification!',
+          error: t('notifications.error.permissionDenied'),
           isLoading: false,
         }))
         return
@@ -82,7 +84,7 @@ export const usePushNotifications = () => {
         projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
       })
 
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         expoPushToken: token.data,
         isLoading: false,
@@ -97,10 +99,10 @@ export const usePushNotifications = () => {
         })
       }
     } catch (error) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         error:
-          error instanceof Error ? error.message : 'Unknown error occurred',
+          error instanceof Error ? error.message : t('common.unknownError'),
         isLoading: false,
       }))
     }
@@ -137,7 +139,7 @@ export const usePushNotifications = () => {
 
   const clearNotifications = async () => {
     await Notifications.dismissAllNotificationsAsync()
-    setState(prev => ({ ...prev, notification: null }))
+    setState((prev) => ({ ...prev, notification: null }))
   }
 
   const setBadgeCount = async (count: number) => {

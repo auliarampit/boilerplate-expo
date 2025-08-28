@@ -8,6 +8,7 @@ import {
 } from '../schemas/validationSchemas'
 import { FormTextInput } from './FormTextInput'
 import Button from './Button'
+import { useTranslate } from '@/translate'
 
 interface ContactFormProps {
   onSubmit: (data: ContactFormData) => void
@@ -18,6 +19,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   onSubmit,
   isLoading = false,
 }) => {
+  const { t } = useTranslate()
   const {
     control,
     handleSubmit,
@@ -34,63 +36,63 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   }
 
   return (
-    <View className="w-full space-y-4">
-      <Text className="text-2xl font-inter-bold text-center mb-6 dark:text-white">
-        Contact Us
+    <View className='w-full space-y-4'>
+      <Text className='text-2xl font-inter-bold text-center mb-6 dark:text-white'>
+        {t('contact.title')}
       </Text>
 
       <FormTextInput
-        name="name"
+        name='name'
         control={control}
-        label="Full Name"
-        placeholder="Enter your full name"
-        autoCapitalize="words"
-        autoComplete="name"
-        leftIcon="person"
+        label={t('profile.name')}
+        placeholder={t('contact.namePlaceholder')}
+        autoCapitalize='words'
+        autoComplete='name'
+        leftIcon='person'
         required
       />
 
       <FormTextInput
-        name="email"
+        name='email'
         control={control}
-        label="Email"
-        placeholder="Enter your email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoComplete="email"
-        leftIcon="mail"
+        label={t('auth.email')}
+        placeholder={t('auth.emailPlaceholder')}
+        keyboardType='email-address'
+        autoCapitalize='none'
+        autoComplete='email'
+        leftIcon='mail'
         required
       />
 
       <FormTextInput
-        name="subject"
+        name='subject'
         control={control}
-        label="Subject"
-        placeholder="Enter message subject"
-        autoCapitalize="sentences"
-        leftIcon="chatbubble"
+        label={t('contact.subject')}
+        placeholder={t('contact.subjectPlaceholder')}
+        autoCapitalize='sentences'
+        leftIcon='chatbubble'
         required
       />
 
       <FormTextInput
-        name="message"
+        name='message'
         control={control}
-        label="Message"
-        placeholder="Enter your message"
+        label={t('contact.message')}
+        placeholder={t('contact.messagePlaceholder')}
         multiline
         numberOfLines={4}
-        autoCapitalize="sentences"
-        leftIcon="document-text"
+        autoCapitalize='sentences'
+        leftIcon='document-text'
         required
       />
 
       <Button
-        title="Send Message"
+        title={t('contact.sendMessage')}
         onPress={handleSubmit(handleFormSubmit)}
         loading={isLoading}
         disabled={!isValid || isLoading}
-        variant="primary"
-        size="large"
+        variant='primary'
+        size='large'
         fullWidth
       />
     </View>

@@ -1,5 +1,6 @@
 import * as LocalAuthentication from 'expo-local-authentication'
 import { useEffect, useState } from 'react'
+import { useTranslate } from '@/translate'
 
 export interface BiometricAuthState {
   isAvailable: boolean
@@ -9,6 +10,7 @@ export interface BiometricAuthState {
 }
 
 export const useBiometricAuth = () => {
+  const { t } = useTranslate()
   const [state, setState] = useState<BiometricAuthState>({
     isAvailable: false,
     supportedTypes: [],
@@ -34,7 +36,7 @@ export const useBiometricAuth = () => {
         isLoading: false,
       })
     } catch {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isLoading: false,
       }))
@@ -48,9 +50,9 @@ export const useBiometricAuth = () => {
   }): Promise<LocalAuthentication.LocalAuthenticationResult> => {
     try {
       const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: options?.promptMessage || 'Authenticate with biometrics',
-        cancelLabel: options?.cancelLabel || 'Cancel',
-        fallbackLabel: options?.fallbackLabel || 'Use Passcode',
+        promptMessage: options?.promptMessage || t('biometric.promptMessage'),
+        cancelLabel: options?.cancelLabel || t('common.cancel'),
+        fallbackLabel: options?.fallbackLabel || t('biometric.fallbackLabel'),
         disableDeviceFallback: false,
       })
 
@@ -69,21 +71,21 @@ export const useBiometricAuth = () => {
         LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION
       )
     ) {
-      return 'Face ID'
+      return t('biometric.faceId')
     }
     if (
       state.supportedTypes.includes(
         LocalAuthentication.AuthenticationType.FINGERPRINT
       )
     ) {
-      return 'Touch ID'
+      return t('biometric.touchId')
     }
     if (
       state.supportedTypes.includes(LocalAuthentication.AuthenticationType.IRIS)
     ) {
-      return 'Iris'
+      return t('biometric.iris')
     }
-    return 'Biometric'
+    return t('biometric.title')
   }
 
   return {

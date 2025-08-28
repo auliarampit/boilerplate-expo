@@ -13,8 +13,15 @@ import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import './global.css'
 import { RootNavigator } from './src/navigations/RootNavigator'
-import { ErrorBoundary, NetworkProvider, NotificationPermissionModal, NotificationProvider, ThemeProvider } from './src/shared/components'
+import {
+  ErrorBoundary,
+  NetworkProvider,
+  NotificationPermissionModal,
+  NotificationProvider,
+  ThemeProvider,
+} from './src/shared/components'
 import { useNotificationPermission } from './src/shared/hooks'
+import { QueryProvider } from './src/shared/providers/QueryProvider'
 import { store } from './src/shared/store'
 import SettingsManager from './src/shared/utils/settingsManager'
 import { TranslateProvider } from './src/translate'
@@ -61,24 +68,26 @@ function App() {
 
   return (
     <Provider store={store}>
-      <ErrorBoundary>
-        <ThemeProvider>
-          <NetworkProvider>
-            <NotificationProvider>
-              <TranslateProvider>
-                <NavigationContainer>
-                  <RootNavigator />
-                </NavigationContainer>
-                <NotificationPermissionModal
-                  visible={shouldShowModal}
-                  onPermissionGranted={handlePermissionGranted}
-                  onPermissionDenied={handlePermissionDenied}
-                />
-              </TranslateProvider>
-            </NotificationProvider>
-          </NetworkProvider>
-        </ThemeProvider>
-      </ErrorBoundary>
+      <QueryProvider>
+        <ErrorBoundary>
+          <ThemeProvider>
+            <NetworkProvider>
+              <NotificationProvider>
+                <TranslateProvider>
+                  <NavigationContainer>
+                    <RootNavigator />
+                  </NavigationContainer>
+                  <NotificationPermissionModal
+                    visible={shouldShowModal}
+                    onPermissionGranted={handlePermissionGranted}
+                    onPermissionDenied={handlePermissionDenied}
+                  />
+                </TranslateProvider>
+              </NotificationProvider>
+            </NetworkProvider>
+          </ThemeProvider>
+        </ErrorBoundary>
+      </QueryProvider>
     </Provider>
   )
 }

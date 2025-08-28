@@ -76,7 +76,9 @@ class SettingsManager {
   static async getLanguage(): Promise<LanguageType | null> {
     try {
       const language = await AsyncStorage.getItem(STORAGE_KEYS.LANGUAGE)
-      return this.isValidLanguage(language || '') ? (language as LanguageType) : null
+      return this.isValidLanguage(language || '')
+        ? (language as LanguageType)
+        : null
     } catch (error) {
       console.error('Failed to get language:', error)
       return null

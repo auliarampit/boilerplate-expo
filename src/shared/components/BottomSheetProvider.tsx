@@ -79,8 +79,7 @@ const BottomSheetProvider: React.FC<BottomSheetProviderProps> = ({
           showHandle={config.showHandle}
           showCloseButton={config.showCloseButton}
           closeOnBackdrop={config.closeOnBackdrop}
-          enableGesture={config.enableGesture}
-        >
+          enableGesture={config.enableGesture}>
           {config.content}
         </BottomSheet>
       )}

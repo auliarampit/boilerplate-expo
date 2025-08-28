@@ -14,19 +14,25 @@
     "close": "Close",
     "ok": "OK",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "unknownError": "Unknown error occurred",
+    "example": "Example",
+    "welcome": "Welcome"
   },
   "auth": {
     "login": "Login",
     "logout": "Logout",
     "register": "Register",
     "email": "Email",
+    "emailPlaceholder": "Enter your email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "forgotPassword": "Forgot Password?",
-    "loginTitle": "Welcome Back",
+    "loginTitle": "Login Example",
     "loginSubtitle": "Sign in to your account",
-    "registerTitle": "Create Account",
+    "registerTitle": "Register Example",
     "registerSubtitle": "Sign up to get started",
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
@@ -36,7 +42,21 @@
     "loginError": "Invalid email or password",
     "registerError": "Failed to create account",
     "alreadyHaveAccount": "Already have an account?",
-    "dontHaveAccount": "Don't have an account?"
+    "dontHaveAccount": "Don't have an account?",
+    "loginSuccess": "Login successful",
+    "loginFailed": "An error occurred during login",
+    "registerSuccess": "Your account has been successfully created",
+    "registerFailed": "An error occurred during registration",
+    "logoutSuccess": "You have successfully logged out",
+    "profileUpdateSuccess": "Profile updated successfully",
+    "profileUpdateFailed": "An error occurred while updating profile",
+    "preferencesUpdateSuccess": "Preferences updated successfully",
+    "preferencesUpdateFailed": "An error occurred while updating preferences",
+    "googleSignInFailed": "Google sign-in failed",
+    "appleSignInFailed": "Apple sign-in failed",
+    "signInCancelled": "Sign-in was cancelled",
+    "signInInProgress": "Sign-in is already in progress",
+    "playServicesNotAvailable": "Play Services not available"
   },
   "home": {
     "title": "Home",
@@ -47,7 +67,7 @@
     "noNotifications": "No notifications"
   },
   "profile": {
-    "title": "Profile",
+    "title": "Profile Example",
     "editProfile": "Edit Profile",
     "personalInfo": "Personal Information",
     "name": "Name",
@@ -62,7 +82,15 @@
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "profileUpdated": "Profile updated successfully",
-    "passwordChanged": "Password changed successfully"
+    "passwordChanged": "Password changed successfully",
+    "bio": "Bio",
+    "location": "Location",
+    "website": "Website",
+    "joinedDate": "Joined",
+    "followers": "Followers",
+    "following": "Following",
+    "unknownUser": "Unknown User",
+    "noEmail": "No email"
   },
   "settings": {
     "title": "Settings",
@@ -87,12 +115,37 @@
     "switchToLight": "Switch to Light",
     "currentTheme": "Current Theme",
     "currentLanguage": "Current Language",
-    "description": "Settings are automatically saved and synced across the app"
+    "description": "Settings are automatically saved and synced across the app",
+    "themeUpdateSuccess": "Theme updated successfully",
+    "themeUpdateFailed": "Failed to update theme",
+    "languageUpdateSuccess": "Language updated successfully",
+    "languageUpdateFailed": "Failed to update language",
+    "loadSettingsFailed": "Failed to load settings",
+    "clearSettingsSuccess": "Settings cleared successfully",
+    "clearSettingsFailed": "Failed to clear settings",
+    "toggleTheme": "Toggle Theme"
   },
   "navigation": {
     "home": "Home",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subject": "Subject",
+    "message": "Message",
+    "namePlaceholder": "Enter your full name",
+    "subjectPlaceholder": "Enter message subject",
+    "messagePlaceholder": "Enter your message",
+    "sendMessage": "Send Message"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "search": "Search",
+    "clear": "Clear"
   },
   "errorBoundary": {
     "title": "Something went wrong",
@@ -108,7 +161,10 @@
     "notEnrolled": "No biometric data enrolled",
     "authenticationFailed": "Authentication failed",
     "enableBiometric": "Enable Biometric Login",
-    "disableBiometric": "Disable Biometric Login"
+    "disableBiometric": "Disable Biometric Login",
+    "faceId": "Face ID",
+    "touchId": "Touch ID",
+    "iris": "Iris"
   },
   "notifications": {
     "title": "Notifications",
@@ -136,7 +192,8 @@
       "permissionDeniedMessage": "Notification permission was denied. You can enable it later in Settings.",
       "general": "Error",
       "generalMessage": "Failed to request notification permission. Please try again."
-    }
+    },
+    "physicalDeviceRequired": "Must use physical device for Push Notifications"
   },
   "socialAuth": {
     "title": "Social Login",
@@ -191,6 +248,7 @@
     "postalCodeRequired": "Postal code is required",
     "invalidPostalCode": "Invalid postal code format",
     "countryRequired": "Country is required",
-    "countryTooLong": "Country name is too long"
+    "countryTooLong": "Country name is too long",
+    "fieldRequired": "This field is required"
   }
 }

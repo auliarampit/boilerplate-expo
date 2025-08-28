@@ -121,10 +121,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
             opacity: backdropOpacity,
           },
         ]}
-        className="absolute inset-0"
-      >
+        className='absolute inset-0'>
         <TouchableWithoutFeedback onPress={handleBackdropPress}>
-          <View className="flex-1" testID={`${testID}-backdrop`} />
+          <View className='flex-1' testID={`${testID}-backdrop`} />
         </TouchableWithoutFeedback>
       </Animated.View>
 
@@ -137,10 +136,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
             },
           ]}
           className={getSheetClasses()}
-          testID={`${testID}-content`}
-        >
+          testID={`${testID}-content`}>
           {showHandle && (
-            <View className="pt-3">
+            <View className='pt-3'>
               <View
                 className={getHandleClasses()}
                 testID={`${testID}-handle`}
@@ -160,11 +158,10 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
             {showCloseButton && (
               <TouchableOpacity
                 onPress={onClose}
-                className="p-2 -mr-2"
-                testID={`${testID}-close`}
-              >
+                className='p-2 -mr-2'
+                testID={`${testID}-close`}>
                 <Ionicons
-                  name="close"
+                  name='close'
                   size={24}
                   color={isDark ? '#9CA3AF' : '#6B7280'}
                 />

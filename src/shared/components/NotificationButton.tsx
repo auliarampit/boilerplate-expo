@@ -76,11 +76,9 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
   if (isLoading) {
     return (
       <View
-        className={`p-4 rounded-lg my-2 ${getThemeClass(isDark, 'background.card')}`}
-      >
+        className={`p-4 rounded-lg my-2 ${getThemeClass(isDark, 'background.card')}`}>
         <Text
-          className={`text-lg font-bold mb-2 ${getThemeClass(isDark, 'text.primary')}`}
-        >
+          className={`text-lg font-bold mb-2 ${getThemeClass(isDark, 'text.primary')}`}>
           {t('notifications.title')}
         </Text>
         <Loading />
@@ -90,37 +88,32 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
 
   return (
     <View
-      className={`p-4 rounded-lg my-2 ${getThemeClass(isDark, 'background.card')}`}
-    >
+      className={`p-4 rounded-lg my-2 ${getThemeClass(isDark, 'background.card')}`}>
       <Text
-        className={`text-lg font-bold mb-2 ${getThemeClass(isDark, 'text.primary')}`}
-      >
+        className={`text-lg font-bold mb-2 ${getThemeClass(isDark, 'text.primary')}`}>
         {t('notifications.title')}
       </Text>
 
-      {error && <Text className="text-red-500 text-sm mb-3">{error}</Text>}
+      {error && <Text className='text-red-500 text-sm mb-3'>{error}</Text>}
 
       {expoPushToken ? (
         <>
           <Text
-            className={`text-sm mb-3 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}
-          >
+            className={`text-sm mb-3 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}>
             {t('notifications.enableNotifications')}
           </Text>
 
           <View
-            className={`p-2 rounded mb-3 border ${getThemeClass(isDark, 'combined.inputField')}`}
-          >
+            className={`p-2 rounded mb-3 border ${getThemeClass(isDark, 'combined.inputField')}`}>
             <Text
               className={`text-xs font-mono ${getThemeClass(isDark, 'text.primary')}`}
-              numberOfLines={3}
-            >
+              numberOfLines={3}>
               {expoPushToken}
             </Text>
           </View>
 
           {showTestButton && (
-            <View className="gap-2">
+            <View className='gap-2'>
               <Button
                 title={t('notifications.testNotification')}
                 onPress={handleSendTestNotification}
@@ -133,12 +126,11 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
       ) : (
         <>
           <Text
-            className={`text-sm mb-3 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}
-          >
+            className={`text-sm mb-3 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}>
             {t('notifications.permissionDenied')}
           </Text>
 
-          <View className="gap-2">
+          <View className='gap-2'>
             <Button
               title={t('notifications.enableNotifications')}
               onPress={handleRegisterNotifications}
@@ -149,16 +141,13 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
 
       {notification && (
         <View
-          className={`p-2 rounded mb-3 border ${getThemeClass(isDark, 'combined.inputField')}`}
-        >
+          className={`p-2 rounded mb-3 border ${getThemeClass(isDark, 'combined.inputField')}`}>
           <Text
-            className={`text-sm mb-3 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}
-          >
+            className={`text-sm mb-3 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}>
             Last notification:
           </Text>
           <Text
-            className={`text-xs font-mono ${getThemeClass(isDark, 'text.primary')}`}
-          >
+            className={`text-xs font-mono ${getThemeClass(isDark, 'text.primary')}`}>
             {JSON.stringify(notification, null, 2)}
           </Text>
         </View>

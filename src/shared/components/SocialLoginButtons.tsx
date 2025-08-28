@@ -120,15 +120,14 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
 
   if (isLoading) {
     return (
-      <View className="p-4">
+      <View className='p-4'>
         {showTitle && (
           <Text
-            className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}
-          >
+            className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}>
             {t('socialAuth.title')}
           </Text>
         )}
-        <View className="items-center justify-center p-5">
+        <View className='items-center justify-center p-5'>
           <Loading />
         </View>
       </View>
@@ -136,35 +135,31 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
   }
 
   return (
-    <View className="p-4">
+    <View className='p-4'>
       {showTitle && (
         <Text
-          className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}
-        >
+          className={`text-lg font-bold mb-4 text-center ${getThemeClass(isDark, 'text.primary')}`}>
           {t('socialAuth.title')}
         </Text>
       )}
 
       {error && (
-        <Text className="text-red-500 text-sm mb-3 text-center">{error}</Text>
+        <Text className='text-red-500 text-sm mb-3 text-center'>{error}</Text>
       )}
 
       {user ? (
         <View>
           <View
-            className={`p-4 rounded-lg mb-4 border ${getThemeClass(isDark, 'combined.inputField')}`}
-          >
+            className={`p-4 rounded-lg mb-4 border ${getThemeClass(isDark, 'combined.inputField')}`}>
             <Text
-              className={`text-base font-bold mb-1 ${getThemeClass(isDark, 'text.primary')}`}
-            >
-              {user.name || 'Unknown User'}
+              className={`text-base font-bold mb-1 ${getThemeClass(isDark, 'text.primary')}`}>
+              {user.name || t('profile.unknownUser')}
             </Text>
             <Text
-              className={`text-sm mb-1 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}
-            >
-              {user.email || 'No email'}
+              className={`text-sm mb-1 opacity-70 ${getThemeClass(isDark, 'text.primary')}`}>
+              {user.email || t('profile.noEmail')}
             </Text>
-            <Text className="text-xs text-blue-500 capitalize">
+            <Text className='text-xs text-blue-500 capitalize'>
               {user.provider}
             </Text>
           </View>
@@ -176,7 +171,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
           />
         </View>
       ) : (
-        <View className="gap-3">
+        <View className='gap-3'>
           {isGoogleAvailable && (
             <Button
               title={t('socialAuth.signInWithGoogle')}

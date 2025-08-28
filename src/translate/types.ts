@@ -17,12 +17,18 @@ export interface TranslationKeys {
     ok: string
     yes: string
     no: string
+    retry: string
+    refresh: string
+    unknownError: string
+    example: string
+    welcome: string
   }
   auth: {
     login: string
     logout: string
     register: string
     email: string
+    emailPlaceholder: string
     password: string
     confirmPassword: string
     forgotPassword: string
@@ -39,6 +45,61 @@ export interface TranslationKeys {
     registerError: string
     alreadyHaveAccount: string
     dontHaveAccount: string
+    loginSuccess: string
+    loginFailed: string
+    registerSuccess: string
+    registerFailed: string
+    logoutSuccess: string
+    profileUpdateSuccess: string
+    profileUpdateFailed: string
+    preferencesUpdateSuccess: string
+    preferencesUpdateFailed: string
+    googleSignInFailed: string
+    appleSignInFailed: string
+    signInCancelled: string
+    signInInProgress: string
+    playServicesNotAvailable: string
+  }
+  validation: {
+    emailRequired: string
+    invalidEmail: string
+    passwordRequired: string
+    passwordTooShort: string
+    confirmPasswordRequired: string
+    passwordMismatch: string
+    newPasswordSameAsCurrent: string
+    phoneRequired: string
+    invalidPhone: string
+    nameRequired: string
+    nameTooShort: string
+    nameTooLong: string
+    subjectRequired: string
+    subjectTooLong: string
+    messageRequired: string
+    messageTooLong: string
+    searchQueryRequired: string
+    searchQueryTooLong: string
+    commentRequired: string
+    commentTooLong: string
+    addressTooLong: string
+    bioTooLong: string
+    ratingRequired: string
+    ratingInvalid: string
+    titleRequired: string
+    titleTooLong: string
+    descriptionRequired: string
+    descriptionTooLong: string
+    streetRequired: string
+    streetTooLong: string
+    cityRequired: string
+    cityTooLong: string
+    stateRequired: string
+    stateTooLong: string
+    postalCodeRequired: string
+    invalidPostalCode: string
+    countryRequired: string
+    countryTooLong: string
+    fieldRequired: string
   }
   home: {
     title: string
@@ -65,6 +126,8 @@ export interface TranslationKeys {
     newPassword: string
     profileUpdated: string
     passwordChanged: string
+    unknownUser: string
+    noEmail: string
   }
   settings: {
     title: string
@@ -85,11 +148,33 @@ export interface TranslationKeys {
     support: string
     contactUs: string
     rateApp: string
+    themeUpdateSuccess: string
+    themeUpdateFailed: string
+    languageUpdateSuccess: string
+    languageUpdateFailed: string
+    loadSettingsFailed: string
+    clearSettingsSuccess: string
+    clearSettingsFailed: string
+    toggleTheme: string
   }
   navigation: {
     home: string
     profile: string
     settings: string
+  }
+  contact: {
+    title: string
+    subject: string
+    message: string
+    namePlaceholder: string
+    subjectPlaceholder: string
+    messagePlaceholder: string
+    sendMessage: string
+  }
+  search: {
+    placeholder: string
+    search: string
+    clear: string
   }
   errorBoundary: {
     title: string
@@ -106,6 +191,9 @@ export interface TranslationKeys {
     authenticationFailed: string
     enableBiometric: string
     disableBiometric: string
+    faceId: string
+    touchId: string
+    iris: string
   }
   notifications: {
     title: string
@@ -159,11 +247,14 @@ export type TranslationKey =
   | `profile.${keyof TranslationKeys['profile']}`
   | `settings.${keyof TranslationKeys['settings']}`
   | `navigation.${keyof TranslationKeys['navigation']}`
+  | `contact.${keyof TranslationKeys['contact']}`
+  | `search.${keyof TranslationKeys['search']}`
   | `errorBoundary.${keyof TranslationKeys['errorBoundary']}`
   | `biometric.${keyof TranslationKeys['biometric']}`
   | `notifications.${keyof TranslationKeys['notifications']}`
   | `notifications.error.${keyof TranslationKeys['notifications']['error']}`
   | `socialAuth.${keyof TranslationKeys['socialAuth']}`
+  | `validation.${keyof TranslationKeys['validation']}`
 
 export interface TranslateContextType {
   language: Language

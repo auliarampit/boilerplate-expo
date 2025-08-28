@@ -83,8 +83,7 @@ const Button: React.FC<ButtonProps> = ({
         <Text
           className={textClasses}
           style={textStyle}
-          testID={`${testID}-text`}
-        >
+          testID={`${testID}-text`}>
           {title}
         </Text>
         {icon && iconPosition === 'right' && renderIcon()}
@@ -99,8 +98,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={isDisabled}
       style={style}
       testID={testID}
-      activeOpacity={0.8}
-    >
+      activeOpacity={0.8}>
       {renderContent()}
     </TouchableOpacity>
   )

@@ -51,8 +51,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({
     <TouchableOpacity
       className={getButtonClasses()}
       onPress={onPress}
-      testID={testID}
-    >
+      testID={testID}>
       <Text className={getTextClasses()}>{title}</Text>
     </TouchableOpacity>
   )

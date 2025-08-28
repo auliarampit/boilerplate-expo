@@ -1,6 +1,7 @@
 import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
 import { TextInputProps } from 'react-native'
 import { useTextInputLogic } from './useTextInputLogic'
+import { useTranslate } from '@/translate'
 
 interface UseFormTextInputProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -20,24 +21,25 @@ export const useFormTextInput = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-    name,
-    control,
-    variant = 'default',
-    size = 'medium',
-    label,
-    helperText,
-    required = false,
-    disabled = false,
-    secureTextEntry = false,
-    ...textInputProps
-  }: UseFormTextInputProps<TFieldValues, TName>) => {
+  name,
+  control,
+  variant = 'default',
+  size = 'medium',
+  label,
+  helperText,
+  required = false,
+  disabled = false,
+  secureTextEntry = false,
+  ...textInputProps
+}: UseFormTextInputProps<TFieldValues, TName>) => {
+  const { t } = useTranslate()
   const {
     field: { value, onChange, onBlur },
     fieldState: { error },
   } = useController({
     name,
     control,
-    rules: { required: required ? 'This field is required' : false },
+    rules: { required: required ? t('validation.fieldRequired') : false },
   })
 
   const textInputLogic = useTextInputLogic({

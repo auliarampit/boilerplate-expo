@@ -8,6 +8,7 @@ import * as Crypto from 'expo-crypto'
 import { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { SocialAuthConfig } from '../types/navigation'
+import { useTranslate } from '@/translate'
 
 export interface SocialAuthUser {
   id: string
@@ -27,6 +28,7 @@ export interface SocialAuthState {
 }
 
 const useSocialAuth = (config?: SocialAuthConfig) => {
+  const { t } = useTranslate()
   const [state, setState] = useState<SocialAuthState>({
     user: null,
     isLoading: false,
@@ -50,18 +52,18 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
           iosClientId: config.google.iosClientId,
           offlineAccess: true,
         })
-        setState(prev => ({ ...prev, isGoogleAvailable: true }))
+        setState((prev) => ({ ...prev, isGoogleAvailable: true }))
       }
 
       // Check Apple Sign-In availability
       if (Platform.OS === 'ios') {
         const isAvailable = await AppleAuthentication.isAvailableAsync()
-        setState(prev => ({ ...prev, isAppleAvailable: isAvailable }))
+        setState((prev) => ({ ...prev, isAppleAvailable: isAvailable }))
       }
 
       // Facebook is available if config is provided
       if (config?.facebook) {
-        setState(prev => ({ ...prev, isFacebookAvailable: true }))
+        setState((prev) => ({ ...prev, isFacebookAvailable: true }))
       }
     } catch (error) {
       console.error('Error initializing social auth providers:', error)
@@ -73,7 +75,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       throw new Error('Google Sign-In is not available')
     }
 
-    setState(prev => ({ ...prev, isLoading: true, error: null }))
+    setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
     try {
       await GoogleSignin.hasPlayServices()
@@ -87,20 +89,20 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
         provider: 'google',
       }
 
-      setState(prev => ({ ...prev, user, isLoading: false }))
+      setState((prev) => ({ ...prev, user, isLoading: false }))
       return user
     } catch (error: any) {
-      let errorMessage = 'Google sign-in failed'
+      let errorMessage = t('auth.googleSignInFailed')
 
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        errorMessage = 'Sign-in was cancelled'
+        errorMessage = t('auth.signInCancelled')
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        errorMessage = 'Sign-in is already in progress'
+        errorMessage = t('auth.signInInProgress')
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        errorMessage = 'Play Services not available'
+        errorMessage = t('auth.playServicesNotAvailable')
       }
 
-      setState(prev => ({ ...prev, error: errorMessage, isLoading: false }))
+      setState((prev) => ({ ...prev, error: errorMessage, isLoading: false }))
       throw new Error(errorMessage)
     }
   }
@@ -110,7 +112,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       throw new Error('Apple Sign-In is not available')
     }
 
-    setState(prev => ({ ...prev, isLoading: true, error: null }))
+    setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
     try {
       const credential = await AppleAuthentication.signInAsync({
@@ -130,16 +132,16 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
         provider: 'apple',
       }
 
-      setState(prev => ({ ...prev, user, isLoading: false }))
+      setState((prev) => ({ ...prev, user, isLoading: false }))
       return user
     } catch (error: any) {
-      let errorMessage = 'Apple sign-in failed'
+      let errorMessage = t('auth.appleSignInFailed')
 
       if (error.code === 'ERR_CANCELED') {
-        errorMessage = 'Sign-in was cancelled'
+        errorMessage = t('auth.signInCancelled')
       }
 
-      setState(prev => ({ ...prev, error: errorMessage, isLoading: false }))
+      setState((prev) => ({ ...prev, error: errorMessage, isLoading: false }))
       throw new Error(errorMessage)
     }
   }
@@ -149,7 +151,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       throw new Error('Facebook Sign-In is not available')
     }
 
-    setState(prev => ({ ...prev, isLoading: true, error: null }))
+    setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
     try {
       const redirectUri = AuthSession.makeRedirectUri()
@@ -206,7 +208,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
             provider: 'facebook',
           }
 
-          setState(prev => ({ ...prev, user, isLoading: false }))
+          setState((prev) => ({ ...prev, user, isLoading: false }))
           return user
         }
       }
@@ -214,13 +216,13 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       throw new Error('Facebook authentication failed')
     } catch (error: any) {
       const errorMessage = error.message || 'Facebook sign-in failed'
-      setState(prev => ({ ...prev, error: errorMessage, isLoading: false }))
+      setState((prev) => ({ ...prev, error: errorMessage, isLoading: false }))
       throw new Error(errorMessage)
     }
   }
 
   const signOut = async (): Promise<void> => {
-    setState(prev => ({ ...prev, isLoading: true, error: null }))
+    setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
     try {
       // Sign out from Google if user was signed in with Google
@@ -228,7 +230,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
         await GoogleSignin.signOut()
       }
 
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         user: null,
         isLoading: false,
@@ -236,7 +238,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       }))
     } catch (error: any) {
       const errorMessage = error.message || 'Sign out failed'
-      setState(prev => ({ ...prev, error: errorMessage, isLoading: false }))
+      setState((prev) => ({ ...prev, error: errorMessage, isLoading: false }))
       throw new Error(errorMessage)
     }
   }
@@ -253,7 +255,7 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
             photo: userInfo.user.photo,
             provider: 'google',
           }
-          setState(prev => ({ ...prev, user }))
+          setState((prev) => ({ ...prev, user }))
           return user
         }
       }

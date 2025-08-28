@@ -59,19 +59,19 @@ function ErrorFallback({ onRetry }: ErrorFallbackProps) {
   const { t } = useTranslate()
 
   return (
-    <View className="flex-1 justify-center items-center p-6 bg-white dark:bg-gray-900">
-      <View className="items-center space-y-4">
-        <Text className="text-6xl mb-4">😵</Text>
-        <Text className="text-xl font-semibold text-gray-900 dark:text-white text-center">
+    <View className='flex-1 justify-center items-center p-6 bg-white dark:bg-gray-900'>
+      <View className='items-center space-y-4'>
+        <Text className='text-6xl mb-4'>😵</Text>
+        <Text className='text-xl font-semibold text-gray-900 dark:text-white text-center'>
           {t('errorBoundary.title')}
         </Text>
-        <Text className="text-gray-600 dark:text-gray-400 text-center leading-6">
+        <Text className='text-gray-600 dark:text-gray-400 text-center leading-6'>
           {t('errorBoundary.description')}
         </Text>
         <Button
           title={t('errorBoundary.retry')}
           onPress={onRetry}
-          variant="primary"
+          variant='primary'
         />
       </View>
     </View>

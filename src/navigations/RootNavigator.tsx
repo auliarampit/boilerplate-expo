@@ -121,9 +121,8 @@ function LoadingScreen() {
 
   return (
     <View
-      className={`flex-1 justify-center items-center ${getThemeClass(isDark, 'background.primary')}`}
-    >
-      <ActivityIndicator size="large" color="#3B82F6" />
+      className={`flex-1 justify-center items-center ${getThemeClass(isDark, 'background.primary')}`}>
+      <ActivityIndicator size='large' color='#3B82F6' />
     </View>
   )
 }
@@ -141,8 +140,7 @@ function RootNavigatorContent() {
         {
           // headerShown: NAVIGATION_OPTIONS.HEADER_SHOWN,
         }
-      }
-    >
+      }>
       {isAuthenticated ? (
         <Stack.Screen name={ROOT_ROUTES.APP} component={AppNavigator} />
       ) : (

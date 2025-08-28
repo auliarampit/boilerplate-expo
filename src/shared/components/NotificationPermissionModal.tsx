@@ -81,48 +81,42 @@ export const NotificationPermissionModal: React.FC<
     <Modal
       visible={visible}
       transparent
-      animationType="fade"
-      statusBarTranslucent
-    >
-      <View className="flex-1 bg-black/50 justify-center items-center px-6">
+      animationType='fade'
+      statusBarTranslucent>
+      <View className='flex-1 bg-black/50 justify-center items-center px-6'>
         <View
-          className="bg-white rounded-2xl p-6 w-full max-w-sm"
-          style={{ backgroundColor: colors.background }}
-        >
-          <View className="items-center mb-6">
+          className='bg-white rounded-2xl p-6 w-full max-w-sm'
+          style={{ backgroundColor: colors.background }}>
+          <View className='items-center mb-6'>
             <View
-              className="w-16 h-16 rounded-full mb-4 items-center justify-center"
-              style={{ backgroundColor: colors.primary }}
-            >
-              <Text className="text-2xl">🔔</Text>
+              className='w-16 h-16 rounded-full mb-4 items-center justify-center'
+              style={{ backgroundColor: colors.primary }}>
+              <Text className='text-2xl'>🔔</Text>
             </View>
 
             <Text
-              className="text-xl font-bold text-center mb-2"
-              style={{ color: colors.text }}
-            >
+              className='text-xl font-bold text-center mb-2'
+              style={{ color: colors.text }}>
               {t('notifications.permissionTitle')}
             </Text>
 
             <Text
-              className="text-base text-center leading-6"
-              style={{ color: colors.textSecondary }}
-            >
+              className='text-base text-center leading-6'
+              style={{ color: colors.textSecondary }}>
               {t('notifications.permissionMessage')}
             </Text>
           </View>
 
-          <View className="space-y-3">
+          <View className='space-y-3'>
             <TouchableOpacity
-              className="py-4 px-6 rounded-xl items-center"
+              className='py-4 px-6 rounded-xl items-center'
               style={{
                 backgroundColor: colors.primary,
                 opacity: isRequesting ? 0.7 : 1,
               }}
               onPress={handleRequestPermission}
-              disabled={isRequesting}
-            >
-              <Text className="text-white font-semibold text-base">
+              disabled={isRequesting}>
+              <Text className='text-white font-semibold text-base'>
                 {isRequesting
                   ? t('notifications.requesting')
                   : t('notifications.allowNotifications')}
@@ -130,18 +124,16 @@ export const NotificationPermissionModal: React.FC<
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="py-4 px-6 rounded-xl items-center border"
+              className='py-4 px-6 rounded-xl items-center border'
               style={{
                 borderColor: colors.border,
                 backgroundColor: 'transparent',
               }}
               onPress={handleSkip}
-              disabled={isRequesting}
-            >
+              disabled={isRequesting}>
               <Text
-                className="font-semibold text-base"
-                style={{ color: colors.textSecondary }}
-              >
+                className='font-semibold text-base'
+                style={{ color: colors.textSecondary }}>
                 {t('notifications.skipForNow')}
               </Text>
             </TouchableOpacity>
@@ -200,7 +192,7 @@ export const NotificationPermissionModal: React.FC<
         message={t('notifications.skipMessage')}
         confirmText={t('notifications.skipConfirm')}
         cancelText={t('notifications.skipCancel')}
-        confirmStyle="destructive"
+        confirmStyle='destructive'
         onConfirm={handleSkipConfirm}
         onCancel={() => setShowSkipConfirmation(false)}
       />

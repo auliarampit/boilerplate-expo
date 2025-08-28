@@ -33,22 +33,19 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     <Modal
       visible={visible}
       transparent
-      animationType="fade"
-      onRequestClose={onCancel}
-    >
-      <View className="flex-1 bg-black/50 justify-center items-center p-5">
+      animationType='fade'
+      onRequestClose={onCancel}>
+      <View className='flex-1 bg-black/50 justify-center items-center p-5'>
         <View
           className={`rounded-xl p-6 w-full max-w-xs shadow-lg ${getThemeClass(
             isDark,
             'background.modal'
-          )}`}
-        >
+          )}`}>
           <Text
             className={`text-lg font-bold text-center mb-3 ${getThemeClass(
               isDark,
               'text.primary'
-            )}`}
-          >
+            )}`}>
             {title}
           </Text>
 
@@ -56,17 +53,16 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             className={`text-base text-center mb-6 leading-6 ${getThemeClass(
               isDark,
               'text.secondary'
-            )}`}
-          >
+            )}`}>
             {message}
           </Text>
 
-          <View className="flex-row gap-3">
+          <View className='flex-row gap-3'>
             <ModalButton
               title={cancelText || t('common.cancel')}
               onPress={onCancel}
-              variant="secondary"
-              testID="confirmation-modal-cancel"
+              variant='secondary'
+              testID='confirmation-modal-cancel'
             />
 
             <ModalButton
@@ -75,7 +71,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               variant={
                 confirmStyle === 'destructive' ? 'destructive' : 'primary'
               }
-              testID="confirmation-modal-confirm"
+              testID='confirmation-modal-confirm'
             />
           </View>
         </View>
