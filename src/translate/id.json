@@ -102,6 +102,9 @@
     "light": "Terang",
     "dark": "Gelap",
     "system": "Sistem",
+    "description": "Pengaturan dan preferensi aplikasi",
+    "languageIndonesian": "Indonesia",
+    "languageEnglish": "Inggris",
     "notifications": "Notifikasi",
     "pushNotifications": "Notifikasi Push",
     "emailNotifications": "Notifikasi Email",
@@ -117,7 +120,7 @@
     "switchToLight": "Ganti ke Terang",
     "currentTheme": "Tema Saat Ini",
     "currentLanguage": "Bahasa Saat Ini",
-    "description": "Pengaturan otomatis disimpan dan disinkronkan di seluruh aplikasi",
+    "autoSaveDescription": "Pengaturan otomatis disimpan dan disinkronkan di seluruh aplikasi",
     "themeUpdateSuccess": "Tema berhasil diperbarui",
     "themeUpdateFailed": "Gagal memperbarui tema",
     "languageUpdateSuccess": "Bahasa berhasil diperbarui",
@@ -252,5 +255,11 @@
     "countryRequired": "Negara wajib diisi",
     "countryTooLong": "Nama negara terlalu panjang",
     "fieldRequired": "Field ini wajib diisi"
+  },
+  "api": {
+    "invalidCredentials": "Email atau password salah",
+    "userNotFound": "User tidak ditemukan",
+    "emailAlreadyExists": "Email sudah terdaftar",
+    "tokenNotFound": "Token tidak ditemukan"
   }
 }

@@ -137,6 +137,10 @@ export interface TranslationKeys {
     light: string
     dark: string
     system: string
+    description: string
+    autoSaveDescription: string
+    languageIndonesian: string
+    languageEnglish: string
     notifications: string
     pushNotifications: string
     emailNotifications: string
@@ -238,6 +242,12 @@ export interface TranslationKeys {
     signInFailed: string
     signOutFailed: string
   }
+  api: {
+    invalidCredentials: string
+    userNotFound: string
+    emailAlreadyExists: string
+    tokenNotFound: string
+  }
 }
 
 export type TranslationKey =
@@ -255,6 +265,7 @@ export type TranslationKey =
   | `notifications.error.${keyof TranslationKeys['notifications']['error']}`
   | `socialAuth.${keyof TranslationKeys['socialAuth']}`
   | `validation.${keyof TranslationKeys['validation']}`
+  | `api.${keyof TranslationKeys['api']}`
 
 export interface TranslateContextType {
   language: Language

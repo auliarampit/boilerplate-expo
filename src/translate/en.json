@@ -100,6 +100,9 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
+    "description": "App settings and preferences",
+    "languageIndonesian": "Indonesian",
+    "languageEnglish": "English",
     "notifications": "Notifications",
     "pushNotifications": "Push Notifications",
     "emailNotifications": "Email Notifications",
@@ -115,7 +118,7 @@
     "switchToLight": "Switch to Light",
     "currentTheme": "Current Theme",
     "currentLanguage": "Current Language",
-    "description": "Settings are automatically saved and synced across the app",
+    "autoSaveDescription": "Settings are automatically saved and synced across the app",
     "themeUpdateSuccess": "Theme updated successfully",
     "themeUpdateFailed": "Failed to update theme",
     "languageUpdateSuccess": "Language updated successfully",
@@ -250,5 +253,11 @@
     "countryRequired": "Country is required",
     "countryTooLong": "Country name is too long",
     "fieldRequired": "This field is required"
+  },
+  "api": {
+    "invalidCredentials": "Invalid email or password",
+    "userNotFound": "User not found",
+    "emailAlreadyExists": "Email already registered",
+    "tokenNotFound": "Token not found"
   }
 }

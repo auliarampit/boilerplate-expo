@@ -4,6 +4,7 @@ import { AppStackScreenProps } from '@/shared/types/navigation'
 import { APP_ROUTES } from '@/shared/constants/navigation'
 import { useTheme, SocialLoginButtons } from '@/shared/components'
 import { getThemeClass } from '@/shared'
+import { SOCIAL_AUTH_CONFIG } from '@/shared/constants/socialAuthConfig'
 
 export const ProfileScreen = ({
   navigation,
@@ -47,7 +48,7 @@ export const ProfileScreen = ({
       </TouchableOpacity>
 
       <View className='mt-8 w-full max-w-sm'>
-        <SocialLoginButtons />
+        <SocialLoginButtons config={SOCIAL_AUTH_CONFIG} />
       </View>
     </View>
   )

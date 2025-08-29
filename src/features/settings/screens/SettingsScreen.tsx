@@ -38,7 +38,7 @@ export function SettingsScreen({
       </Text>
       <Text
         className={`text-base mb-8 text-center font-inter ${getThemeClass(isDark, 'text.secondary')}`}>
-        App settings and preferences
+        {t('settings.description')}
       </Text>
 
       <TouchableOpacity
@@ -46,7 +46,7 @@ export function SettingsScreen({
         onPress={toggleLanguage}>
         <Text className='text-white text-base font-semibold font-inter-semibold'>
           {t('settings.language')}:{' '}
-          {language === 'id' ? 'Indonesia' : 'English'}
+          {language === 'id' ? t('settings.languageIndonesian') : t('settings.languageEnglish')}
         </Text>
       </TouchableOpacity>
 

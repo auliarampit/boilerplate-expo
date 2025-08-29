@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosError } from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { API_CONFIG } from '@/shared/constants/api'
 import { STORAGE_KEYS } from '@/shared/constants/storage'
+import { getTranslation } from '@/translate/utils'
 import mockUsers from '@/temporary/mockData/users.json'
 
 class SimpleApiClient {
@@ -57,12 +58,14 @@ class SimpleApiClient {
       // Fallback ke mock data
       const credentials = this.validateCredentials(email, password)
       if (!credentials) {
-        throw new Error('Email atau password salah')
+        const errorMessage = await getTranslation('api.invalidCredentials')
+        throw new Error(errorMessage)
       }
 
       const user = this.getMockUser(email)
       if (!user) {
-        throw new Error('User tidak ditemukan')
+        const errorMessage = await getTranslation('api.userNotFound')
+        throw new Error(errorMessage)
       }
 
       // Simulate token
@@ -102,7 +105,8 @@ class SimpleApiClient {
       // Check if email already exists
       const existingUser = this.getMockUser(userData.email)
       if (existingUser) {
-        throw new Error('Email sudah terdaftar')
+        const errorMessage = await getTranslation('api.emailAlreadyExists')
+        throw new Error(errorMessage)
       }
 
       // Create new mock user
@@ -165,7 +169,8 @@ class SimpleApiClient {
       // Get current user from token (simplified)
       const token = await AsyncStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
       if (!token) {
-        throw new Error('Token tidak ditemukan')
+        const errorMessage = await getTranslation('api.tokenNotFound')
+        throw new Error(errorMessage)
       }
 
       // Return first user as default (in real app, decode token)

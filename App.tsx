@@ -25,13 +25,20 @@ import { QueryProvider } from './src/shared/providers/QueryProvider'
 import { store } from './src/shared/store'
 import SettingsManager from './src/shared/utils/settingsManager'
 import { TranslateProvider } from './src/translate'
+// Environment variables are now accessed directly via process.env
+// No complex validation needed - missing vars will be undefined
 
 // Initialize Sentry
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  debug: __DEV__,
-  environment: __DEV__ ? 'development' : 'production',
-})
+const sentryDsn = process.env.EXPO_PUBLIC_SENTRY_DSN
+if (sentryDsn && sentryDsn !== 'your_sentry_dsn_here') {
+  Sentry.init({
+    dsn: sentryDsn,
+    debug: __DEV__,
+    environment: __DEV__ ? 'development' : 'production',
+  })
+} else if (__DEV__) {
+  console.log('Sentry DSN not configured - error tracking disabled')
+}
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync()
