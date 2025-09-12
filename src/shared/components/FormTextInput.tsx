@@ -1,7 +1,7 @@
-import React from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { Control, FieldPath, FieldValues } from 'react-hook-form'
 import { Ionicons } from '@expo/vector-icons'
+import React from 'react'
+import { Control, FieldPath, FieldValues } from 'react-hook-form'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useFormTextInput } from '../hooks/useFormTextInput'
 
 interface FormTextInputProps<

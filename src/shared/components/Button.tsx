@@ -1,12 +1,12 @@
+import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import {
-  TouchableOpacity,
-  Text,
   ActivityIndicator,
-  ViewStyle,
+  Text,
   TextStyle,
+  TouchableOpacity,
+  ViewStyle,
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
 import { useButtonLogic } from '../hooks/useButtonLogic'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
@@ -27,7 +27,7 @@ interface ButtonProps {
   textStyle?: TextStyle
 }
 
-const Button: React.FC<ButtonProps> = ({
+const ButtonComponent: React.FC<ButtonProps> = ({
   title,
   onPress,
   variant = 'primary',
@@ -103,5 +103,8 @@ const Button: React.FC<ButtonProps> = ({
     </TouchableOpacity>
   )
 }
+
+const Button = React.memo(ButtonComponent)
+Button.displayName = 'Button'
 
 export default Button
