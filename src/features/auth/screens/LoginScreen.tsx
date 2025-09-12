@@ -1,16 +1,19 @@
-import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { AuthStackScreenProps } from '@/shared/types/navigation'
-import { AUTH_ROUTES } from '@/shared/constants/navigation'
-import { useTheme } from '@/shared/components'
 import { getThemeClass } from '@/shared'
+import { useTheme } from '@/shared/components'
+import { LoginForm } from '@/shared/components/LoginForm'
+import { AUTH_ROUTES } from '@/shared/constants/navigation'
+import { useLogin } from '@/shared/hooks/useSimpleAuth'
+import { LoginFormData } from '@/shared/schemas/validationSchemas'
+import { AuthStackScreenProps } from '@/shared/types/navigation'
+import React from 'react'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 export const LoginScreen = ({ navigation }: AuthStackScreenProps<'Login'>) => {
   const { isDark } = useTheme()
+  const { mutate: login, isPending } = useLogin()
 
-  const handleLogin = () => {
-    // TODO: Implement login logic
-    console.log('Login pressed')
+  const handleLogin = (data: LoginFormData) => {
+    login({ email: data.email, password: data.password })
   }
 
   const navigateToRegister = () => {
@@ -22,32 +25,38 @@ export const LoginScreen = ({ navigation }: AuthStackScreenProps<'Login'>) => {
   }
 
   return (
-    <View
-      className={`flex-1 justify-center items-center p-5 ${getThemeClass(isDark, 'background.primary')}`}>
-      <Text
-        className={`text-2xl font-bold mb-8 font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}>
-        Login
-      </Text>
-
-      <TouchableOpacity
-        className='bg-blue-600 px-8 py-3 rounded-lg mb-4 min-w-[200px] items-center active:bg-blue-700'
-        onPress={handleLogin}>
-        <Text className='text-white text-base font-semibold font-inter-semibold'>
-          Login
+    <ScrollView
+      className={`flex-1 p-5 ${getThemeClass(isDark, 'background.primary')}`}
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+      keyboardShouldPersistTaps="handled">
+      <View className="max-w-md w-full mx-auto">
+        <Text
+          className={`text-3xl font-bold mb-8 text-center font-inter-bold ${getThemeClass(isDark, 'text.primary')}`}>
+          Welcome Back
         </Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity className='py-3' onPress={navigateToRegister}>
-        <Text className='text-blue-600 text-sm underline font-inter'>
-          Register
-        </Text>
-      </TouchableOpacity>
+        <LoginForm onSubmit={handleLogin} isLoading={isPending} />
 
-      <TouchableOpacity className='py-3' onPress={navigateToForgotPassword}>
-        <Text className='text-blue-600 text-sm underline font-inter'>
-          Forgot Password?
-        </Text>
-      </TouchableOpacity>
-    </View>
+        <View className="mt-6 space-y-4">
+          <TouchableOpacity
+            className="py-3"
+            onPress={navigateToRegister}
+            disabled={isPending}>
+            <Text className={`text-center text-blue-600 text-sm underline font-inter ${isPending ? 'opacity-50' : ''}`}>
+              Don't have an account? Register
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="py-3"
+            onPress={navigateToForgotPassword}
+            disabled={isPending}>
+            <Text className={`text-center text-blue-600 text-sm underline font-inter ${isPending ? 'opacity-50' : ''}`}>
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   )
 }

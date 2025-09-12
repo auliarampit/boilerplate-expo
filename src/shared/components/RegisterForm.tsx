@@ -1,14 +1,11 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  registerSchema,
-  type RegisterFormData,
-} from '../schemas/validationSchemas'
-import { FormTextInput } from './FormTextInput'
-import Button from './Button'
 import { useTranslate } from '@/translate'
+import { zodResolver } from '@hookform/resolvers/zod'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { Text, View } from 'react-native'
+import { registerSchema, type RegisterFormData } from '../schemas/validationSchemas'
+import Button from './Button'
+import { FormTextInput } from './FormTextInput'
 
 interface RegisterFormProps {
   onSubmit: (data: RegisterFormData) => void
@@ -42,8 +39,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
       <FormTextInput
         name='name'
         control={control}
-        label={t('profile.name')}
-        placeholder={t('profile.name')}
+        label={t('auth.name' as any)}
+        placeholder={t('auth.name' as any)}
         autoCapitalize='words'
         autoComplete='name'
         leftIcon='person'
