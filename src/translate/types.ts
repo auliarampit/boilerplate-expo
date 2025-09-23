@@ -27,6 +27,7 @@ export interface TranslationKeys {
     login: string
     logout: string
     register: string
+    name: string
     email: string
     emailPlaceholder: string
     password: string
@@ -84,6 +85,11 @@ export interface TranslationKeys {
     addressTooLong: string
     bioTooLong: string
     ratingRequired: string
+    required: string
+    minLength: string
+    maxLength: string
+    pattern: string
+    custom: string
     ratingInvalid: string
     titleRequired: string
     titleTooLong: string

@@ -25,6 +25,7 @@
     "login": "Masuk",
     "logout": "Keluar",
     "register": "Daftar",
+    "name": "Nama",
     "email": "Email",
     "emailPlaceholder": "Masukkan email Anda",
     "password": "Kata Sandi",
@@ -56,9 +57,7 @@
     "appleSignInFailed": "Login Apple gagal",
     "signInCancelled": "Login dibatalkan",
     "signInInProgress": "Login sedang berlangsung",
-    "playServicesNotAvailable": "Play Services tidak tersedia",
-    "authExampleTitle": "Contoh Autentikasi",
-    "authExampleSubtitle": "Demo fitur login dan registrasi"
+    "playServicesNotAvailable": "Play Services tidak tersedia"
   },
   "home": {
     "title": "Beranda",
@@ -239,6 +238,11 @@
     "addressTooLong": "Alamat terlalu panjang",
     "bioTooLong": "Bio terlalu panjang",
     "ratingRequired": "Rating wajib diisi",
+    "required": "Field ini wajib diisi",
+    "minLength": "Panjang minimum adalah {min} karakter",
+    "maxLength": "Panjang maksimum adalah {max} karakter",
+    "pattern": "Format tidak valid",
+    "custom": "Nilai tidak valid",
     "ratingInvalid": "Rating harus antara 1 sampai 5",
     "titleRequired": "Judul wajib diisi",
     "titleTooLong": "Judul terlalu panjang",

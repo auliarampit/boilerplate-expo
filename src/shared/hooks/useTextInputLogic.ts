@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useTheme } from '../components/ThemeProvider'
-import { getThemeClass } from '../constants/themeClasses'
+import { createInputClasses } from '../utils/classUtils'
+import { usePasswordVisibility, useFocusState } from './useCommonStates'
 
 type InputVariant = 'default' | 'filled' | 'outline'
 type InputSize = 'small' | 'medium' | 'large'
@@ -20,112 +21,46 @@ export const useTextInputLogic = ({
   disabled = false,
   secureTextEntry = false,
 }: UseTextInputLogicProps) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const [isFocused, setIsFocused] = useState(false)
+  const { isPasswordVisible, togglePasswordVisibility } = usePasswordVisibility()
+  const { isFocused, onFocus: handleFocus, onBlur: handleBlur } = useFocusState()
   const { isDark } = useTheme()
   const hasError = Boolean(error)
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible)
-  }
-
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
-
-  const handleBlur = () => {
-    setIsFocused(false)
-  }
+  const inputClasses = useMemo(() => {
+    // Map variant to match createInputClasses expected values
+    const mappedVariant = variant === 'default' ? 'outline' : variant as 'outline' | 'filled'
+    
+    return createInputClasses(
+      isDark,
+      mappedVariant,
+      size,
+      hasError,
+      isFocused,
+      disabled
+    )
+  }, [isDark, variant, size, hasError, isFocused, disabled])
 
   const getContainerClasses = () => {
-    const baseClasses = 'w-full'
-    return baseClasses
+    return 'w-full'
   }
 
   const getInputContainerClasses = () => {
-    const baseClasses = 'flex-row items-center rounded-lg'
-    const sizeClasses = getSizeClasses()
-    const variantClasses = getVariantClasses()
-    const stateClasses = getStateClasses()
-
-    return `${baseClasses} ${sizeClasses} ${variantClasses} ${stateClasses}`.trim()
+    return inputClasses.container
   }
 
   const getInputClasses = () => {
-    const baseClasses = 'flex-1 font-inter'
-    const textColorClasses = getThemeClass(isDark, 'text.primary')
-    const placeholderClasses = 'placeholder:text-gray-500'
-
-    return `${baseClasses} ${textColorClasses} ${placeholderClasses}`.trim()
+    return inputClasses.input
   }
 
   const labelClasses = useMemo(() => {
-    const baseClasses = 'font-inter-medium mb-2'
-    const colorClasses = hasError
-      ? 'text-red-600'
-      : isDark
-        ? 'text-gray-300'
-        : 'text-gray-700'
-    const sizeClasses = size === 'small' ? 'text-sm' : 'text-base'
-
-    return `${baseClasses} ${colorClasses} ${sizeClasses}`.trim()
-  }, [hasError, isDark, size])
+    return inputClasses.label
+  }, [inputClasses.label])
 
   const helperTextClasses = useMemo(() => {
-    const baseClasses = 'font-inter mt-1'
-    const colorClasses = hasError
-      ? 'text-red-600'
-      : isDark
-        ? 'text-gray-400'
-        : 'text-gray-600'
-    const sizeClasses = 'text-sm'
+    return inputClasses.helperText
+  }, [inputClasses.helperText])
 
-    return `${baseClasses} ${colorClasses} ${sizeClasses}`.trim()
-  }, [hasError, isDark])
 
-  const getSizeClasses = () => {
-    const sizeMap = {
-      small: 'px-3 py-2 min-h-[36px]',
-      medium: 'px-4 py-3 min-h-[44px]',
-      large: 'px-4 py-4 min-h-[52px]',
-    }
-    return sizeMap[size]
-  }
-
-  const getVariantClasses = () => {
-    const variantMap = {
-      default: isDark
-        ? 'border border-gray-600 bg-gray-800'
-        : 'border border-gray-300 bg-white',
-      filled: `${getThemeClass(isDark, 'background.secondary')} border-0`,
-      outline: isDark
-        ? 'border-2 border-gray-600 bg-transparent'
-        : 'border-2 border-gray-300 bg-transparent',
-    }
-    return variantMap[variant]
-  }
-
-  const getStateClasses = () => {
-    if (disabled) {
-      return 'opacity-50'
-    }
-
-    if (hasError) {
-      return variant === 'outline' ? 'border-red-500' : 'border border-red-500'
-    }
-
-    if (isFocused) {
-      return variant === 'outline'
-        ? isDark
-          ? 'border-blue-500'
-          : 'border-blue-500'
-        : isDark
-          ? 'border-blue-500'
-          : 'border-blue-500'
-    }
-
-    return ''
-  }
 
   const iconColor = useMemo(() => {
     if (hasError) return '#EF4444'

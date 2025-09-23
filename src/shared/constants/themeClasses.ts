@@ -95,7 +95,7 @@ export const THEME_CLASSES = {
 
 export const getThemeClass = (isDark: boolean, classPath: string) => {
   const keys = classPath.split('.')
-  let current: any = THEME_CLASSES
+  let current: typeof THEME_CLASSES | any = THEME_CLASSES
 
   for (const key of keys) {
     current = current[key]

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text } from 'react-native'
 import useSocialAuth, { SocialAuthUser } from '../hooks/useSocialAuth'
 import { useTranslate } from '../../translate'
@@ -8,6 +8,7 @@ import Loading from './Loading'
 import ConfirmationModal from './ConfirmationModal'
 import { SocialAuthConfig } from '../types/navigation'
 import { getThemeClass } from '../constants/themeClasses'
+import { useModalState, useFieldState } from '@/shared/hooks/useCommonStates'
 
 interface SocialLoginButtonsProps {
   config?: SocialAuthConfig
@@ -28,8 +29,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
 }) => {
   const { t } = useTranslate()
   const { isDark } = useTheme()
-  const [showErrorModal, setShowErrorModal] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const { isVisible: showErrorModal, show: setShowErrorModal, hide: setHideErrorModal } = useModalState()
+  const { value: errorMessage, setValue: setErrorMessage } = useFieldState('')
   const {
     user,
     isLoading,
@@ -45,7 +46,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
 
   const showError = (message: string) => {
     setErrorMessage(message)
-    setShowErrorModal(true)
+    setShowErrorModal()
   }
 
   const handleGoogleSignIn = async () => {
@@ -203,8 +204,8 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         title={t('common.error')}
         message={errorMessage}
         confirmText={t('common.ok')}
-        onConfirm={() => setShowErrorModal(false)}
-        onCancel={() => setShowErrorModal(false)}
+        onConfirm={setHideErrorModal}
+        onCancel={setHideErrorModal}
       />
     </View>
   )

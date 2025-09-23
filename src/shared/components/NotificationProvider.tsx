@@ -8,7 +8,7 @@ interface NotificationContextType extends PushNotificationState {
   sendPushNotification: (params: {
     title: string
     body: string
-    data?: Record<string, any>
+    data?: Record<string, unknown>
     sound?: string | null
     badge?: number
   }) => Promise<void>

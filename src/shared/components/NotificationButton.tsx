@@ -7,6 +7,7 @@ import { getThemeClass } from '../constants/themeClasses'
 import Button from './Button'
 import Loading from './Loading'
 import ConfirmationModal from './ConfirmationModal'
+import { useMultipleBooleanStates, useFieldState } from '@/shared/hooks/useCommonStates'
 
 interface NotificationButtonProps {
   onPermissionGranted?: () => void
@@ -31,9 +32,11 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
   } = useNotification()
 
   const [isSendingTest, setIsSendingTest] = useState(false)
-  const [showTokenErrorModal, setShowTokenErrorModal] = useState(false)
-  const [showErrorModal, setShowErrorModal] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const { states: modalStates, setTrue: showModal, setFalse: hideModal } = useMultipleBooleanStates({
+    showTokenErrorModal: false,
+    showErrorModal: false,
+  })
+  const { value: errorMessage, setValue: setErrorMessage } = useFieldState('')
 
   const handleRegisterNotifications = async () => {
     try {
@@ -50,7 +53,7 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
 
   const handleSendTestNotification = async () => {
     if (!expoPushToken) {
-      setShowTokenErrorModal(true)
+      showModal('showTokenErrorModal')
       return
     }
 
@@ -65,7 +68,7 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
       const message =
         err instanceof Error ? err.message : t('notifications.tokenError')
       setErrorMessage(message)
-      setShowErrorModal(true)
+      showModal('showErrorModal')
     } finally {
       setIsSendingTest(false)
     }
@@ -154,21 +157,21 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
       )}
 
       <ConfirmationModal
-        visible={showTokenErrorModal}
+        visible={modalStates.showTokenErrorModal}
         title={t('notifications.tokenError')}
         message={t('notifications.deviceRequired')}
         confirmText={t('common.ok')}
-        onConfirm={() => setShowTokenErrorModal(false)}
-        onCancel={() => setShowTokenErrorModal(false)}
+        onConfirm={() => hideModal('showTokenErrorModal')}
+        onCancel={() => hideModal('showTokenErrorModal')}
       />
 
       <ConfirmationModal
-        visible={showErrorModal}
+        visible={modalStates.showErrorModal}
         title={t('common.error')}
         message={errorMessage}
         confirmText={t('common.ok')}
-        onConfirm={() => setShowErrorModal(false)}
-        onCancel={() => setShowErrorModal(false)}
+        onConfirm={() => hideModal('showErrorModal')}
+        onCancel={() => hideModal('showErrorModal')}
       />
     </View>
   )
