@@ -7,7 +7,7 @@ import {
   TextInputProps as RNTextInputProps,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { useTranslation } from 'react-i18next'
+import { useTranslate } from '@/translate'
 import { useTextInputLogic } from '../hooks/useTextInputLogic'
 
 type InputVariant = 'default' | 'filled' | 'outline'
@@ -64,7 +64,7 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
     },
     ref
   ) => {
-    const { t } = useTranslation()
+    const { t } = useTranslate()
     const [validationError, setValidationError] = useState<string | undefined>()
 
     const isPasswordInput = showPasswordToggle || secureTextEntry
@@ -100,12 +100,12 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
         validation.minLength &&
         inputValue.length < validation.minLength
       ) {
-        errorMessage = t('validation.minLength', { min: validation.minLength })
+        errorMessage = `${t('validation.minLength').replace('{min}', validation.minLength.toString())}`
       } else if (
         validation.maxLength &&
         inputValue.length > validation.maxLength
       ) {
-        errorMessage = t('validation.maxLength', { max: validation.maxLength })
+        errorMessage = `${t('validation.maxLength').replace('{max}', validation.maxLength.toString())}`
       } else if (validation.pattern && !validation.pattern.test(inputValue)) {
         errorMessage = t('validation.pattern')
       } else if (validation.custom && !validation.custom(inputValue)) {

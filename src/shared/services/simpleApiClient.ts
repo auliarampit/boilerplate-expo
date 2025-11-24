@@ -4,6 +4,7 @@ import { API_CONFIG } from '@/shared/constants/api'
 import { STORAGE_KEYS } from '@/shared/constants/storage'
 import { getTranslation } from '@/translate/utils'
 import mockUsers from '@/temporary/mockData/users.json'
+import { RegisterRequest, UpdateProfileRequest, UpdatePreferencesRequest } from '@/shared/types/api'
 
 class SimpleApiClient {
   private instance: AxiosInstance
@@ -95,7 +96,7 @@ class SimpleApiClient {
     }
   }
 
-  async register(userData: any) {
+  async register(userData: RegisterRequest) {
     try {
       const response = await this.instance.post('/auth/register', userData)
       return response.data
@@ -182,7 +183,7 @@ class SimpleApiClient {
     }
   }
 
-  async updateProfile(userData: any) {
+  async updateProfile(userData: UpdateProfileRequest) {
     try {
       const response = await this.instance.put('/user/profile', userData)
       return response.data
@@ -218,7 +219,7 @@ class SimpleApiClient {
     }
   }
 
-  async updatePreferences(preferences: any) {
+  async updatePreferences(preferences: UpdatePreferencesRequest) {
     try {
       const response = await this.instance.put(
         '/settings/preferences',

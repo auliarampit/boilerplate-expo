@@ -8,8 +8,18 @@ import { FACEBOOK_CONFIG, FACEBOOK_SCOPES, FACEBOOK_FIELDS } from '@/shared/cons
 import { useTranslate } from '@/translate'
 
 // Conditional import for Google Sign-in to handle Expo Go compatibility
-let GoogleSignin: any = null
-let statusCodes: any = null
+let GoogleSignin: {
+  configure: (config: unknown) => void
+  hasPlayServices: () => Promise<boolean>
+  signIn: () => Promise<{ data?: { user: { id: string; email: string; name: string; photo: string } } }>
+  getCurrentUser: () => Promise<{ user: { id: string; email: string; name: string; photo: string } } | null>
+  signOut: () => Promise<void>
+} | null = null
+let statusCodes: {
+  SIGN_IN_CANCELLED: string
+  IN_PROGRESS: string
+  PLAY_SERVICES_NOT_AVAILABLE: string
+} | null = null
 
 try {
   const googleSigninModule = require('@react-native-google-signin/google-signin')
@@ -106,14 +116,15 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
 
       setState((prev) => ({ ...prev, user, isLoading: false }))
       return user
-    } catch (error: any) {
+    } catch (error: unknown) {
       let errorMessage = t('socialAuth.signInFailed')
+      const errorWithCode = error as { code?: string }
 
-      if (statusCodes && error.code === statusCodes.SIGN_IN_CANCELLED) {
+      if (statusCodes && errorWithCode.code === statusCodes.SIGN_IN_CANCELLED) {
         errorMessage = t('socialAuth.signInCancelled')
-      } else if (statusCodes && error.code === statusCodes.IN_PROGRESS) {
+      } else if (statusCodes && errorWithCode.code === statusCodes.IN_PROGRESS) {
         errorMessage = t('socialAuth.signInInProgress')
-      } else if (statusCodes && error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      } else if (statusCodes && errorWithCode.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         errorMessage = t('socialAuth.playServicesNotAvailable')
       }
 
@@ -149,10 +160,11 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
 
       setState((prev) => ({ ...prev, user, isLoading: false }))
       return user
-    } catch (error: any) {
+    } catch (error: unknown) {
       let errorMessage = t('auth.appleSignInFailed')
+      const errorWithCode = error as { code?: string }
 
-      if (error.code === 'ERR_CANCELED') {
+      if (errorWithCode.code === 'ERR_CANCELED') {
         errorMessage = t('auth.signInCancelled')
       }
 
@@ -229,8 +241,9 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
       }
 
       throw new Error('Facebook authentication failed')
-    } catch (error: any) {
-      const errorMessage = error.message || 'Facebook sign-in failed'
+    } catch (error: unknown) {
+      const errorWithMessage = error as { message?: string }
+      const errorMessage = errorWithMessage.message || 'Facebook sign-in failed'
       setState((prev) => ({ ...prev, error: errorMessage, isLoading: false }))
       throw new Error(errorMessage)
     }
@@ -251,8 +264,9 @@ const useSocialAuth = (config?: SocialAuthConfig) => {
         isLoading: false,
         error: null,
       }))
-    } catch (error: any) {
-      const errorMessage = error.message || t('socialAuth.signOutFailed')
+    } catch (error: unknown) {
+      const errorWithMessage = error as { message?: string }
+      const errorMessage = errorWithMessage.message || t('socialAuth.signOutFailed')
       setState((prev) => ({ ...prev, error: errorMessage, isLoading: false }))
       throw new Error(errorMessage)
     }

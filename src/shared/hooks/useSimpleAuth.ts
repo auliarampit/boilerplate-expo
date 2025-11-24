@@ -3,6 +3,10 @@ import { apiClient } from '@/shared/services/simpleApiClient'
 import { useTranslate } from '@/translate'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from './useAuth'
+import { 
+  RegisterFormData, 
+  UpdateProfileFormData 
+} from '../schemas/validationSchemas'
 
 const QUERY_KEYS = {
   PROFILE: ['auth', 'profile'],
@@ -23,7 +27,7 @@ export const useLogin = () => {
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.PROFILE })
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       showToast({
         message: error.message || t('auth.loginFailed'),
         type: 'error',
@@ -39,7 +43,7 @@ export const useRegister = () => {
   const { t } = useTranslate()
 
   return useMutation({
-    mutationFn: async (userData: any) => {
+    mutationFn: async (userData: RegisterFormData) => {
       const response = await apiClient.register(userData)
       if (response.success) {
         await authLogin(userData.email, userData.password)
@@ -55,7 +59,7 @@ export const useRegister = () => {
         })
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       showToast({
         message: error.message || t('auth.registerFailed'),
         type: 'error',
@@ -79,7 +83,7 @@ export const useUpdateProfile = () => {
   const { t } = useTranslate()
 
   return useMutation({
-    mutationFn: (userData: any) => apiClient.updateProfile(userData),
+    mutationFn: (userData: UpdateProfileFormData) => apiClient.updateProfile(userData),
     onSuccess: (data) => {
       if (data.success) {
         queryClient.setQueryData(QUERY_KEYS.PROFILE, data)
@@ -89,7 +93,7 @@ export const useUpdateProfile = () => {
         })
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       showToast({
         message: error.message || t('auth.profileUpdateFailed'),
         type: 'error',
@@ -113,7 +117,7 @@ export const useUpdatePreferences = () => {
   const { t } = useTranslate()
 
   return useMutation({
-    mutationFn: (preferences: any) => apiClient.updatePreferences(preferences),
+    mutationFn: (preferences: Record<string, unknown>) => apiClient.updatePreferences(preferences),
     onSuccess: (data) => {
       if (data.success) {
         queryClient.setQueryData(QUERY_KEYS.PREFERENCES, data)
@@ -123,7 +127,7 @@ export const useUpdatePreferences = () => {
         })
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       showToast({
         message: error.message || t('auth.preferencesUpdateFailed'),
         type: 'error',
@@ -147,7 +151,7 @@ export const useLogout = () => {
         type: 'success',
       })
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       // Even if logout fails, clear local state
       queryClient.clear()
       showToast({

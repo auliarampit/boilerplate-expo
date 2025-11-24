@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 import BottomSheet from './BottomSheet'
+import { useModalState } from '@/shared/hooks/useCommonStates'
 
 type BottomSheetSize = 'small' | 'medium' | 'large' | 'full'
 
@@ -39,16 +40,16 @@ interface BottomSheetProviderProps {
 const BottomSheetProvider: React.FC<BottomSheetProviderProps> = ({
   children,
 }) => {
-  const [isVisible, setIsVisible] = useState(false)
+  const { isVisible, show, hide } = useModalState()
   const [config, setConfig] = useState<BottomSheetConfig | null>(null)
 
   const showBottomSheet = (bottomSheetConfig: BottomSheetConfig) => {
     setConfig(bottomSheetConfig)
-    setIsVisible(true)
+    show()
   }
 
   const hideBottomSheet = () => {
-    setIsVisible(false)
+    hide()
     setTimeout(() => {
       setConfig(null)
     }, 300)

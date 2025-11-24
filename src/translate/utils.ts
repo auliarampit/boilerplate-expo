@@ -10,8 +10,12 @@ const translations: Record<Language, TranslationKeys> = {
   id: idTranslations,
 }
 
-function getNestedValue(obj: any, path: string): string {
-  return path.split('.').reduce((current, key) => current?.[key], obj) || path
+function getNestedValue(obj: Record<string, unknown>, path: string): string {
+  return path.split('.').reduce((current: unknown, key) => {
+    return current && typeof current === 'object' && current !== null
+      ? (current as Record<string, unknown>)[key]
+      : undefined
+  }, obj) as string || path
 }
 
 /**
@@ -25,10 +29,10 @@ export async function getTranslation(key: TranslationKey): Promise<string> {
       null
     )
     const language: Language = savedLanguage || 'en'
-    return getNestedValue(translations[language], key)
+    return getNestedValue(translations[language] as unknown as Record<string, unknown>, key)
   } catch (error) {
     console.error('Error getting translation:', error)
-    return getNestedValue(translations['en'], key)
+    return getNestedValue(translations['en'] as unknown as Record<string, unknown>, key)
   }
 }
 
@@ -37,5 +41,5 @@ export async function getTranslation(key: TranslationKey): Promise<string> {
  * Use this when you can't use async/await
  */
 export function getTranslationSync(key: TranslationKey, language: Language = 'en'): string {
-  return getNestedValue(translations[language], key)
+  return getNestedValue(translations[language] as unknown as Record<string, unknown>, key)
 }

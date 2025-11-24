@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { useBiometricAuth } from '../hooks/useBiometricAuth'
 import { useTranslate } from '../../translate'
 import { useTheme } from './ThemeProvider'
-import { getThemeClass } from '../constants/themeClasses'
+import { createThemeClasses, combineClasses } from '../utils/classUtils'
 import Loading from './Loading'
 
 interface BiometricButtonProps {
@@ -22,30 +22,32 @@ export const BiometricButton: React.FC<BiometricButtonProps> = ({
   const { isAvailable, isEnrolled, isLoading, authenticate, getBiometricType } =
     useBiometricAuth()
 
+  const theme = createThemeClasses(isDark)
+
   const getButtonBackgroundClass = () => {
     if (disabled) {
-      return `${getThemeClass(isDark, 'background.primary')} opacity-60`
+      return combineClasses(theme.background.primary, 'opacity-60')
     }
     return 'bg-blue-600'
   }
 
   const getButtonTextClass = () => {
     if (disabled) {
-      return getThemeClass(isDark, 'text.primary')
+      return theme.text.primary
     }
     return 'text-white'
   }
 
   const getContainerClass = () => {
-    return getThemeClass(isDark, 'background.card')
+    return theme.background.card
   }
 
   const getBorderClass = () => {
-    return getThemeClass(isDark, 'combined.inputField')
+    return theme.combined.inputField
   }
 
   const getTextClass = () => {
-    return getThemeClass(isDark, 'text.primary')
+    return theme.text.primary
   }
 
   const handleBiometricAuth = async () => {

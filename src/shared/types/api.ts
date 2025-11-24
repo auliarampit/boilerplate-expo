@@ -1,4 +1,4 @@
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean
   data: T
   message?: string
@@ -15,7 +15,7 @@ export interface ApiError {
   success: false
   message: string
   code?: string
-  details?: any
+  details?: unknown
   errors?: Record<string, string[]>
   statusCode?: number
 }
@@ -146,8 +146,8 @@ export type ApiMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 export interface ApiRequestConfig {
   method: ApiMethod
   url: string
-  data?: any
-  params?: Record<string, any>
+  data?: unknown
+  params?: Record<string, unknown>
   headers?: Record<string, string>
   timeout?: number
 }

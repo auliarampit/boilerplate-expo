@@ -39,8 +39,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
       <FormTextInput
         name='name'
         control={control}
-        label={t('auth.name' as any)}
-        placeholder={t('auth.name' as any)}
+        label={t('auth.name')}
+        placeholder={t('auth.name')}
         autoCapitalize='words'
         autoComplete='name'
         leftIcon='person'

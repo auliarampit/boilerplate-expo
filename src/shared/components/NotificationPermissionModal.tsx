@@ -6,6 +6,7 @@ import { useTranslate } from '@/translate'
 import { useTheme } from './ThemeProvider'
 import { saveToStorage } from '@/shared/utils/storage'
 import ConfirmationModal from './ConfirmationModal'
+import { useMultipleBooleanStates } from '@/shared/hooks/useCommonStates'
 
 interface NotificationPermissionModalProps {
   visible: boolean
@@ -21,14 +22,16 @@ export const NotificationPermissionModal: React.FC<
   const { t } = useTranslate()
   const { colors } = useTheme()
   const [isRequesting, setIsRequesting] = useState(false)
-  const [showDeviceError, setShowDeviceError] = useState(false)
-  const [showPermissionError, setShowPermissionError] = useState(false)
-  const [showGeneralError, setShowGeneralError] = useState(false)
-  const [showSkipConfirmation, setShowSkipConfirmation] = useState(false)
+  const { states: modalStates, setTrue: showModal, setFalse: hideModal } = useMultipleBooleanStates({
+    showDeviceError: false,
+    showPermissionError: false,
+    showGeneralError: false,
+    showSkipConfirmation: false,
+  })
 
   const handleRequestPermission = async () => {
     if (!Device.isDevice) {
-      setShowDeviceError(true)
+      showModal('showDeviceError')
       return
     }
 
@@ -57,23 +60,23 @@ export const NotificationPermissionModal: React.FC<
       if (status === 'granted') {
         onPermissionGranted()
       } else {
-        setShowPermissionError(true)
+        showModal('showPermissionError')
       }
     } catch (error) {
       console.error('Error requesting notification permission:', error)
-      setShowGeneralError(true)
+      showModal('showGeneralError')
     } finally {
       setIsRequesting(false)
     }
   }
 
   const handleSkip = () => {
-    setShowSkipConfirmation(true)
+    showModal('showSkipConfirmation')
   }
 
   const handleSkipConfirm = async () => {
     await saveToStorage(NOTIFICATION_PERMISSION_KEY, 'denied')
-    setShowSkipConfirmation(false)
+    hideModal('showSkipConfirmation')
     onPermissionDenied()
   }
 
@@ -142,59 +145,59 @@ export const NotificationPermissionModal: React.FC<
       </View>
 
       <ConfirmationModal
-        visible={showDeviceError}
+        visible={modalStates.showDeviceError}
         title={t('notifications.error.deviceRequired')}
         message={t('notifications.error.deviceRequiredMessage')}
         confirmText={t('common.ok')}
         onConfirm={() => {
-          setShowDeviceError(false)
+          hideModal('showDeviceError')
           onPermissionDenied()
         }}
         onCancel={() => {
-          setShowDeviceError(false)
+          hideModal('showDeviceError')
           onPermissionDenied()
         }}
       />
 
       <ConfirmationModal
-        visible={showPermissionError}
+        visible={modalStates.showPermissionError}
         title={t('notifications.error.permissionDenied')}
         message={t('notifications.error.permissionDeniedMessage')}
         confirmText={t('common.ok')}
         onConfirm={() => {
-          setShowPermissionError(false)
+          hideModal('showPermissionError')
           onPermissionDenied()
         }}
         onCancel={() => {
-          setShowPermissionError(false)
+          hideModal('showPermissionError')
           onPermissionDenied()
         }}
       />
 
       <ConfirmationModal
-        visible={showGeneralError}
+        visible={modalStates.showGeneralError}
         title={t('notifications.error.general')}
         message={t('notifications.error.generalMessage')}
         confirmText={t('common.ok')}
         onConfirm={() => {
-          setShowGeneralError(false)
+          hideModal('showGeneralError')
           onPermissionDenied()
         }}
         onCancel={() => {
-          setShowGeneralError(false)
+          hideModal('showGeneralError')
           onPermissionDenied()
         }}
       />
 
       <ConfirmationModal
-        visible={showSkipConfirmation}
+        visible={modalStates.showSkipConfirmation}
         title={t('notifications.skipTitle')}
         message={t('notifications.skipMessage')}
         confirmText={t('notifications.skipConfirm')}
         cancelText={t('notifications.skipCancel')}
         confirmStyle='destructive'
         onConfirm={handleSkipConfirm}
-        onCancel={() => setShowSkipConfirmation(false)}
+        onCancel={() => hideModal('showSkipConfirmation')}
       />
     </Modal>
   )
