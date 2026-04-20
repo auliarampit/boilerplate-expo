@@ -15,12 +15,7 @@ export const RegisterScreen = ({
   const { mutate: register, isPending } = useRegister()
 
   const handleRegister = (data: RegisterFormData) => {
-    register({
-      firstName: data.name.split(' ')[0],
-      lastName: data.name.split(' ').slice(1).join(' ') || '',
-      email: data.email,
-      password: data.password,
-    })
+    register(data)
   }
 
   const navigateToLogin = () => {

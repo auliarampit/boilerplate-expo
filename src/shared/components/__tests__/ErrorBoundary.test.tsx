@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react-native'
 import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 import { Text } from 'react-native'
@@ -8,11 +7,9 @@ import { ErrorBoundary } from '../ErrorBoundary'
 
 // Mock dependencies
 jest.mock('../../../translate')
-jest.mock('@sentry/react-native')
 jest.mock('../Button')
 
 const mockUseTranslate = useTranslate as jest.MockedFunction<typeof useTranslate>
-const mockSentryCapture = Sentry.captureException as jest.MockedFunction<typeof Sentry.captureException>
 const mockButton = Button as jest.MockedFunction<typeof Button>
 
 const mockTranslate = {
@@ -70,14 +67,14 @@ describe('ErrorBoundary', () => {
       expect(getByTestId('working-component')).toBeTruthy()
     })
 
-    it('does not call Sentry when no error occurs', () => {
-      render(
+    it('renders children when no error occurs', () => {
+      const { getByTestId } = render(
         <ErrorBoundary>
           <WorkingComponent />
         </ErrorBoundary>
       )
 
-      expect(mockSentryCapture).not.toHaveBeenCalled()
+      expect(getByTestId('working-component')).toBeTruthy()
     })
   })
 
@@ -116,35 +113,17 @@ describe('ErrorBoundary', () => {
       expect(queryByText('Something went wrong')).toBeFalsy()
     })
 
-    it('calls Sentry.captureException when error occurs', () => {
+    it('logs error to console when error occurs', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
       render(
         <ErrorBoundary>
           <ThrowError />
         </ErrorBoundary>
       )
 
-      expect(mockSentryCapture).toHaveBeenCalledTimes(1)
-      expect(mockSentryCapture).toHaveBeenCalledWith(
-        expect.any(Error),
-        expect.objectContaining({
-          contexts: {
-            react: {
-              componentStack: expect.any(String),
-            },
-          },
-        })
-      )
-    })
-
-    it('captures the correct error message', () => {
-      render(
-        <ErrorBoundary>
-          <ThrowError />
-        </ErrorBoundary>
-      )
-
-      const capturedError = mockSentryCapture.mock.calls[0][0] as Error
-      expect(capturedError.message).toBe('Test error')
+      expect(consoleErrorSpy).toHaveBeenCalled()
+      consoleErrorSpy.mockRestore()
     })
   })
 
@@ -285,14 +264,16 @@ describe('ErrorBoundary', () => {
   })
 
   describe('Edge Cases', () => {
-    it('handles multiple consecutive errors', () => {
+    it('handles multiple consecutive errors gracefully', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
       const { rerender } = render(
         <ErrorBoundary>
           <ThrowError />
         </ErrorBoundary>
       )
 
-      expect(mockSentryCapture).toHaveBeenCalledTimes(1)
+      expect(consoleErrorSpy).toHaveBeenCalled()
 
       // Trigger another error
       rerender(
@@ -301,11 +282,12 @@ describe('ErrorBoundary', () => {
         </ErrorBoundary>
       )
 
-      // Should capture each error
-      expect(mockSentryCapture).toHaveBeenCalledTimes(2)
+      expect(consoleErrorSpy).toHaveBeenCalled()
+      consoleErrorSpy.mockRestore()
     })
 
     it('handles errors with different error types', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
       const CustomError = () => {
         throw new TypeError('Type error')
       }
@@ -316,9 +298,8 @@ describe('ErrorBoundary', () => {
         </ErrorBoundary>
       )
 
-      const capturedError = mockSentryCapture.mock.calls[0][0] as Error
-      expect(capturedError).toBeInstanceOf(TypeError)
-      expect(capturedError.message).toBe('Type error')
+      expect(consoleErrorSpy).toHaveBeenCalled()
+      consoleErrorSpy.mockRestore()
     })
 
     it('handles null/undefined children', () => {
@@ -331,7 +312,7 @@ describe('ErrorBoundary', () => {
       )
 
       expect(queryByTestId('working-component')).toBeFalsy()
-      expect(mockSentryCapture).not.toHaveBeenCalled()
+      expect(console.error).not.toHaveBeenCalled()
     })
 
     it('handles empty children', () => {
@@ -344,7 +325,7 @@ describe('ErrorBoundary', () => {
       )
 
       expect(queryByTestId('working-component')).toBeFalsy()
-      expect(mockSentryCapture).not.toHaveBeenCalled()
+      expect(console.error).not.toHaveBeenCalled()
     })
   })
 

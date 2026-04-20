@@ -19,7 +19,6 @@ import { useTranslate } from '@/translate'
 jest.mock('@/shared/services/simpleApiClient')
 jest.mock('@/translate')
 jest.mock('@/shared/utils/storage')
-jest.mock('@/shared/utils/secureStorage')
 
 const mockApiClient = apiClient as jest.Mocked<typeof apiClient>
 const mockUseTranslate = useTranslate as jest.MockedFunction<typeof useTranslate>

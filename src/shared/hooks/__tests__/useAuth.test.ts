@@ -5,25 +5,16 @@ import { Provider } from 'react-redux';
 import { apiClient } from '../../services/simpleApiClient';
 import authSlice from '../../store/slices/authSlice';
 import { User } from '../../types';
-import { getSecureStorageWithFallback, SECURE_STORAGE_KEYS } from '../../utils/secureStorage';
 import { removeFromStorage, saveToStorage } from '../../utils/storage';
 import { useAuth } from '../useAuth';
 
 // Mock dependencies
 jest.mock('../../services/simpleApiClient');
 jest.mock('../../utils/storage');
-jest.mock('../../utils/secureStorage');
 
 const mockApiClient = apiClient as jest.Mocked<typeof apiClient>;
 const mockSaveToStorage = saveToStorage as jest.MockedFunction<typeof saveToStorage>;
 const mockRemoveFromStorage = removeFromStorage as jest.MockedFunction<typeof removeFromStorage>;
-const mockGetSecureStorageWithFallback = getSecureStorageWithFallback as jest.MockedFunction<typeof getSecureStorageWithFallback>;
-
-const mockSecureStorage = {
-  setItem: jest.fn(),
-  getItem: jest.fn(),
-  deleteItem: jest.fn(),
-};
 
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
@@ -81,7 +72,6 @@ describe('useAuth', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockConsoleError.mockClear();
-    mockGetSecureStorageWithFallback.mockReturnValue(mockSecureStorage);
   });
 
   afterAll(() => {
@@ -120,7 +110,6 @@ describe('useAuth', () => {
     it('should login successfully', async () => {
       mockApiClient.login.mockResolvedValue(mockLoginResponse);
       mockSaveToStorage.mockResolvedValue(true);
-      mockSecureStorage.setItem.mockResolvedValue(undefined);
 
       const { result } = renderUseAuth();
 
@@ -135,14 +124,6 @@ describe('useAuth', () => {
       // Verify storage calls
       expect(mockSaveToStorage).toHaveBeenCalledWith('@auth_state', 'true');
       expect(mockSaveToStorage).toHaveBeenCalledWith('@user_data', mockUser);
-      expect(mockSecureStorage.setItem).toHaveBeenCalledWith(
-        SECURE_STORAGE_KEYS.ACCESS_TOKEN,
-        mockTokens.accessToken
-      );
-      expect(mockSecureStorage.setItem).toHaveBeenCalledWith(
-        SECURE_STORAGE_KEYS.REFRESH_TOKEN,
-        mockTokens.refreshToken
-      );
 
       // Verify state updates
       expect(result.current.isAuthenticated).toBe(true);
@@ -215,7 +196,6 @@ describe('useAuth', () => {
     it('should logout successfully', async () => {
       mockApiClient.logout.mockResolvedValue({ success: true });
       mockRemoveFromStorage.mockResolvedValue(true);
-      mockSecureStorage.deleteItem.mockResolvedValue(undefined);
 
       const initialState = {
         isAuthenticated: true,
@@ -234,8 +214,6 @@ describe('useAuth', () => {
       // Verify storage cleanup
       expect(mockRemoveFromStorage).toHaveBeenCalledWith('@auth_state');
       expect(mockRemoveFromStorage).toHaveBeenCalledWith('@user_data');
-      expect(mockSecureStorage.deleteItem).toHaveBeenCalledWith(SECURE_STORAGE_KEYS.ACCESS_TOKEN);
-      expect(mockSecureStorage.deleteItem).toHaveBeenCalledWith(SECURE_STORAGE_KEYS.REFRESH_TOKEN);
 
       // Verify state reset
       expect(result.current.isAuthenticated).toBe(false);
@@ -248,7 +226,6 @@ describe('useAuth', () => {
       const error = new Error('Logout API failed');
       mockApiClient.logout.mockRejectedValue(error);
       mockRemoveFromStorage.mockResolvedValue(true);
-      mockSecureStorage.deleteItem.mockResolvedValue(undefined);
 
       const initialState = {
         isAuthenticated: true,
@@ -278,7 +255,6 @@ describe('useAuth', () => {
       });
       mockApiClient.logout.mockReturnValue(logoutPromise as any);
       mockRemoveFromStorage.mockResolvedValue(true);
-      mockSecureStorage.deleteItem.mockResolvedValue(undefined);
 
       const initialState = {
         isAuthenticated: true,

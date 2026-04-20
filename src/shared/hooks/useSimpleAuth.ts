@@ -1,5 +1,6 @@
 import { useToast } from '@/shared/components/ToastProvider'
 import { apiClient } from '@/shared/services/simpleApiClient'
+import { RegisterRequest, UpdateProfileRequest } from '@/shared/types/api'
 import { useTranslate } from '@/translate'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from './useAuth'
@@ -44,7 +45,15 @@ export const useRegister = () => {
 
   return useMutation({
     mutationFn: async (userData: RegisterFormData) => {
-      const response = await apiClient.register(userData)
+      const registerData: RegisterRequest = {
+        email: userData.email,
+        password: userData.password,
+        confirmPassword: userData.confirmPassword,
+        firstName: userData.name.split(' ')[0] || userData.name,
+        lastName: userData.name.split(' ').slice(1).join(' ') || '',
+        acceptTerms: true,
+      }
+      const response = await apiClient.register(registerData)
       if (response.success) {
         await authLogin(userData.email, userData.password)
       }
@@ -83,7 +92,13 @@ export const useUpdateProfile = () => {
   const { t } = useTranslate()
 
   return useMutation({
-    mutationFn: (userData: UpdateProfileFormData) => apiClient.updateProfile(userData),
+    mutationFn: async (userData: UpdateProfileFormData) => {
+      const updateData: UpdateProfileRequest = {
+        firstName: userData.name.split(' ')[0] || userData.name,
+        lastName: userData.name.split(' ').slice(1).join(' ') || '',
+      }
+      return apiClient.updateProfile(updateData)
+    },
     onSuccess: (data) => {
       if (data.success) {
         queryClient.setQueryData(QUERY_KEYS.PROFILE, data)

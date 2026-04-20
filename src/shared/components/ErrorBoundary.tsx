@@ -1,6 +1,5 @@
 import React, { Component, ReactNode } from 'react'
 import { View, Text } from 'react-native'
-import * as Sentry from '@sentry/react-native'
 import Button from './Button'
 import { useTranslate } from '../../translate'
 
@@ -25,13 +24,7 @@ class ErrorBoundaryClass extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack,
-        },
-      },
-    })
+    console.error('Uncaught error in ErrorBoundary:', error, errorInfo.componentStack)
   }
 
   handleRetry = () => {
