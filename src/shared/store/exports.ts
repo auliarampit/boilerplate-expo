@@ -17,8 +17,6 @@ export {
 // App Slice
 export {
   setLoading as setAppLoading,
-  setTheme,
-  setLanguage,
   setOnlineStatus,
   showNotification,
   hideNotification,

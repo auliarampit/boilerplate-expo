@@ -1,99 +1,37 @@
 import { useCallback } from 'react'
-import { useAppDispatch, useAppSelector } from '@/shared/store/hooks'
-import SettingsManager, {
-  ThemeType,
-  LanguageType,
-} from '@/shared/utils/settingsManager'
+import { useTheme } from '@/shared/components/ThemeProvider'
+import { useAppDispatch } from '@/shared/store/hooks'
 import { showNotification } from '@/shared/store/slices/appSlice'
 import { useTranslate } from '@/translate'
 
+type ThemeMode = 'light' | 'dark' | 'system'
+type Language = 'en' | 'id'
+
 export const useSettings = () => {
   const dispatch = useAppDispatch()
-  const { theme, language } = useAppSelector((state) => state.app)
-  const { t } = useTranslate()
+  const { themeMode, setThemeMode } = useTheme()
+  const { language, setLanguage: setLang, t } = useTranslate()
 
   const updateTheme = useCallback(
-    async (newTheme: ThemeType) => {
-      try {
-        await SettingsManager.updateTheme(newTheme)
-        dispatch(
-          showNotification({
-            message: t('settings.themeUpdateSuccess'),
-            type: 'success',
-          })
-        )
-      } catch (error) {
-        dispatch(
-          showNotification({
-            message: t('settings.themeUpdateFailed'),
-            type: 'error',
-          })
-        )
-      }
+    (newTheme: ThemeMode) => {
+      setThemeMode(newTheme)
+      dispatch(showNotification({ message: t('settings.themeUpdateSuccess'), type: 'success' }))
     },
-    [dispatch]
+    [dispatch, setThemeMode, t]
   )
 
   const updateLanguage = useCallback(
-    async (newLanguage: LanguageType) => {
-      try {
-        await SettingsManager.updateLanguage(newLanguage)
-        dispatch(
-          showNotification({
-            message: t('settings.languageUpdateSuccess'),
-            type: 'success',
-          })
-        )
-      } catch (error) {
-        dispatch(
-          showNotification({
-            message: t('settings.languageUpdateFailed'),
-            type: 'error',
-          })
-        )
-      }
+    async (newLanguage: Language) => {
+      await setLang(newLanguage)
+      dispatch(showNotification({ message: t('settings.languageUpdateSuccess'), type: 'success' }))
     },
-    [dispatch]
+    [dispatch, setLang, t]
   )
 
-  const loadSettings = useCallback(async () => {
-    try {
-      await SettingsManager.loadSettings()
-    } catch (error) {
-      dispatch(
-        showNotification({
-          message: t('settings.loadSettingsFailed'),
-          type: 'error',
-        })
-      )
-    }
-  }, [dispatch])
-
-  const clearSettings = useCallback(async () => {
-    try {
-      await SettingsManager.clearSettings()
-      dispatch(
-        showNotification({
-          message: t('settings.clearSettingsSuccess'),
-          type: 'success',
-        })
-      )
-    } catch (error) {
-      dispatch(
-        showNotification({
-          message: t('settings.clearSettingsFailed'),
-          type: 'error',
-        })
-      )
-    }
-  }, [dispatch])
-
   return {
-    theme,
+    themeMode,
     language,
     updateTheme,
     updateLanguage,
-    loadSettings,
-    clearSettings,
   }
 }

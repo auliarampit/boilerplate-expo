@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useTheme } from '@/shared/components'
 import { ROOT_ROUTES } from '@/shared/constants/navigation'
+import { STORAGE_KEYS } from '@/shared/constants/storage'
 import { RootState } from '@/shared/store'
 import { loginSuccess, setLoading } from '@/shared/store/slices/authSlice'
 import { RootStackParamList } from '@/shared/types/navigation'
@@ -59,18 +61,16 @@ export function RootNavigator() {
       try {
         dispatch(setLoading(true))
         
-        const [authData, userData] = await Promise.all([
+        const [authData, userData, token] = await Promise.all([
           getFromStorage(AUTH_STORAGE_KEY, null),
           getFromStorage(USER_STORAGE_KEY, null),
+          AsyncStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN),
         ])
 
         const isAuthenticated = authData === 'true'
 
-        if (isAuthenticated && userData) {
-          dispatch(loginSuccess({
-            user: userData,
-            token: 'mock-token-from-storage' // This should be retrieved from secure storage
-          }))
+        if (isAuthenticated && userData && token) {
+          dispatch(loginSuccess({ user: userData, token }))
         } else {
           dispatch(setLoading(false))
         }

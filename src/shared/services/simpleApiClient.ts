@@ -59,13 +59,13 @@ class SimpleApiClient {
       // Fallback ke mock data
       const credentials = this.validateCredentials(email, password)
       if (!credentials) {
-        const errorMessage = await getTranslation('api.invalidCredentials')
+        const errorMessage = getTranslation('api.invalidCredentials')
         throw new Error(errorMessage)
       }
 
       const user = this.getMockUser(email)
       if (!user) {
-        const errorMessage = await getTranslation('api.userNotFound')
+        const errorMessage = getTranslation('api.userNotFound')
         throw new Error(errorMessage)
       }
 
@@ -106,7 +106,7 @@ class SimpleApiClient {
       // Check if email already exists
       const existingUser = this.getMockUser(userData.email)
       if (existingUser) {
-        const errorMessage = await getTranslation('api.emailAlreadyExists')
+        const errorMessage = getTranslation('api.emailAlreadyExists')
         throw new Error(errorMessage)
       }
 
@@ -170,7 +170,7 @@ class SimpleApiClient {
       // Get current user from token (simplified)
       const token = await AsyncStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
       if (!token) {
-        const errorMessage = await getTranslation('api.tokenNotFound')
+        const errorMessage = getTranslation('api.tokenNotFound')
         throw new Error(errorMessage)
       }
 

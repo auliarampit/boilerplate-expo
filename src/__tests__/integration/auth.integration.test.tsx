@@ -19,7 +19,9 @@ import { useTranslate } from '@/translate'
 jest.mock('@/shared/services/simpleApiClient')
 jest.mock('@/translate')
 jest.mock('@/shared/utils/storage')
-jest.mock('@/shared/utils/secureStorage')
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+)
 
 const mockApiClient = apiClient as jest.Mocked<typeof apiClient>
 const mockUseTranslate = useTranslate as jest.MockedFunction<typeof useTranslate>

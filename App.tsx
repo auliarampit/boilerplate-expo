@@ -23,8 +23,7 @@ import {
 import { useNotificationPermission } from './src/shared/hooks'
 import { QueryProvider } from './src/shared/providers/QueryProvider'
 import { store } from './src/shared/store'
-import SettingsManager from './src/shared/utils/settingsManager'
-import { TranslateProvider } from './src/translate'
+import './src/translate/i18n'
 // Environment variables are now accessed directly via process.env
 // No complex validation needed - missing vars will be undefined
 
@@ -59,14 +58,9 @@ function App() {
   } = useNotificationPermission()
 
   useEffect(() => {
-    const initializeApp = async () => {
-      if (fontsLoaded) {
-        await SettingsManager.loadSettings()
-        SplashScreen.hideAsync()
-      }
+    if (fontsLoaded) {
+      SplashScreen.hideAsync()
     }
-
-    initializeApp()
   }, [fontsLoaded])
 
   if (!fontsLoaded || isPermissionLoading) {
@@ -80,16 +74,14 @@ function App() {
           <ThemeProvider>
             <NetworkProvider>
               <NotificationProvider>
-                <TranslateProvider>
-                  <NavigationContainer>
-                    <RootNavigator />
-                  </NavigationContainer>
-                  <NotificationPermissionModal
-                    visible={shouldShowModal}
-                    onPermissionGranted={handlePermissionGranted}
-                    onPermissionDenied={handlePermissionDenied}
-                  />
-                </TranslateProvider>
+                <NavigationContainer>
+                  <RootNavigator />
+                </NavigationContainer>
+                <NotificationPermissionModal
+                  visible={shouldShowModal}
+                  onPermissionGranted={handlePermissionGranted}
+                  onPermissionDenied={handlePermissionDenied}
+                />
               </NotificationProvider>
             </NetworkProvider>
           </ThemeProvider>
