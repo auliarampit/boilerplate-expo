@@ -1,41 +1,26 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema, type LoginFormData } from '../schemas/validationSchemas'
-import { FormTextInput } from './FormTextInput'
-import Button from './Button'
+import Button from '@/shared/components/Button'
+import { FormTextInput } from '@/shared/components/FormTextInput'
+import { loginSchema, type LoginFormData } from '@/shared/schemas/validationSchemas'
 import { useTranslate } from '@/translate'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { View } from 'react-native'
 
 interface LoginFormProps {
   onSubmit: (data: LoginFormData) => void
   isLoading?: boolean
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({
-  onSubmit,
-  isLoading = false,
-}) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) => {
   const { t } = useTranslate()
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<LoginFormData>({
+  const { control, handleSubmit, formState: { isValid } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
   })
 
-  const handleFormSubmit = (data: LoginFormData) => {
-    onSubmit(data)
-  }
-
   return (
     <View className='w-full space-y-4'>
-      <Text className='text-2xl font-inter-bold text-center mb-6 dark:text-white'>
-        {t('auth.login')}
-      </Text>
-
       <FormTextInput
         name='email'
         control={control}
@@ -47,7 +32,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         leftIcon='mail'
         required
       />
-
       <FormTextInput
         name='password'
         control={control}
@@ -59,10 +43,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         leftIcon='lock-closed'
         required
       />
-
       <Button
         title={t('auth.login')}
-        onPress={handleSubmit(handleFormSubmit)}
+        onPress={handleSubmit(onSubmit)}
         loading={isLoading}
         disabled={!isValid || isLoading}
         variant='primary'

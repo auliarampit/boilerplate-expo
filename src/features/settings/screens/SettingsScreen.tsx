@@ -4,12 +4,14 @@ import { AppStackScreenProps } from '@/shared/types/navigation'
 import { APP_ROUTES } from '@/shared/constants/navigation'
 import { useTranslate, getThemeClass } from '@/shared'
 import { useTheme } from '@/shared/components'
+import { useAuth } from '@/shared/hooks'
 
 export function SettingsScreen({
   navigation,
 }: AppStackScreenProps<'Settings'>) {
   const { isDark } = useTheme()
   const { t, language, setLanguage } = useTranslate()
+  const { logout } = useAuth()
 
   const navigateToHome = () => {
     navigation.navigate(APP_ROUTES.HOME)
@@ -20,8 +22,7 @@ export function SettingsScreen({
   }
 
   const handleLogout = () => {
-    // TODO: Implement logout logic
-    console.log('Logout pressed')
+    logout()
   }
 
   const toggleLanguage = () => {

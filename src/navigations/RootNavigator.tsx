@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useTheme } from '@/shared/components'
 import { ROOT_ROUTES } from '@/shared/constants/navigation'
-import { STORAGE_KEYS } from '@/shared/constants/storage'
+import { AUTH_STORAGE_KEY, USER_STORAGE_KEY, STORAGE_KEYS } from '@/shared/constants/storage'
 import { RootState } from '@/shared/store'
 import { loginSuccess, setLoading } from '@/shared/store/slices/authSlice'
 import { RootStackParamList } from '@/shared/types/navigation'
@@ -15,9 +15,6 @@ import { AppNavigator } from './AppNavigator'
 import { AuthNavigator } from './AuthNavigator'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
-
-const AUTH_STORAGE_KEY = '@auth_state'
-const USER_STORAGE_KEY = '@user_data'
 
 function LoadingScreen() {
   const { isDark } = useTheme()

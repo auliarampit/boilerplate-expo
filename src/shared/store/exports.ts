@@ -18,6 +18,4 @@ export {
 export {
   setLoading as setAppLoading,
   setOnlineStatus,
-  showNotification,
-  hideNotification,
 } from './slices/appSlice'

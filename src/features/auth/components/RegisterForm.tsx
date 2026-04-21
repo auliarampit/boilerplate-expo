@@ -1,41 +1,26 @@
-import { useTranslate } from '@/translate'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Button from '@/shared/components/Button'
+import { FormTextInput } from '@/shared/components/FormTextInput'
+import { registerSchema, type RegisterFormData } from '@/shared/schemas/validationSchemas'
+import { useTranslate } from '@/translate'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Text, View } from 'react-native'
-import { registerSchema, type RegisterFormData } from '../schemas/validationSchemas'
-import Button from './Button'
-import { FormTextInput } from './FormTextInput'
+import { View } from 'react-native'
 
 interface RegisterFormProps {
   onSubmit: (data: RegisterFormData) => void
   isLoading?: boolean
 }
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({
-  onSubmit,
-  isLoading = false,
-}) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, isLoading = false }) => {
   const { t } = useTranslate()
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<RegisterFormData>({
+  const { control, handleSubmit, formState: { isValid } } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     mode: 'onChange',
   })
 
-  const handleFormSubmit = (data: RegisterFormData) => {
-    onSubmit(data)
-  }
-
   return (
     <View className='w-full space-y-4'>
-      <Text className='text-2xl font-inter-bold text-center mb-6 dark:text-white'>
-        {t('auth.register')}
-      </Text>
-
       <FormTextInput
         name='name'
         control={control}
@@ -46,7 +31,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
         leftIcon='person'
         required
       />
-
       <FormTextInput
         name='email'
         control={control}
@@ -58,7 +42,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
         leftIcon='mail'
         required
       />
-
       <FormTextInput
         name='password'
         control={control}
@@ -70,7 +53,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
         leftIcon='lock-closed'
         required
       />
-
       <FormTextInput
         name='confirmPassword'
         control={control}
@@ -82,10 +64,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
         leftIcon='lock-closed'
         required
       />
-
       <Button
         title={t('auth.register')}
-        onPress={handleSubmit(handleFormSubmit)}
+        onPress={handleSubmit(onSubmit)}
         loading={isLoading}
         disabled={!isValid || isLoading}
         variant='primary'

@@ -1,6 +1,6 @@
 import { getThemeClass } from '@/shared'
 import { useTheme } from '@/shared/components'
-import { RegisterForm } from '@/shared/components/RegisterForm'
+import { RegisterForm } from '../components/RegisterForm'
 import { AUTH_ROUTES } from '@/shared/constants/navigation'
 import { useRegister } from '@/shared/hooks/useSimpleAuth'
 import { RegisterFormData } from '@/shared/schemas/validationSchemas'

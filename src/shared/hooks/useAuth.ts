@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { STORAGE_KEYS } from '../constants/storage'
+import { AUTH_STORAGE_KEY, USER_STORAGE_KEY, STORAGE_KEYS } from '../constants/storage'
 import { apiClient } from '../services/simpleApiClient'
 import { RootState } from '../store'
 import {
@@ -12,9 +12,6 @@ import {
 } from '../store/slices/authSlice'
 import { User } from '../types'
 import { removeFromStorage, saveToStorage } from '../utils/storage'
-
-const AUTH_STORAGE_KEY = '@auth_state'
-const USER_STORAGE_KEY = '@user_data'
 
 export const useAuth = () => {
   const dispatch = useDispatch()

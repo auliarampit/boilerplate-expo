@@ -1,3 +1,6 @@
+export const AUTH_STORAGE_KEY = '@auth_state'
+export const USER_STORAGE_KEY = '@user_data'
+
 export const STORAGE_KEYS = {
   THEME: 'app_theme',
   LANGUAGE: 'app_language',

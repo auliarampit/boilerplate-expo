@@ -1,6 +1,6 @@
 import { getThemeClass } from '@/shared'
 import { useTheme } from '@/shared/components'
-import { LoginForm } from '@/shared/components/LoginForm'
+import { LoginForm } from '../components/LoginForm'
 import { AUTH_ROUTES } from '@/shared/constants/navigation'
 import { useLogin } from '@/shared/hooks/useSimpleAuth'
 import { LoginFormData } from '@/shared/schemas/validationSchemas'
