@@ -1,9 +1,11 @@
-import { getThemeClass } from '@/shared'
-import { useTheme } from '@/shared/components'
-import { APP_ROUTES } from '@/shared/constants/navigation'
-import { AppStackScreenProps } from '@/shared/types/navigation'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { AppStackScreenProps } from '@/types/navigation'
+import { APP_ROUTES } from '@/utils/navigation'
+import { useTheme } from '@/components'
+import { SocialLoginButtons } from '@/plugins/social-login'
+import { getThemeClass } from '@/utils/themeClasses'
+import { SOCIAL_AUTH_CONFIG } from '@/plugins/social-login'
 
 export const ProfileScreen = ({
   navigation,
@@ -45,6 +47,10 @@ export const ProfileScreen = ({
           Go to Settings
         </Text>
       </TouchableOpacity>
+
+      <View className='mt-8 w-full max-w-sm'>
+        <SocialLoginButtons config={SOCIAL_AUTH_CONFIG} />
+      </View>
     </View>
   )
 }

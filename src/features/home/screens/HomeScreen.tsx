@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { AppStackScreenProps } from '@/shared/types/navigation'
-import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useTranslate } from '@/translate'
-import { useTheme, getThemeClass } from '@/shared'
+import { AppStackScreenProps } from '@/types/navigation'
+import { APP_ROUTES } from '@/utils/navigation'
+import { useTranslate } from '@/i18n'
+import { useTheme } from '@/components'
+import { getThemeClass } from '@/utils/themeClasses'
 
 export function HomeScreen({ navigation }: AppStackScreenProps<'Home'>) {
   const { t } = useTranslate()

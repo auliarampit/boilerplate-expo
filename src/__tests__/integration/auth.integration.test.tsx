@@ -8,17 +8,20 @@ import { configureStore } from '@reduxjs/toolkit'
 import { LoginScreen } from '@/features/auth/screens/LoginScreen'
 import { RegisterScreen } from '@/features/auth/screens/RegisterScreen'
 import { HomeScreen } from '@/features/home/screens/HomeScreen'
-import ThemeProvider from '@/shared/components/ThemeProvider'
-import ToastProvider from '@/shared/components/ToastProvider'
-import authSlice from '@/shared/store/slices/authSlice'
-import { apiClient } from '@/shared/services/simpleApiClient'
-import { AUTH_ROUTES, APP_ROUTES } from '@/shared/constants/navigation'
-import { useTranslate } from '@/translate'
+import ThemeProvider from '@/components/ThemeProvider'
+import ToastProvider from '@/components/ToastProvider'
+import authSlice from '@/store/slices/authSlice'
+import { apiClient } from '@/services/apiClient'
+import { AUTH_ROUTES, APP_ROUTES } from '@/utils/navigation'
+import { useTranslate } from '@/i18n'
 
 // Mock dependencies
-jest.mock('@/shared/services/simpleApiClient')
-jest.mock('@/translate')
-jest.mock('@/shared/utils/storage')
+jest.mock('@/services/apiClient')
+jest.mock('@/i18n')
+jest.mock('@/utils/storage')
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+)
 
 const mockApiClient = apiClient as jest.Mocked<typeof apiClient>
 const mockUseTranslate = useTranslate as jest.MockedFunction<typeof useTranslate>
@@ -64,7 +67,7 @@ const mockRegisterResponse = {
   success: true,
   data: {
     user: mockUser,
-    message: 'Registration successful',
+    tokens: mockTokens,
   },
 }
 
@@ -145,7 +148,7 @@ describe('Authentication Integration Tests', () => {
       t: (key: string) => key,
       language: 'en',
       setLanguage: jest.fn(),
-    })
+    } as any)
   })
 
   describe('Login Flow', () => {
@@ -209,8 +212,8 @@ describe('Authentication Integration Tests', () => {
       const loginPromise = new Promise((resolve) => {
         resolveLogin = resolve
       })
-      mockApiClient.login.mockReturnValue(loginPromise)
-      
+      mockApiClient.login.mockReturnValue(loginPromise as any)
+
       renderWithProviders()
 
       const emailInput = screen.getByTestId('email-input')

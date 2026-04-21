@@ -11,15 +11,20 @@ import { useEffect } from 'react'
 import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import './global.css'
-import { RootNavigator } from './src/navigations/RootNavigator'
-import { ErrorBoundary, ThemeProvider } from './src/shared/components'
-import { QueryProvider } from './src/shared/providers/QueryProvider'
-import { store } from './src/shared/store'
-import { TranslateProvider } from './src/translate'
-// Environment variables are now accessed directly via process.env
-// No complex validation needed - missing vars will be undefined
+import { RootNavigator } from './src/navigation/RootNavigator'
+import { ErrorBoundary, NetworkProvider, ThemeProvider } from './src/components'
+import { QueryProvider } from './src/components/QueryProvider'
+import { store } from './src/store'
+import './src/i18n/i18n'
+import { captureException, initSentry } from './src/plugins/sentry'
+import {
+  NotificationProvider,
+  NotificationPermissionModal,
+  useNotificationPermission,
+} from './src/plugins/push-notifications'
 
-// Keep the splash screen visible while we fetch resources
+initSentry()
+
 SplashScreen.preventAutoHideAsync()
 
 function App() {
@@ -30,30 +35,36 @@ function App() {
     Inter_700Bold,
   })
 
-  useEffect(() => {
-    const initializeApp = async () => {
-      if (fontsLoaded) {
-        await SplashScreen.hideAsync()
-      }
-    }
+  const {
+    isLoading: isPermissionLoading,
+    shouldShowModal,
+    handlePermissionGranted,
+    handlePermissionDenied,
+  } = useNotificationPermission()
 
-    initializeApp()
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync()
   }, [fontsLoaded])
 
-  if (!fontsLoaded) {
-    return null
-  }
+  if (!fontsLoaded || isPermissionLoading) return null
 
   return (
     <Provider store={store}>
       <QueryProvider>
-        <ErrorBoundary>
+        <ErrorBoundary onError={(error, info) => captureException(error, { react: info as Record<string, unknown> })}>
           <ThemeProvider>
-            <TranslateProvider>
-              <NavigationContainer>
-                <RootNavigator />
-              </NavigationContainer>
-            </TranslateProvider>
+            <NetworkProvider>
+              <NotificationProvider>
+                <NavigationContainer>
+                  <RootNavigator />
+                </NavigationContainer>
+                <NotificationPermissionModal
+                  visible={shouldShowModal}
+                  onPermissionGranted={handlePermissionGranted}
+                  onPermissionDenied={handlePermissionDenied}
+                />
+              </NotificationProvider>
+            </NetworkProvider>
           </ThemeProvider>
         </ErrorBoundary>
       </QueryProvider>

@@ -1,15 +1,18 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { AppStackScreenProps } from '@/shared/types/navigation'
-import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useTranslate, getThemeClass } from '@/shared'
-import { useTheme } from '@/shared/components'
+import { AppStackScreenProps } from '@/types/navigation'
+import { APP_ROUTES } from '@/utils/navigation'
+import { useTranslate } from '@/i18n'
+import { getThemeClass } from '@/utils/themeClasses'
+import { useTheme } from '@/components'
+import { useAuth } from '@/hooks'
 
 export function SettingsScreen({
   navigation,
 }: AppStackScreenProps<'Settings'>) {
   const { isDark } = useTheme()
   const { t, language, setLanguage } = useTranslate()
+  const { logout } = useAuth()
 
   const navigateToHome = () => {
     navigation.navigate(APP_ROUTES.HOME)
@@ -20,8 +23,7 @@ export function SettingsScreen({
   }
 
   const handleLogout = () => {
-    // TODO: Implement logout logic
-    console.log('Logout pressed')
+    logout()
   }
 
   const toggleLanguage = () => {
