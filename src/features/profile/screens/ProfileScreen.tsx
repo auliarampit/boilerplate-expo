@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { AppStackScreenProps } from '@/shared/types/navigation'
-import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useTheme, SocialLoginButtons } from '@/shared/components'
-import { getThemeClass } from '@/shared'
-import { SOCIAL_AUTH_CONFIG } from '@/shared/constants/socialAuthConfig'
+import { AppStackScreenProps } from '@/types/navigation'
+import { APP_ROUTES } from '@/utils/navigation'
+import { useTheme } from '@/components'
+import { SocialLoginButtons } from '@/plugins/social-login'
+import { getThemeClass } from '@/utils/themeClasses'
+import { SOCIAL_AUTH_CONFIG } from '@/utils/socialAuthConfig'
 
 export const ProfileScreen = ({
   navigation,

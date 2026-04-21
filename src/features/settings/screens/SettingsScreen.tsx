@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { AppStackScreenProps } from '@/shared/types/navigation'
-import { APP_ROUTES } from '@/shared/constants/navigation'
-import { useTranslate, getThemeClass } from '@/shared'
-import { useTheme } from '@/shared/components'
-import { useAuth } from '@/shared/hooks'
+import { AppStackScreenProps } from '@/types/navigation'
+import { APP_ROUTES } from '@/utils/navigation'
+import { useTranslate } from '@/i18n'
+import { getThemeClass } from '@/utils/themeClasses'
+import { useTheme } from '@/components'
+import { useAuth } from '@/hooks'
 
 export function SettingsScreen({
   navigation,

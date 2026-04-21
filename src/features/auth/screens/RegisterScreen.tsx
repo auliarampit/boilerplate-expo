@@ -1,10 +1,10 @@
-import { getThemeClass } from '@/shared'
-import { useTheme } from '@/shared/components'
+import { getThemeClass } from '@/utils/themeClasses'
+import { useTheme } from '@/components'
 import { RegisterForm } from '../components/RegisterForm'
-import { AUTH_ROUTES } from '@/shared/constants/navigation'
-import { useRegister } from '@/shared/hooks/useSimpleAuth'
-import { RegisterFormData } from '@/shared/schemas/validationSchemas'
-import { AuthStackScreenProps } from '@/shared/types/navigation'
+import { AUTH_ROUTES } from '@/utils/navigation'
+import { useRegister } from '@/hooks/useSimpleAuth'
+import { RegisterFormData } from '@/utils/validationSchemas'
+import { AuthStackScreenProps } from '@/types/navigation'
 import React from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
@@ -15,12 +15,7 @@ export const RegisterScreen = ({
   const { mutate: register, isPending } = useRegister()
 
   const handleRegister = (data: RegisterFormData) => {
-    register({
-      firstName: data.name.split(' ')[0],
-      lastName: data.name.split(' ').slice(1).join(' ') || '',
-      email: data.email,
-      password: data.password,
-    })
+    register(data)
   }
 
   const navigateToLogin = () => {
