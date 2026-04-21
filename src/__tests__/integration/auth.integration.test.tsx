@@ -11,12 +11,12 @@ import { HomeScreen } from '@/features/home/screens/HomeScreen'
 import ThemeProvider from '@/components/ThemeProvider'
 import ToastProvider from '@/components/ToastProvider'
 import authSlice from '@/store/slices/authSlice'
-import { apiClient } from '@/services/simpleApiClient'
+import { apiClient } from '@/services/apiClient'
 import { AUTH_ROUTES, APP_ROUTES } from '@/utils/navigation'
 import { useTranslate } from '@/i18n'
 
 // Mock dependencies
-jest.mock('@/services/simpleApiClient')
+jest.mock('@/services/apiClient')
 jest.mock('@/i18n')
 jest.mock('@/utils/storage')
 jest.mock('@react-native-async-storage/async-storage', () =>
@@ -67,7 +67,7 @@ const mockRegisterResponse = {
   success: true,
   data: {
     user: mockUser,
-    message: 'Registration successful',
+    tokens: mockTokens,
   },
 }
 
@@ -212,8 +212,8 @@ describe('Authentication Integration Tests', () => {
       const loginPromise = new Promise((resolve) => {
         resolveLogin = resolve
       })
-      mockApiClient.login.mockReturnValue(loginPromise)
-      
+      mockApiClient.login.mockReturnValue(loginPromise as any)
+
       renderWithProviders()
 
       const emailInput = screen.getByTestId('email-input')

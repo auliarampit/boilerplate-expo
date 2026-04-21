@@ -5,7 +5,7 @@ import { APP_ROUTES } from '@/utils/navigation'
 import { useTheme } from '@/components'
 import { SocialLoginButtons } from '@/plugins/social-login'
 import { getThemeClass } from '@/utils/themeClasses'
-import { SOCIAL_AUTH_CONFIG } from '@/utils/socialAuthConfig'
+import { SOCIAL_AUTH_CONFIG } from '@/plugins/social-login'
 
 export const ProfileScreen = ({
   navigation,

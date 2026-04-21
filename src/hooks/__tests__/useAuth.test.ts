@@ -4,13 +4,13 @@ import { act, renderHook } from '@testing-library/react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { STORAGE_KEYS } from '@/utils/storage'
-import { apiClient } from '@/services/simpleApiClient'
+import { apiClient } from '@/services/apiClient'
 import authSlice from '@/store/slices/authSlice'
 import { User } from '../../types'
 import { removeFromStorage, saveToStorage } from '@/utils/storage'
 import { useAuth } from '../useAuth'
 
-jest.mock('@/services/simpleApiClient')
+jest.mock('@/services/apiClient')
 jest.mock('@/utils/storage')
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock')
@@ -26,12 +26,17 @@ const mockConsoleError = jest.spyOn(console, 'error').mockImplementation()
 const mockUser: User = {
   id: '1',
   email: 'test@example.com',
-  name: 'Test User',
+  firstName: 'Test',
+  lastName: 'User',
+  emailVerified: true,
+  createdAt: '2023-01-01T00:00:00Z',
+  updatedAt: '2023-01-01T00:00:00Z',
 }
 
 const mockTokens = {
   accessToken: 'mock-access-token',
   refreshToken: 'mock-refresh-token',
+  expiresIn: 3600,
 }
 
 const mockLoginResponse = {
@@ -148,7 +153,7 @@ describe('useAuth', () => {
     })
 
     it('should handle unsuccessful login response', async () => {
-      mockApiClient.login.mockResolvedValue({ success: false, error: 'Invalid credentials' })
+      mockApiClient.login.mockResolvedValue({ success: false, data: {} as any })
 
       const { result } = renderUseAuth()
 
@@ -164,7 +169,7 @@ describe('useAuth', () => {
     it('should set loading state during login', async () => {
       let resolveLogin: (value: any) => void
       const loginPromise = new Promise((resolve) => { resolveLogin = resolve })
-      mockApiClient.login.mockReturnValue(loginPromise)
+      mockApiClient.login.mockReturnValue(loginPromise as any)
 
       const { result } = renderUseAuth()
 
@@ -183,7 +188,7 @@ describe('useAuth', () => {
 
   describe('logout', () => {
     it('should logout successfully', async () => {
-      mockApiClient.logout.mockResolvedValue({ success: true })
+      mockApiClient.logout.mockResolvedValue(undefined)
       mockRemoveFromStorage.mockResolvedValue(true)
       mockAsyncStorage.removeItem.mockResolvedValue()
 
@@ -265,9 +270,9 @@ describe('useAuth', () => {
         token: mockTokens.accessToken,
       })
 
-      act(() => { result.current.updateUserProfile({ name: 'Updated Name' }) })
+      act(() => { result.current.updateUserProfile({ firstName: 'Updated' }) })
 
-      expect(result.current.user).toEqual({ ...mockUser, name: 'Updated Name' })
+      expect(result.current.user).toEqual({ ...mockUser, firstName: 'Updated' })
     })
 
     it('should handle partial user updates', () => {
@@ -277,9 +282,9 @@ describe('useAuth', () => {
         token: mockTokens.accessToken,
       })
 
-      act(() => { result.current.updateUserProfile({ name: 'Only Name Updated' }) })
+      act(() => { result.current.updateUserProfile({ lastName: 'Updated' }) })
 
-      expect(result.current.user).toEqual({ ...mockUser, name: 'Only Name Updated' })
+      expect(result.current.user).toEqual({ ...mockUser, lastName: 'Updated' })
     })
 
     it('should handle empty update', () => {

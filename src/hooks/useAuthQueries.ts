@@ -1,11 +1,12 @@
 import { useToast } from '@/components/ToastProvider'
-import { apiClient } from '@/services/simpleApiClient'
+import { apiClient } from '@/services/apiClient'
 import { useTranslate } from '@/i18n'
+import { UpdatePreferencesRequest } from '@/types/api'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from './useAuth'
-import { 
-  RegisterFormData, 
-  UpdateProfileFormData 
+import {
+  RegisterFormData,
+  UpdateProfileFormData,
 } from '@/utils/validationSchemas'
 
 const QUERY_KEYS = {
@@ -117,7 +118,7 @@ export const useUpdatePreferences = () => {
   const { t } = useTranslate()
 
   return useMutation({
-    mutationFn: (preferences: Record<string, unknown>) => apiClient.updatePreferences(preferences),
+    mutationFn: (preferences: UpdatePreferencesRequest) => apiClient.updatePreferences(preferences),
     onSuccess: (data) => {
       if (data.success) {
         queryClient.setQueryData(QUERY_KEYS.PREFERENCES, data)
@@ -151,7 +152,7 @@ export const useLogout = () => {
         type: 'success',
       })
     },
-    onError: (error: Error) => {
+    onError: () => {
       // Even if logout fails, clear local state
       queryClient.clear()
       showToast({

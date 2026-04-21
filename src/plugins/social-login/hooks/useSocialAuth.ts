@@ -4,7 +4,7 @@ import * as Crypto from 'expo-crypto'
 import { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { SocialAuthConfig } from '@/types/navigation'
-import { FACEBOOK_CONFIG, FACEBOOK_SCOPES, FACEBOOK_FIELDS } from '@/utils/facebook'
+import { FACEBOOK_CONFIG, FACEBOOK_SCOPES, FACEBOOK_FIELDS } from '../config'
 import { useTranslate } from '@/i18n'
 
 // Conditional import for Google Sign-in to handle Expo Go compatibility

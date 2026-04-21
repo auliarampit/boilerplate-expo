@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AUTH_STORAGE_KEY, USER_STORAGE_KEY, STORAGE_KEYS } from '@/utils/storage'
-import { apiClient } from '@/services/simpleApiClient'
+import { apiClient } from '@/services/apiClient'
 import { RootState } from '../store'
 import {
   loginSuccess,

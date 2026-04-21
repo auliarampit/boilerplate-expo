@@ -11,6 +11,8 @@ export {
 } from './useCommonStates'
 
 // Auth hooks
+// useAuth — reads Redux auth state (isAuthenticated, user, token) + raw login/logout actions
+// useAuthQueries — React Query wrappers with toast notifications (use these in screens)
 export { useAuth } from './useAuth'
 export {
   useLogin,
@@ -20,16 +22,10 @@ export {
   useUpdateProfile,
   usePreferences,
   useUpdatePreferences,
-} from './useSimpleAuth'
+} from './useAuthQueries'
 
 // Settings
 export { useSettings } from './useSettings'
-
-// UI hooks
-export { useButtonLogic } from './useButtonLogic'
-export { useFormTextInput } from './useFormTextInput'
-export { useTextInputLogic } from './useTextInputLogic'
-export { useToastLogic } from './useToastLogic'
 
 // Feature hooks
 export { useNetworkState } from './useNetworkState'

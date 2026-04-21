@@ -3,9 +3,11 @@ import { getThemeClass } from '@/utils/themeClasses'
 import Button from '@/components/Button'
 import { FormTextInput } from '@/components/FormTextInput'
 import { useTheme } from '@/components/ThemeProvider'
+import { useToast } from '@/components/ToastProvider'
 import { AUTH_ROUTES } from '@/utils/navigation'
 import { AuthStackScreenProps } from '@/types/navigation'
 import { useTranslate } from '@/i18n'
+import { apiClient } from '@/services/apiClient'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
@@ -21,14 +23,24 @@ export function ForgotPasswordScreen({
 }: AuthStackScreenProps<'ForgotPassword'>) {
   const { isDark } = useTheme()
   const { t } = useTranslate()
+  const { showToast } = useToast()
   const { control, handleSubmit, formState: { isValid, isSubmitting } } =
     useForm<ForgotPasswordFormData>({
       resolver: zodResolver(forgotPasswordSchema),
       mode: 'onChange',
     })
 
-  const handleResetPassword = (_data: ForgotPasswordFormData) => {
-    // TODO: wire to your real API — e.g. apiClient.forgotPassword(data.email)
+  const handleResetPassword = async (data: ForgotPasswordFormData) => {
+    try {
+      await apiClient.forgotPassword(data.email)
+      showToast({ message: t('auth.resetEmailSent'), type: 'success' })
+      navigation.navigate(AUTH_ROUTES.LOGIN)
+    } catch (error) {
+      showToast({
+        message: error instanceof Error ? error.message : t('auth.resetEmailFailed'),
+        type: 'error',
+      })
+    }
   }
 
   return (
