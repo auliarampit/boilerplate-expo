@@ -16,7 +16,14 @@ Optional features that can be added or removed per project. Each plugin is self-
 1. Delete the plugin folder (e.g. `src/plugins/sentry/`)
 2. Remove its import/usage from `App.tsx`
 3. Uninstall its packages: `npm uninstall <packages>`
-4. Remove from `app.json` plugins array if applicable (see table above)
+4. Remove from `app.json` plugins array if applicable:
+
+| Plugin | Entry to remove from `app.json` |
+|---|---|
+| `social-login/` | `"@react-native-google-signin/google-signin"` |
+| `biometrics/` | _(no app.json entry needed)_ |
+| `push-notifications/` | _(no app.json entry needed)_ |
+| `sentry/` | _(no app.json entry needed)_ |
 
 ## How to use a plugin
 
